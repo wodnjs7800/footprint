@@ -25,6 +25,9 @@
 	var lat_s, lng_s, lat_e, lng_e;
 	var marker;
 	
+	var tDistance;
+	var tTime;
+	
 	navigator.geolocation.getCurrentPosition(function(pos) {
 	    lat_s = pos.coords.latitude;
 	    lng_s = pos.coords.longitude;
@@ -96,23 +99,12 @@
 
 											var resultData = response.features;
 
-											var tDistance = "총 거리 : "
-													+ (resultData[0].properties.totalDistance / 1000)
-															.toFixed(1) + "km,";
-											var tTime = " 총 시간 : "
-													+ (resultData[0].properties.totalTime / 60)
-															.toFixed(0) + "분,";
-											var tFare = " 총 요금 : "
-													+ resultData[0].properties.totalFare
-													+ "원,";
-											var taxiFare = " 예상 택시 요금 : "
-													+ resultData[0].properties.taxiFare
-													+ "원";
-
-											$("#result").text(
-													tDistance + tTime + tFare
-															+ taxiFare);
-
+											tDistance = parseFloat((resultData[0].properties.totalDistance / 1000).toFixed(1));
+											tTime = parseFloat((resultData[0].properties.totalTime / 60).toFixed(0));
+								
+											$("#distance").text((resultData[0].properties.totalDistance / 1000).toFixed(1)+"km");
+											$("#ttime").text((resultData[0].properties.totalTime / 60).toFixed(0)+"분")
+											
 											//교통정보 표출 옵션값을 체크
 												for ( var i in resultData) { //for문 [S]
 													var geometry = resultData[i].geometry;
@@ -391,20 +383,25 @@
 			alert("시작시간보다 큰값을 선택해주세요.");
 			et.value = "none";
 		}
-		
-		//while(st.value >= et.value)
 	}
+
+	
 </script>
 </head>
 <body onload="initTmap();">
-
-	<div style="float: left; width: 50%; padding: 100px;">
+	<div style="float: left; width: 50%; padding-left: 100px; padding-right: 100px; padding-bottom:100px;">
 		<form>
-			<filedset> <legend>일정 입력</legend>
+			<filedset> 
+			<legend style="font-size:30px; padding-top:90px;">일정 입력</legend>
 			<table>
 				<tr>
-					<td><label>시간 설정 </label></td>
-					<td><select id="starttime">
+					<td style="font-size:22px;"><label>시간 설정 &nbsp;</label></td>
+					<td style="font-size:22px;"><select id="starttime" onchange="changeSelect()">
+							<%for(int i = 0; i < 14; i++) {%>
+								<option value="i">i</option>
+							<%} %>
+					</select>&nbsp;</td>
+					<td style="font-size:22px;"><select id="starttime" onchange="changeSelect()">
 							<option value="none" selected>==선택==</option>
 							<option value="480">AM 8:00</option>
 							<option value="510">AM 8:30</option>
@@ -440,8 +437,9 @@
 							<option value="1410">PM 11:30</option>
 							<option value="1440">PM 12:00</option>
 					</select></td>
-					<td>~</td>
-					<td><select id="endtime" onchange="changeSelect()">
+					<td style="font-size:22px;">&nbsp;~&nbsp;</td>
+					<td style="font-size:22px;">
+					<select id="endtime" onchange="changeSelect()">
 							<option value="none" selected>==선택==</option>
 							<option value="480">AM 8:00</option>
 							<option value="510">AM 8:30</option>
@@ -478,15 +476,29 @@
 							<option value="1440">PM 12:00</option>
 					</select></td>
 				</tr>
+			</table>
+			<br>
+			<legend style="font-size:30px; padding-top:90px;">길찾기 결과</legend>
+			<table>
 				<tr>
-					<p id="result"></p>
+					<td style="font-size:22px; width:400px;">
+						<label>총 거리 :&nbsp;</label>
+						<label  id="distance"></label>&nbsp;</td> 
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td style="font-size:22px; width:400px;">
+						<label>소요시간 :&nbsp;</label>
+						<label  id="ttime"></label></td>
 				</tr>
 			</table>
 			</filedset>
+			<button type="submit">저장</button> <!-- 저장전에 시간을 설정했는지 체크! 딤처리 가능한지 생각해보기!-->
+			<button onclick="href.location='#'">뒤로</button>
 		</form>
 	</div>
 
-	<div style="float: right; width: 50%; height: 70%; padding: 100px;">
+	<div style="float: right; width: 50%; height: 70%; padding: 10px;">
 		<div class="ft_select">
 			<select id="selectLevel">
 				<option value="0" selected="selected">교통최적+추천</option>
@@ -498,13 +510,12 @@
 				<option value="12">이륜차도로우선</option>
 				<option value="19">교통최적+어린이보호구역 회피</option>
 			</select>
-			<button id="btn_select">적용하기</button>
+			<button id="btn_select">길찾기</button>
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
 		<div class="clear"></div>
 		<div id="map_div"></div>
 		<div class="map_act_btn_wrap clear_box"></div>
-		<p id="result"></p>
 	</div>
 	<br />
 </body>
