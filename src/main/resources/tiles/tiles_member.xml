@@ -5,6 +5,16 @@
  
 <tiles-definitions>
 
+	 <definition name="/member/accessterms" extends="main">
+    <put-attribute name="title" value="이용약관"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/accessterms.jsp" />
+  </definition>
+    <definition name="/member/personaldata" extends="main">
+    <put-attribute name="title" value="개인정보취급방침"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/personaldata.jsp" />
+  </definition>
   <definition name="/member/agree" extends="main">
     <put-attribute name="title" value="회원약관"></put-attribute>
     <put-attribute name="body"

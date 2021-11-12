@@ -44,6 +44,16 @@ public class MemberController {
 	public String agree() {
 		return "/member/agree";
 	}
+	
+	@GetMapping("/member/accessterms")
+	public String accessterms() {
+		return "/member/accessterms";
+	}
+	
+	@GetMapping("/member/personaldata")
+	public String personaldata() {
+		return "/member/personaldata";
+	}
 
 	@PostMapping("/member/createForm")
 	public String create() {

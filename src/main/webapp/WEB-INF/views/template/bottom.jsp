@@ -27,8 +27,8 @@
                     <div class=" col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div class="footer-widget">
                             <h3 class="footer-title ">About us</h3>
-                            <p>Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more in our travel agency !</p>
-                             <a href="#" class="footer-link">More about us</a></div>
+                            <p> 여행&데이트코스와 풍부한맛집을 알려주고 회원들끼리 자신들의 정보를 공유하는 사이트 </p>
+                           </div>
                     </div>
                     <!-- footer-about-close -->
                     <!-- footer-location-start -->
@@ -36,11 +36,10 @@
                         <div class="footer-widget">
                             <h3 class="footer-title">Our Locations</h3>
                             <ul class="arrow arrow-chevron-circle-right">
-                                <li><a href="#">Ahmedabad</a></li>
-                                <li><a href="#">Mumbai</a></li>
-                                 <li><a href="#">Surat</a></li>
-                                <li><a href="#">Jamnagar</a></li>
-                                <li><a href="#">Bhuj</a></li>                             
+                                <li><a>서울(본사)</a></li>
+                                <li><a>부산</a></li>
+                                <li><a>강원</a></li>
+                                <li><a>경기</a></li>                            
                             </ul>
                         </div>
                     </div>
@@ -51,9 +50,10 @@
                             <h3 class="footer-title">Contact Info</h3>
                             <div class="contact-info">
                                 <ul>
-                                    <li>2867 University Street Ahmedabad, WA 98052</li>
-                                    <li>252-386-7004 </li>
-                                    <li>info@yourwebsitedomian.com</li>
+                                    <li>서울특별시 마포구 양화로 156 LG팰리스 
+                                    서울특별시 마포구 동교동 165-8</li>
+                                    <li>123-456-7890 </li>
+                                    <li>footprint@footprint.com</li>
                                 </ul>
                             </div>
                         </div>
@@ -62,16 +62,11 @@
                     <!-- footer-social-start -->
                     <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
                         <div class="footer-widget">
-                            <h3 class="footer-title">Follow us on</h3>
-                            <div class="footer-social">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>                             
-                                </ul>
-                            </div>
+                            <h3 class="footer-title">회원 약관</h3>                          
+                                <ul class="arrow arrow-chevron-circle-right">
+                                    <li><a href="${root}/member/personaldata" title="personal data">개인정보 취급방침</a> </li>
+                                    <li><a href="${root}/member/accessterms" title="access terms">이용약관</a> </li>  
+                                </ul>                          
                         </div>
                     </div>
                     <!-- footer-social-close -->
@@ -82,7 +77,7 @@
         <div class="tiny-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></div>
+                    <div class="col-md-12">발자국</a></div>
                 </div>
             </div>
             <!-- tiny-footer-start -->

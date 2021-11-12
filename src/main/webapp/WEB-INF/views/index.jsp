@@ -81,19 +81,7 @@
 </head>
 
 <body>
-    <!-- hero-section start -->
-    <div class="hero-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-                    <div class="hero-section-caption pinside40">
-                        <h1 class="hero-title">Discover The Places You’ve Never Been Before</h1>
-                        <a href="domestic-tour.html" class="btn btn-primary ">view tours</a> </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- hero-section close -->
+    
     <!-- service-section start -->
     <div class="space-medium">
         <div class="container">
