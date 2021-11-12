@@ -5,11 +5,14 @@
  
 <tiles-definitions>
   <!-- main -->
-  <definition name="main"
+ <definition name="main"
     template="/WEB-INF/views/template/template.jsp">
     <put-attribute name="header"
       value="/WEB-INF/views/template/top.jsp" />
+    <put-attribute name="bottom"
+      value="/WEB-INF/views/template/bottom.jsp" />
   </definition>
+  
   <definition name="/home" extends="main">
     <put-attribute name="title" value="기본페이지"></put-attribute>
     <put-attribute name="body"
