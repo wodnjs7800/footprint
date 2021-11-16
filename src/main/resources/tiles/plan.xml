@@ -4,12 +4,6 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
  
 <tiles-definitions>
-  <definition name="/timetable" extends="main">
-    <put-attribute name="title" value="기본페이지"></put-attribute>
-    <put-attribute name="body"
-      value="/WEB-INF/views/plan/timetable.jsp" />
-  </definition>
-  
   <definition name="/createplan" extends="main">
     <put-attribute name="title" value="기본페이지"></put-attribute>
     <put-attribute name="body"
