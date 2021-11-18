@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PlanController {
 
 	
-	@GetMapping("/createplan")
+	@PostMapping("/plan/createplan")
 	public String plan() {
-		return "/createplan";
+		return "/plan/createplan";
 	}
 }

@@ -385,8 +385,6 @@
 		}
 	}
 	
-	for
-	
 </script>
 </head>
 <body onload="initTmap();">
@@ -397,85 +395,12 @@
 			<table>
 				<tr>
 					<td style="font-size:22px;"><label>시간 설정 &nbsp;</label></td>
-					<td style="font-size:22px;"><select id="starttime" onchange="changeSelect()">
-							<%for(int i = 0; i < 14; i++) {%>
-								<option value="i">i</option>
-							<%} %>
-					</select>&nbsp;</td>
-					<td style="font-size:22px;"><select id="starttime" onchange="changeSelect()">
-							<option value="none" selected>==선택==</option>
-							<option value="480">AM 8:00</option>
-							<option value="510">AM 8:30</option>
-							<option value="540">AM 9:00</option>
-							<option value="570">AM 9:30</option>
-							<option value="600">AM 10:00</option>
-							<option value="630">AM 10:30</option>
-							<option value="660">AM 11:00</option>
-							<option value="690">AM 11:30</option>
-							<option value="720">PM 12:00</option>
-							<option value="750">PM 12:30</option>
-							<option value="780">PM 1:00</option>
-							<option value="810">PM 1:30</option>
-							<option value="840">PM 2:00</option>
-							<option value="870">PM 2:30</option>
-							<option value="900">PM 3:00</option>
-							<option value="930">PM 3:30</option>
-							<option value="960">PM 4:00</option>
-							<option value="990">PM 4:30</option>
-							<option value="1020">PM 5:00</option>
-							<option value="1050">PM 5:30</option>
-							<option value="1080">PM 6:00</option>
-							<option value="1110">PM 6:30</option>
-							<option value="1140">PM 7:00</option>
-							<option value="1170">PM 7:30</option>
-							<option value="1200">PM 8:00</option>
-							<option value="1230">PM 8:30</option>
-							<option value="1260">PM 9:00</option>
-							<option value="1290">PM 9:30</option>
-							<option value="1320">PM 10:00</option>
-							<option value="1350">PM 10:30</option>
-							<option value="1380">PM 11:00</option>
-							<option value="1410">PM 11:30</option>
-							<option value="1440">PM 12:00</option>
-					</select></td>
+					<td colspan="2" style="font-size:22px;"><input type="date">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="font-size:22px;"><input type="time"></td>
 					<td style="font-size:22px;">&nbsp;~&nbsp;</td>
-					<td style="font-size:22px;">
-					<select id="endtime" onchange="changeSelect()">
-							<option value="none" selected>==선택==</option>
-							<option value="480">AM 8:00</option>
-							<option value="510">AM 8:30</option>
-							<option value="540">AM 9:00</option>
-							<option value="570">AM 9:30</option>
-							<option value="600">AM 10:00</option>
-							<option value="630">AM 10:30</option>
-							<option value="660">AM 11:00</option>
-							<option value="690">AM 11:30</option>
-							<option value="720">PM 12:00</option>
-							<option value="750">PM 12:30</option>
-							<option value="780">PM 1:00</option>
-							<option value="810">PM 1:30</option>
-							<option value="840">PM 2:00</option>
-							<option value="870">PM 2:30</option>
-							<option value="900">PM 3:00</option>
-							<option value="930">PM 3:30</option>
-							<option value="960">PM 4:00</option>
-							<option value="990">PM 4:30</option>
-							<option value="1020">PM 5:00</option>
-							<option value="1050">PM 5:30</option>
-							<option value="1080">PM 6:00</option>
-							<option value="1110">PM 6:30</option>
-							<option value="1140">PM 7:00</option>
-							<option value="1170">PM 7:30</option>
-							<option value="1200">PM 8:00</option>
-							<option value="1230">PM 8:30</option>
-							<option value="1260">PM 9:00</option>
-							<option value="1290">PM 9:30</option>
-							<option value="1320">PM 10:00</option>
-							<option value="1350">PM 10:30</option>
-							<option value="1380">PM 11:00</option>
-							<option value="1410">PM 11:30</option>
-							<option value="1440">PM 12:00</option>
-					</select></td>
+					<td style="font-size:22px;"><input type="time"></td>
 				</tr>
 			</table>
 			<br>

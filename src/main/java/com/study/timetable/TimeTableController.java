@@ -46,4 +46,9 @@ public class TimeTableController {
 		
 		return "/timetable/list";
 	}
+	
+	@RequestMapping("/timetable/detailtimetable")
+	public String update() {
+		return "/timetable/detailtimetable";
+	}
 }

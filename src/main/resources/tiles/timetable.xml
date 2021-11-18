@@ -15,4 +15,10 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/timetable/createtimetable.jsp" />
 	</definition>
+	
+	<definition name="/timetable/detailtimetable" extends="main">
+		<put-attribute name="title" value="기본페이지"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/timetable/detailtimetable.jsp" />
+	</definition>
 </tiles-definitions>
