@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class TimeTableDTO {
 	private int ttid;
-	private int startdate;
-	private int enddate;
 	private String id;
+	private String startdate;
+	private String enddate;
 	private String name;
+	private int r;
 }

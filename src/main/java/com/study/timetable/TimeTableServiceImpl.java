@@ -12,8 +12,20 @@ public class TimeTableServiceImpl implements TimeTableService {
 	private TimeTableMapper mapper;
 
 	@Override
-	public List<TimeTableDTO> list(String id) {
+	public List<TimeTableDTO> list(Map map) {
 		// TODO Auto-generated method stub
-		return mapper.list(id);
+		return mapper.list(map);
+	}
+
+	@Override
+	public int create(TimeTableDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.create(dto);
+	}
+
+	@Override
+	public int total(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.total(map);
 	}	
 }

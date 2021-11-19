@@ -3,16 +3,30 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.timetable.TimeTableMapper">
-<!-- total -->
+	<!-- create -->
+	<select id="create"
+		parameterType="com.study.timetable.TimeTableDTO">
+		insert into timetable
+		values( (select nvl(max(ttid),0)+1 from timetable ),
+		#{id}, #{startdate}, #{enddate}, #{name} )
+	</select>
+	<!-- list -->
+	<select id="list" parameterType="Map"
+		resultType="com.study.timetable.TimeTableDTO">
+		select ttid, id, name, startdate, enddate, r
+		from
+		(
+		select ttid, id, name, startdate, enddate, rownum r
+		from timetable
+		)
+		where id = #{id}
+		order by ttid desc
+	</select>
+	<!-- total -->
 	<select id="total" resultType="int" parameterType="Map">
-		select count(*) 
+		select
+		count(*)
 		from timetable
 		where id= #{id}
-	</select>
-	
-<!-- list -->
-	<select id="list" parameterType="String"
-	 resultType="com.study.timetable.TimeTableDTO">
-		select * from timetable
 	</select>
 </mapper>

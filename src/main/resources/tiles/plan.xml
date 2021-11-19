@@ -4,9 +4,9 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
  
 <tiles-definitions>
-  <definition name="/plan/createplan" extends="main">
+  <definition name="/plan/create" extends="main">
     <put-attribute name="title" value="기본페이지"></put-attribute>
     <put-attribute name="body"
-      value="/WEB-INF/views/plan/createplan.jsp" />
+      value="/WEB-INF/views/plan/create.jsp" />
   </definition>
 </tiles-definitions>

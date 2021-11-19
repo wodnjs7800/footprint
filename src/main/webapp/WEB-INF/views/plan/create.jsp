@@ -398,7 +398,14 @@
 					<td colspan="2" style="font-size:22px;"><input type="date">&nbsp;</td>
 				</tr>
 				<tr>
-					<td style="font-size:22px;"><input type="time"></td>
+					<td style="font-size:22px;"><input type="time" id="time" onblur="myFunction()"></td>
+					<script>
+						function myFunction(){
+							var time = document.getElementById("time");
+							alert(time.value);
+							alert(typeof(time.value));
+						} 
+					</script>
 					<td style="font-size:22px;">&nbsp;~&nbsp;</td>
 					<td style="font-size:22px;"><input type="time"></td>
 				</tr>

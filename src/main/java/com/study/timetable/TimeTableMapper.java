@@ -8,6 +8,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TimeTableMapper {
 
-	List<TimeTableDTO> list(String id);
+	List<TimeTableDTO> list(Map map);
+
+	int create(TimeTableDTO dto);
+
+	int total(Map map);
 	
 }
