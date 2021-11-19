@@ -27,5 +27,11 @@ public class TimeTableServiceImpl implements TimeTableService {
 	public int total(Map map) {
 		// TODO Auto-generated method stub
 		return mapper.total(map);
+	}
+
+	@Override
+	public TimeTableDTO read(int ttid) {
+		// TODO Auto-generated method stub
+		return mapper.read(ttid);
 	}	
 }

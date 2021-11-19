@@ -13,5 +13,7 @@ public interface TimeTableMapper {
 	int create(TimeTableDTO dto);
 
 	int total(Map map);
+
+	TimeTableDTO read(int ttid);
 	
 }

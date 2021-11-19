@@ -10,9 +10,10 @@
 <title>Time Table List</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	function read(id){
-		var url = "${root}/timetable/read";
-		url += "?id="+id;
+	function read(ttid){
+		var url = "/timetable/read";
+		url += "?ttid="+ttid;
+	    url += "&nowPage=${nowPage}";
 		
 		location.href = url;
 	}

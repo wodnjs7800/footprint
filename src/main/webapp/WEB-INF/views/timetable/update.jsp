@@ -13,11 +13,8 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th rowspan="2" style="text-align:center; padding-bottom:25px;">사진</th>
-				<th>이름</th>
-			</tr>
-			<tr>
-				<th>주소</th>
+				<th>사진
+				<th>이름/주소</th>
 			</tr>
 		</thead>
 		<tbody>

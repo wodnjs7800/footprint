@@ -4,23 +4,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.timetable.TimeTableMapper">
 	<!-- create -->
-	<select id="create"
+	<insert id="create"
 		parameterType="com.study.timetable.TimeTableDTO">
 		insert into timetable
 		values( (select nvl(max(ttid),0)+1 from timetable ),
 		#{id}, #{startdate}, #{enddate}, #{name} )
-	</select>
+	</insert>
 	<!-- list -->
 	<select id="list" parameterType="Map"
 		resultType="com.study.timetable.TimeTableDTO">
 		select ttid, id, name, startdate, enddate, r
-		from
-		(
-		select ttid, id, name, startdate, enddate, rownum r
-		from timetable
-		)
-		where id = #{id}
-		order by ttid desc
+		from(
+    		select ttid, id, name, startdate, enddate, rownum r
+    		from(
+    			select ttid, id, name, startdate, enddate
+        		from timetable
+        	where id = #{id}
+    		order by ttid desc
+    		)
+		<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+
 	</select>
 	<!-- total -->
 	<select id="total" resultType="int" parameterType="Map">
@@ -28,5 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		count(*)
 		from timetable
 		where id= #{id}
+	</select>
+	<!-- read -->
+	<select id = "read" resultType="com.study.timetable.TimeTableDTO" parameterType="int">
+		select * from timetable where ttid = #{ttid}
 	</select>
 </mapper>

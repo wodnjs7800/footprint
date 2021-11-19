@@ -10,15 +10,13 @@
 	window.onload = function() {
 		let st = document.getElementById("startdate");
 		let et = document.getElementById("enddate");
-		let name = document.getElementById("name");
-		
+
 		let today = new Date();
 		let mindate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-"
 				+ today.getDate();
-		
+
 		st.min = mindate;
 		et.min = mindate;
-		name.value = mindate+" (생성날짜)";
 	}
 
 	function inCheck(f) {
@@ -34,13 +32,24 @@
 			alert("일정 기간을 선택해주세요");
 			f.enddate.focus();
 			return false;
-		} 
+		}
 	}
 
-	function checkDate() {
+	function checkDate1() {
 		let st = document.getElementById("startdate");
 		let et = document.getElementById("enddate");
-		
+
+		if ((et.value != null) && (et.value < st.value)) {
+			et.value = "";
+		} else if ((et.value != null) && (et.value >= st.value)) {
+			let name = document.getElementById("name");
+			name.value = st.value + " ~ " + et.value + " 일정";
+		}
+	}
+	function checkDate2() {
+		let st = document.getElementById("startdate");
+		let et = document.getElementById("enddate");
+
 		if (st.value == "") {
 			alert("시작일을 먼저 선택하세요.");
 			et.value = "";
@@ -49,6 +58,9 @@
 		if (st.value > et.value) {
 			alert("시작일보다 큰값을 넣어주세요.");
 			et.value = "";
+		} else {
+			let name = document.getElementById("name");
+			name.value = st.value + " ~ " + et.value + " 일정";
 		}
 	}
 </script>
@@ -58,24 +70,25 @@
 	<form class="form-horizontal" action="/timetable/create" method="post"
 		name='frm' enctype="multipart/form-data"
 		onsubmit="return inCheck(this)">
-		
+
 		<input type="hidden" id="id" name="id" value="a1">
-		
+
 		<div class="form-group">
 			<label class="control-label col-sm-2">일정 이름</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="name" name="name" value="">
+				<input type="text" class="form-control" id="name" name="name"
+					value="">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-2">일정 기간</label>
 			<div class="col-sm-4">
 				<input type="date" class="form-control" id="startdate"
-					name="startdate" min="">
+					name="startdate" min="" onblur="checkDate1()">
 			</div>
 			<div class="col-sm-4">
-				<input type="date" class="form-control" id="enddate" name="enddate"
-					min="" onblur="checkDate()">
+				<input type="date" class="form-control" id="enddate" 
+					name="enddate" min="" onblur="checkDate2()">
 			</div>
 		</div>
 		<div style="float: right; padding-right: 200px;">

@@ -11,4 +11,6 @@ public interface TimeTableService {
 
 	int total(Map map);
 
+	TimeTableDTO read(int ttid);
+
 }
