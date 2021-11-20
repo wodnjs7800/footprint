@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.study.bookmark.BookmarkDTO;
-import com.study.bookmark.BookmarkService;
 import com.study.utility.Utility;
 
 @Controller
@@ -25,9 +23,6 @@ public class TimeTableController {
 	@Qualifier("com.study.timetable.TimeTableServiceImpl")
 	private TimeTableService service;
 	
-	@Autowired
-	@Qualifier("com.study.bookmark.BookmarkServiceImpl")
-	private BookmarkService bservice;
 	
 	
 	@GetMapping("/timetable/create")
@@ -46,19 +41,13 @@ public class TimeTableController {
 	}
 	
 	@GetMapping("/timetable/read")
-	public String read(int ttid, String id, String date, Model model) {
+	public String read(int ttid, int days,  Model model) {
 
 		TimeTableDTO dto = service.read(ttid);
 		
-		Map map = new HashMap();
-		map.put("id",id);
-		map.put("date",date);
-		
-		List<BookmarkDTO>bdto = bservice.list(map);
-		
-		model.addAttribute("bdto",bdto);
 		model.addAttribute("dto",dto);
-		model.addAttribute("date",date);
+		model.addAttribute("days",days);
+		
 		return "/timetable/read";
 	}
 

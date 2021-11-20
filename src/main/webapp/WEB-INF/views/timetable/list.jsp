@@ -10,10 +10,24 @@
 <title>Time Table List</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	function read(ttid){
+	function read(ttid, startdate, enddate){
+		let sd = startdate;
+		let ed = enddate;
+		let arrsd = sd.split('-');
+		let arred = ed.split('-');
+		let da1 = new Date(arrsd[0], arrsd[1], arrsd[2]);
+		let da2 = new Date(arred[0], arred[1], arred[2]);
+		let dif = da2 - da1;
+		let cDay = 24*60*60*1000;
+		
+		days = parseInt(dif/cDay)+1;
+		alert(days);
+		alert(typeof(days));
+		
 		var url = "/timetable/read";
 		url += "?ttid="+ttid;
 	    url += "&nowPage=${nowPage}";
+	    url += "&days="+days;
 		
 		location.href = url;
 	}
@@ -47,7 +61,7 @@
 
 							<tr>
 								<td>${dto.ttid}</td>
-								<td><a href="javascript:read('${dto.ttid}')">${dto.name}</a></td>
+								<td><a href="javascript:read('${dto.ttid}', '${dto.startdate }', '${dto.enddate }')">${dto.name}</a></td>
 								<td>${dto.startdate}</td>
 								<td>${dto.enddate}</td>
 								<td>${dto.r}</td>

@@ -26,32 +26,7 @@
 	color: white;
 }
 </style>
-<script type="text/javascript">
-	$(function() {
-		$.ajax({
-			url : "/contents/getCategory",
-			type : "GET",
-			//data: JSON.stringify(),
-			//contentType: "application/json; charset=utf-8;",
-			dataType : "json",
-			success : function(data) {
-				// alert("success:"+data.length);
-				// alert(data[0].CATENO);
-				// alert(data[0].CATENAME)
-				for (var i = 0; i < data.length; i++) {
-					$('#pmenu').append(
-							"<li><a href='/contents/mainlist/"+data[i].CATENO+"'>"
-									+ data[i].CATENAME + "</a></li>");
-				}
 
-			},
-			error : function(request, status, error) {
-				alert("code = " + request.status + " message = "
-						+ request.responseText + " error = " + error); // 실패 시 처리
-			}
-		});//ajax end
-	});//페이지로딩
-</script>
 </head>
 <body> 
 <!--상단메뉴-->
