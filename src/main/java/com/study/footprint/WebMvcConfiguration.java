@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.study.food.Food;
+
 //import com.study.contents.Contents;
 //import com.study.member.*;
 
@@ -19,6 +21,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         //registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" + Contents.getUploadDir());
         // registry.addResourceHandler("/attachfile/storage/**").addResourceLocations("file:///" + Attachfile.getUploadDir());
         //registry.addResourceHandler("/member/storage/**").addResourceLocations("file:///" + Member.getUploadDir());
+    	registry.addResourceHandler("/food/storage/**").addResourceLocations("file:///" + Food.getUploadDir());
     }
 }
 
