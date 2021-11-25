@@ -30,9 +30,20 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-
+<style>
+.kakaoChat {
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	width: 80px;
+	height: 80px;
+	z-index: 99;
+}
+</style>
 </head>
 <body>
+<a href="/naver_chatting"><img class="kakaoChat expand_img"
+		src="${pageContext.request.contextPath }/images/naverChat/naverChat.jpg" /></a>
       <!-- header-section start -->
       <div class="top-bar">
         <div class="container">
