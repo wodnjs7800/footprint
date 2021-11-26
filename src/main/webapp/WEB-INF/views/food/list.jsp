@@ -126,7 +126,7 @@
 					<!-- Testimonials-one-start -->
 					<c:choose>
 						<c:when test="${empty list}">
-							<p>등록된 글이 없습니다.</p>
+							<b style="margin-left:50px; font-size:20px">등록된 글이 없습니다.</b>
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="dto" items="${list}" >
