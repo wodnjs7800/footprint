@@ -21,4 +21,6 @@ public interface FoodService {
 
 	int delete(int foodno);
 
+	double avg(int foodno);
+
 }

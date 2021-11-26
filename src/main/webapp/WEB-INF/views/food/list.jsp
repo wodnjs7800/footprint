@@ -27,12 +27,12 @@
 <body>
 	<!-- page-header-start -->
 	<div
-		style="background: url(${pageContext.request.contextPath }/images/bibimbab.jpg) no-repeat center; background-size: cover; margin: 0px;">
+		style="background: url(/food/storage/foodmain.jpg) no-repeat center; background-size: cover; margin: 0px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
 					<div class="page-section">
-						<h1 class="page-title">맛집 리스트</h1>
+						<h1 class="page-title"></h1>
 					</div>
 				</div>
 			</div>
@@ -129,7 +129,7 @@
 							<p>등록된 글이 없습니다.</p>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="dto" items="${list}">
+							<c:forEach var="dto" items="${list}" >
 								<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 expand_img"
 									onclick='location.href="javascript:read(${dto.foodno} )"'>
 									<div class="testimonial-block"
@@ -140,12 +140,12 @@
 										</div>
 										<div class="testimonial-content" style="padding: 10px">
 											<h4>
-												(<span class="location">${dto.local }</span>)${dto.foodname }
+												<span class="location">(${dto.local })</span>${dto.foodname }
 											</h4>
 											<img src="/food/storage/star.jpg"
-												style="width: 18px; height: 18px">(4.5)
+												style="width: 18px; height: 18px; margin-bottom:4px"><b style="font-size:15px">(${dto.avg })</b>
 											<div
-												style="margin-top: 8px; display: flex; justify-content: right">
+												style="margin-top: 4px; display: flex; justify-content: right">
 												<small>${dto.viewcnt } views </small>
 											</div>
 											<div style="display: flex; justify-content: right">

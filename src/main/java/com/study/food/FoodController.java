@@ -53,7 +53,7 @@ public class FoodController {
 		
 		int total = service.total(map);
 		List<FoodDTO> list = service.list(map);
-
+		
 		String paging = Utility.paging(total, nowPage, recordPerPage, col, word);
 
 		// request에 Model사용 결과 담는다
@@ -68,23 +68,49 @@ public class FoodController {
 	}
 
 	@GetMapping("/food/read")
-	public String read(int foodno, Model model, HttpSession session) {
+	public String read(int foodno, Model model, HttpSession session, HttpServletRequest request) {
 		//세션 id 가져온다.
 		String id = (String) session.getAttribute("id");
 		id="dlgjs5260";
-		
+				
 		if(id==null) {
 			return "/member/login";
 		}
+		double avg = service.avg(foodno);
 		service.upCnt(foodno);
 
 		FoodDTO dto = service.read(foodno);
 
+		String contents = dto.getContents().replaceAll("\r\n", "<br>");
+
+		dto.setContents(contents);
+
 		model.addAttribute("dto", dto);
+		model.addAttribute("id", id);
+		model.addAttribute("avg", avg);
+		
+		/* 댓글 관련 시작 */
+        int nPage = 1;
+        if (request.getParameter("nPage") != null) {
+                nPage = Integer.parseInt(request.getParameter("nPage"));
+        }
+        int recordPerPage = 3;
+
+        int sno = ((nPage - 1) * recordPerPage) + 1;
+        int eno = nPage * recordPerPage;
+
+        Map map = new HashMap();
+        map.put("sno", sno);
+        map.put("eno", eno);
+        map.put("nPage", nPage);
+
+        model.addAllAttributes(map);
+
+        /* 댓글 처리 끝 */
 
 		return "/food/read";
 	}
-
+	
 	@GetMapping("/food/create")
 	public String create() {
 

@@ -5,6 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.food.FoodMapper">
+	<!-- 별점 평균 -->
+	<select id="avg" resultType="double" parameterType="int">
+		select nvl(ROUND(avg(point),1),0) as avg
+		from reply_food
+		where foodno = #{foodno}
+	</select>
 	<!-- delete -->
 	<delete id="delete" parameterType="int">
 		DELETE FROM food
@@ -79,14 +85,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="list" parameterType="Map"
 		resultType="com.study.food.FoodDTO">
 		select foodno, foodname, contents, phone, viewcnt, wdate, local,
-		fname, r
+		fname, r, avg
 		from (
 		select foodno, foodname, contents, phone, viewcnt,
-		wdate, local, fname, rownum r
+		wdate, local, fname, rownum r, avg
 		from(
 		select foodno, foodname,
 		contents,
-		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as avg
 		<choose>
 
 			<when test='col.length>2'>
@@ -114,6 +120,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 		<when test='array=="1"'>
 		order by viewcnt desc
+		</when>
+		<when test='array=="2"'>
+		order by avg desc
 		</when>
 		<otherwise>
 		order by foodno desc

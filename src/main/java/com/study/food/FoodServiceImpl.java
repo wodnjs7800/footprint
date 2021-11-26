@@ -61,4 +61,10 @@ public class FoodServiceImpl implements FoodService {
 		return mapper.delete(foodno);
 	}
 
+	@Override
+	public double avg(int foodno) {
+		// TODO Auto-generated method stub
+		return mapper.avg(foodno);
+	}
+
 }

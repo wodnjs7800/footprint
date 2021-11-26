@@ -20,4 +20,6 @@ public interface FoodMapper {
 	int update(Map map);
 	
 	int delete(int foodno);
+	
+	double avg(int foodno);
 }
