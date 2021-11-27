@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.reply_food.ReplyFoodMapper">
+
+<update id="deletePoint" parameterType="int">
+update food
+set pointcnt = pointcnt - 1,
+    point_sum = point_sum - (select point
+                             from reply_food
+                             where replyno = #{replyno})
+where foodno = (select foodno
+                from reply_food
+                where replyno = #{replyno})
+</update>
+<update id="updatePoint" parameterType="com.study.reply_food.ReplyFoodDTO">
+update food
+set pointcnt = pointcnt + 1,
+    point_sum = point_sum + #{point}
+where foodno = #{foodno}
+</update>
+<delete id="bdelete" parameterType="int">
+	delete from reply_food
+	where foodno = #{foodno}
+</delete>
+<select id="list" parameterType="Map" resultType="com.study.reply_food.ReplyFoodDTO">
+select replyno, content, to_char(regdate,'yyyy-mm-dd') regdate, id, point, foodno, r
+FROM(
+        select replyno, content, regdate, id, point, foodno, rownum r
+        FROM(
+                select replyno, content, regdate, id, point, foodno
+                from reply_food
+                where foodno = #{foodno}
+                order by replyno DESC
+           )
+<![CDATA[
+)WHERE r >= #{sno} and r <= #{eno}
+]]>
+</select>
+
+<select id="total" resultType="int" parameterType="int">
+select count(*) from reply_food
+where foodno=#{foodno}
+</select>
+
+<insert id="create" parameterType="com.study.reply_food.ReplyFoodDTO">
+ insert into reply_food(replyno, content, regdate, id, point, foodno)
+ values((select nvl(max(replyno),0)+1 from reply_food),
+        #{content}, sysdate, #{id}, #{point}, #{foodno}
+        ) 
+</insert>
+ 
+<select id="read" parameterType="int" resultType="com.study.reply_food.ReplyFoodDTO">
+ select * from reply_food
+ where replyno = #{replyno}
+</select>
+
+<update id="update" parameterType="com.study.reply_food.ReplyFoodDTO">
+update reply_food
+set content = #{content}
+where replyno = #{replyno}
+ 
+</update>
+
+<delete id="delete" parameterType="int">
+delete from reply_food
+where replyno = #{replyno}
+</delete>
+</mapper>

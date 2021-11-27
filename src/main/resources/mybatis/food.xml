@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.food.FoodMapper">
+	<!-- food 삭제 전 모든 reply 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM reply_food
+		WHERE foodno=#{foodno}
+	</delete>
+	<!-- 별점 평균 -->
+	<select id="avg" resultType="double" parameterType="int">
+		select nvl(ROUND(avg(point),1),0) as avg
+		from reply_food
+		where foodno = #{foodno}
+	</select>
+	<!-- delete -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM food
+		WHERE foodno=#{foodno}
+	</delete>
+	<!-- passCheck -->
+	<select id="passwd" resultType="int" parameterType="HashMap">
+		SELECT
+		COUNT(*) AS cnt
+		FROM food
+		WHERE foodno=#{foodno} AND
+		passwd=#{passwd}
+	</select>
+	<!-- update -->
+	<update id="update" parameterType="com.study.food.FoodDTO">
+		UPDATE food
+		SET foodname=#{foodname}, contents=#{contents}, phone=#{phone}, local=#{local}, fname=#{fname}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}
+		WHERE foodno=#{foodno}
+	</update>
+	<!-- create -->
+	<insert id="create" parameterType="com.study.food.FoodDTO">
+		insert into food(foodno,
+		foodname, lat, lng, contents, phone, passwd, wdate, local, fname,
+		zipcode, address1, address2, id)
+		VALUES((select nvl(max(foodno),0) + 1 from
+		food),#{foodname},0,0,#{contents},#{phone},'1234',sysdate,#{local},#{fname},
+		#{zipcode},#{address1},#{address2}, #{id})
+	</insert>
+	<!-- read -->
+	<select id="read" resultType="com.study.food.FoodDTO">
+		select foodno, foodname, contents,
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname,
+		zipcode, address1, address2, id
+		FROM food
+		WHERE foodno=#{foodno}
+	</select>
+	<!-- upcnt -->
+	<update id="upCnt" parameterType="int">
+		update food
+		set viewcnt =
+		viewcnt + 1
+		where foodno = #{foodno}
+	</update>
+	<!-- total -->
+	<select id="total" resultType="int" parameterType="Map">
+		select count(*)
+		<choose>
+			<when test='col.length>2'>
+				from(select * from food
+				<where>
+					foodname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+				)
+
+				<where>
+					local = #{col}
+				</where>
+			</when>
+			<otherwise>
+				from food
+				<where>
+					foodname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+			</otherwise>
+		</choose>
+	</select>
+	<!-- list 최신순-->
+	<select id="list" parameterType="Map"
+		resultType="com.study.food.FoodDTO">
+		select foodno, foodname, contents, phone, viewcnt, wdate, local,
+		fname, r, avg
+		from (
+		select foodno, foodname, contents, phone, viewcnt,
+		wdate, local, fname, rownum r, avg
+		from(
+		select foodno, foodname,
+		contents,
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as avg
+		<choose>
+
+			<when test='col.length>2'>
+				from(select * from
+				food
+				<where>
+					foodname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+				)
+				<where>
+					local = #{col}
+				</where>
+			</when>
+			<otherwise>
+				from food
+				<where>
+					foodname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+			</otherwise>
+		</choose>
+		<choose>
+		<when test='array=="1"'>
+		order by viewcnt desc
+		</when>
+		<when test='array=="2"'>
+		order by avg desc
+		</when>
+		<otherwise>
+		order by foodno desc
+		</otherwise>
+		</choose>
+		)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+	</select>
+</mapper>
