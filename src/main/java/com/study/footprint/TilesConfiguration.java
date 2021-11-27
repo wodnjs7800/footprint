@@ -18,7 +18,8 @@ public class TilesConfiguration {
     		  								"classpath:/tiles/tiles_timetable.xml",
     		  								"classpath:/tiles/tiles_bookmark.xml",
     		  								"classpath:/tiles/tiles_member.xml",
-    		  								"classpath:/tiles/tiles_travel.xml"});
+    		  								"classpath:/tiles/tiles_travel.xml",
+    		  								"classpath:/tiles/tiles_food.xml"});
       configurer.setCheckRefresh(true);
       return configurer;
   }
