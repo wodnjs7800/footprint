@@ -22,4 +22,6 @@ public interface FoodMapper {
 	int delete(int foodno);
 	
 	double avg(int foodno);
+	
+	int deleteReply(int foodno);
 }

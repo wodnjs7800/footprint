@@ -54,6 +54,12 @@
             }
         }).open();
     }
+    
+    function goBack() {           //뒤로가기 버튼 생성 설정
+    	window.history.back();
+    	}
+
+
 </script>
 
 <script type="text/javascript">
@@ -247,9 +253,10 @@
     </div>
   </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
+   <div class="col-sm-offset-2 col-sm-8" style="margin-bottom:100px">
     <button type="submit" class="btn"  style="height:40px">등록</button>
     <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
+    <button type="reset" class="btn" onclick="goBack()" style="height:40px; margin-left:380px">뒤로</button>
    </div>
  </div>
 </form>

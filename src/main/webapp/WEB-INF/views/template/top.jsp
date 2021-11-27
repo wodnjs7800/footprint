@@ -96,7 +96,7 @@
                                     <li class="active"><a href="${root}/" title="Home">홈</a></li>
                                    
                                     <li><a href="food_list.html" title="food_list">여행</a> </li>
-                                    <li><a href="food_list.html" title="food_list">맛집</a> </li>                                    
+                                    <li><a href="/food/list" title="food_list">맛집</a> </li>                                    
                                     <li class="has-sub"><a href="blog-default.html" title="Blog ">커뮤니티</a>
                                         <ul>
                                             <li><a href="blog-default.html" title="Notice">게시판</a></li>

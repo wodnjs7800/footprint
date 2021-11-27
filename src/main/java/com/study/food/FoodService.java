@@ -23,4 +23,6 @@ public interface FoodService {
 
 	double avg(int foodno);
 
+	int deleteReply(int foodno);
+
 }

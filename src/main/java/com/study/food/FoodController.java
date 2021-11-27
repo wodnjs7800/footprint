@@ -129,8 +129,9 @@ public class FoodController {
 		
 		//String upDir = new ClassPathResource("/static/images/food").getFile().getAbsolutePath();
 		String upDir = Food.getUploadDir();
-
+				
 		String fname = Utility.saveFileSpring(dto.getFnameMF(), upDir);
+		
 		int size = (int) dto.getFnameMF().getSize();
 		if (size > 0) {
 			dto.setFname(fname);
@@ -192,11 +193,13 @@ public class FoodController {
 		}
 
 		if (pcnt != 1) {
-			return "./passwdError";
+			model.addAttribute("msg", "비밀번호를 잘못 입력하셨습니다.");
+			return "/member/errorMsg";
 		} else if (cnt == 1) {
 			return "redirect:./list";
 		} else {
-			return "/myerror";
+			model.addAttribute("msg", "오류가 발생했습니다.");
+			return "/member/errorMsg";
 		}
 	}
 
@@ -218,14 +221,17 @@ public class FoodController {
 
 		int cnt = 0;
 		if (pcnt == 1) {
-
-			cnt = service.delete(foodno);
-			Utility.deleteFile(basePath, fname);
+			
+			cnt = service.deleteReply(foodno) + service.delete(foodno);
+			//fname이 디폴트 이름이 아닌경우에만 이미지 삭제
+			if(!fname.equals("food.jpg")) {
+				Utility.deleteFile(basePath, fname);
+			}
 		}
 
 		if (pcnt != 1) {
 			return "./passwdError";
-		} else if (cnt == 1) {
+		} else if (cnt == 2) {
 			return "redirect:/food/list";
 		} else {
 			return "/myerror";

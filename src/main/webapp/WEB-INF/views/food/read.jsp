@@ -109,6 +109,7 @@
 		url += "?nowPage=${param.nowPage}";
 		url += "&col=${param.col}";
 		url += "&word=${param.word}";
+		url += "&array=${param.array}";
 		location.href = url;
 	}
 	function fitImage(obj){
@@ -154,37 +155,42 @@
 </head>
 <body>
 	<div class="space-medium">
-        <div class="container" style="width: 800px;">
-            <div class="mb80">
-                <div class="col-xs-7 row" style="margin-bottom:30px">
-                    <h1>${dto.foodname } (${avg })</h1>
-                    <div >
-	            	<small>작성자 : <strong>${dto.id }</strong> </small>
-	            	<small style="margin-left:5px ;color: gray;">${dto.wdate }</small>
-	           		</div>
-                </div>
-                <div class="col-xs-2 mt10" style="margin-top:40px; padding:0px; width: 90px;">
-                    <small>${dto.viewcnt } views</small>
-                </div>
-                <div class="col-xs-1 mt10" style="margin-top:40px;padding:0px; width: 80px;">
-                    <small>❤ 152</small>
-                </div>
-                <div class="col-xs-3 mt10" style="margin-top:40px;padding:0px; width: 120px;">
-                    <small>tel)${dto.phone }</small>
-                </div>
-                
-            </div>
+		<div class="container" style="width: 800px;">
+			<div class="mb80">
+				<div class="col-xs-12 row">
+					<h1>${dto.foodname }(${avg })</h1>
+					<div>
+						<small>작성자 : <strong>${dto.id }</strong>
+						</small> <small style="margin-left: 5px; color: gray;">등록일 :
+							${dto.wdate }</small>
+					</div>
+				</div>
+				<div style="float: right;">
+					<div class="col-xs-2 mt10" style="padding: 0px; width: 100px;">
+						<small>${dto.viewcnt } views</small>
+					</div>
+					<div class="col-xs-1 mt10" style="padding: 0px; width: 100px;">
+						<small>❤️ 152</small>
+					</div>
+					<div class="col-xs-3 mt10" style="padding: 0px; width: 100px;">
+						<small>tel)${dto.phone }</small>
+					</div>
+				</div>
+
+			</div>
+
 
 			<div class="row">
 	            
                 <!-- post-one-start -->
                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="post-block">
-                        <div class="post-img"><img src="/food/storage/${dto.fname }" class="img-responsive"></div>
+                        <div class="post-img"><img src="/food/storage/${dto.fname }" class="img-responsive" onload="fitImage(this)"
+                        ></div>
                     </div>
                 </div>
                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px">
-                	<h4>위치 : ${dto.local } ${dto.address1 } ${dto.address2 }</h4>
+                	<h4><b>위치 : ${dto.local } ${dto.address1 } ${dto.address2 }</b></h4>
                 </div>
                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="blockquote">"${dto.contents }"</p>
@@ -197,8 +203,7 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="deleteM()">삭제</button>
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="listM()">목록</button>
                 </div>
-                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="">담기</button>
-                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px">뒤로</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 160px;height:40px" onclick="">저장하기</button>
             </div>
 			<hr>
 			<!--comments start-->

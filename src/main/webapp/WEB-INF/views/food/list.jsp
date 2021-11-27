@@ -22,6 +22,15 @@
 
 	}
 </script>
+<style>
+.hiddenx{
+	overflow: hidden;
+	white-space: nowrap;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	height:20px;
+}
+</style>
 </head>
 
 <body>
@@ -139,7 +148,7 @@
 												style="width: 230px; height: 168px">
 										</div>
 										<div class="testimonial-content" style="padding: 10px">
-											<h4>
+											<h4 class="hiddenx">
 												<span class="location">(${dto.local })</span>${dto.foodname }
 											</h4>
 											<img src="/food/storage/star.jpg"

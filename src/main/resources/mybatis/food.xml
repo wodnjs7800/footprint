@@ -5,6 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.food.FoodMapper">
+	<!-- food 삭제 전 모든 reply 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM reply_food
+		WHERE foodno=#{foodno}
+	</delete>
 	<!-- 별점 평균 -->
 	<select id="avg" resultType="double" parameterType="int">
 		select nvl(ROUND(avg(point),1),0) as avg
