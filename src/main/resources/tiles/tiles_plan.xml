@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+  <definition name="/plan/create" extends="main">
+    <put-attribute name="title" value="기본페이지"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/plan/create.jsp" />
+  </definition>
+</tiles-definitions>

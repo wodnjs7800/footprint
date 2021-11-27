@@ -3,6 +3,20 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.timetable.TimeTableMapper">
+	<!-- tlist -->
+	<select id="tlist" parameterType="Map"
+		resultType="com.study.bookmark.BookmarkDTO">
+		select * from bookmark 
+		where id = #{id}
+		and travelno is not null
+	</select>
+	<!-- flist -->
+	<select id="flist" parameterType="Map"
+		resultType="com.study.bookmark.BookmarkDTO">
+		select * from bookmark 
+		where id = #{id}
+		and foodno is not null
+	</select>
 	<!-- create -->
 	<insert id="create"
 		parameterType="com.study.timetable.TimeTableDTO">
@@ -38,4 +52,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id = "read" resultType="com.study.timetable.TimeTableDTO" parameterType="int">
 		select * from timetable where ttid = #{ttid}
 	</select>
+	<!-- bread -->
+	<select id = "bread" resultType="com.study.bookmark.BookmarkDTO" parameterType="String">
+		select * from bookmark where id = #{id}
+	</select>
+	<!-- delete -->
+	<delete id="delete" parameterType="int">
+		delete from timetable
+		where ttid = #{ttid}
+	</delete>
 </mapper>

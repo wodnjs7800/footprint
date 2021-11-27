@@ -1,4 +1,4 @@
-package com.study.timetable;
+package com.study.bookmark;
 
 import java.util.List;
 import java.util.Map;
@@ -6,21 +6,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.study.bookmark.BookmarkDTO;
-
-@Service("com.study.timetable.TimeTableServiceImpl")
-public class TimeTableServiceImpl implements TimeTableService {
+@Service("com.study.bookmark.BookmarkServiceImpl")
+public class BookmarkServiceImpl implements BookmarkService {
 	@Autowired
-	private TimeTableMapper mapper;
+	private BookmarkMapper mapper;
 
 	@Override
-	public List<TimeTableDTO> list(Map map) {
+	public List<BookmarkDTO> list(Map map) {
 		// TODO Auto-generated method stub
 		return mapper.list(map);
 	}
 
 	@Override
-	public int create(TimeTableDTO dto) {
+	public int create(BookmarkDTO dto) {
 		// TODO Auto-generated method stub
 		return mapper.create(dto);
 	}
@@ -32,7 +30,7 @@ public class TimeTableServiceImpl implements TimeTableService {
 	}
 
 	@Override
-	public TimeTableDTO read(int ttid) {
+	public BookmarkDTO read(int ttid) {
 		// TODO Auto-generated method stub
 		return mapper.read(ttid);
 	}
@@ -41,18 +39,5 @@ public class TimeTableServiceImpl implements TimeTableService {
 	public int delete(int ttid) {
 		// TODO Auto-generated method stub
 		return mapper.delete(ttid);
-	}
-
-	@Override
-	public List<BookmarkDTO> flist(String id) {
-		// TODO Auto-generated method stub
-		return mapper.flist(id);
-	}
-
-	@Override
-	public List<BookmarkDTO> tlist(String id) {
-		// TODO Auto-generated method stub
-		return mapper.tlist(id);
-	}
-
+	}	
 }
