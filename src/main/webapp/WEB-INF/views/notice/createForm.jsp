@@ -5,11 +5,12 @@
 <head>
   <title>notice</title>
   <meta charset="utf-8">
+  
   <script type="text/JavaScript">
         
  function checkIn(f){
          if (f.wname.value == ""){
-              alert("글쓴이를 입력하세요");
+              alert("작성자를 입력하세요");
               f.wname.focus()
               return false;
          }
@@ -24,8 +25,7 @@
              return false;
          }
          if (f.passwd.value == ""){
-             alert("패스워드를 입력하세요");
-             f.passwd.focus();
+             alert('비밀번호를 입력해 주세요.');
              return false;
          }
  }

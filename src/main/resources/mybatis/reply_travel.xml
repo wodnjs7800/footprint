@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.reply_travel.ReplyTravelMapper">
+
+<update id="deletePoint" parameterType="int">
+update travel
+set pointcnt = pointcnt - 1,
+    point_sum = point_sum - (select point
+                             from reply_travel
+                             where replyno = #{replyno})
+where travelno = (select travelno
+                from reply_travel
+                where replyno = #{replyno})
+</update>
+<update id="updatePoint" parameterType="com.study.reply_travel.ReplyTravelDTO">
+update travel
+set pointcnt = pointcnt + 1,
+    point_sum = point_sum + #{point}
+where travelno = #{travelno}
+</update>
+
+
+<delete id="bdelete" parameterType="int">
+	delete from reply_travel
+	where travelno = #{travelno}
+</delete>
+<select id="list" parameterType="Map" resultType="com.study.reply_travel.ReplyTravelDTO">
+select replyno, content, to_char(regdate,'yyyy-mm-dd') regdate, id, point, travelno, r
+FROM(
+        select replyno, content, regdate, id, point, travelno, rownum r
+        FROM(
+                select replyno, content, regdate, id, point, travelno
+                from reply_travel
+                where travelno = #{travelno}
+                order by replyno DESC
+           )
+<![CDATA[
+)WHERE r >= #{sno} and r <= #{eno}
+]]>
+</select>
+
+<select id="total" resultType="int" parameterType="int">
+select count(*) from reply_travel
+where travelno=#{travelno}
+</select>
+
+<insert id="create" parameterType="com.study.reply_travel.ReplyTravelDTO">
+ insert into reply_travel(replyno, content, regdate, id, point, travelno)
+ values((select nvl(max(replyno),0)+1 from reply_travel),
+        #{content}, sysdate, #{id}, #{point}, #{travelno}
+        ) 
+</insert>
+ 
+<select id="read" parameterType="int" resultType="com.study.reply_travel.ReplyTravelDTO">
+ select * from reply_travel
+ where replyno = #{replyno}
+</select>
+
+<update id="update" parameterType="com.study.reply_travel.ReplyTravelDTO">
+update reply_travel
+set content = #{content}
+where replyno = #{replyno}
+ 
+</update>
+
+<delete id="delete" parameterType="int">
+delete from reply_travel
+where replyno = #{replyno}
+</delete>
+</mapper>

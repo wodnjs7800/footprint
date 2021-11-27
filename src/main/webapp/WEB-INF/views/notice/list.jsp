@@ -8,26 +8,7 @@
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
- <meta name="description" content="Want to start your travel agency online and need website for your travel business? Start with travel agency responsive website template. Its absolutely free.">
-  <meta name="keywords" content="travel, tour, tourism, honeymoon pacakage, summer trip, exotic vacation, destination, international, domestic website template, holiday, travel agecny responsive website template">
-  <title>Tour and Travel Agency - Responsive Website Template</title>
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!-- Style CSS -->
-  <link href="css/style.css" rel="stylesheet">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-  <!-- FontAwesome CSS -->
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  
   
    <script type="text/javascript">
      function read(noticeno){
@@ -47,7 +28,7 @@
  
    <h2>공지 사항</h2>
   <form class="form-inline" method="post" action="../notice/list">
-    <div class="form-group">
+    <div class="form-group" style="height: 40px; margin-top: 5px;">
       <select class="form-control" name="col">
         <option value="wname"
         <c:if test= "${col=='wname'}"> selected </c:if>
@@ -68,11 +49,11 @@
     </div>
     
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Enter 검색어" 
+      <input type="text" class="form-control" style="height: 40px; margin-top: 5px;" placeholder="Enter 검색어" 
       name="word" value="${word}">
     </div>
-    <button type="submit" class="btn btn-default" >검색</button>
-    <button type="button" class="btn btn-default" onclick="location.href='../admin/notice/create'">등록</button>
+    <button type="submit" class="form-control" style="width: 120px;height: 40px; margin-top: 5px;">검색</button>
+    <button type="button" class="form-control" style="width: 120px;height: 40px; margin-top: 5px;" onclick="location.href='../admin/notice/create'">등록</button>
   </form>
   
   <table class="table table-striped">

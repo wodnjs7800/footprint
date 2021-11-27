@@ -30,6 +30,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
       <!-- header-section start -->
@@ -90,11 +93,11 @@
                                 <ul>
                                     <li class="active"><a href="${root}/" title="Home">홈</a></li>
                                    
-                                    <li><a href="food_list.html" title="food_list">여행</a> </li>
+                                    <li><a href="/travel/list" title="travel_list">여행</a> </li>
                                     <li><a href="food_list.html" title="food_list">맛집</a> </li>                                    
                                     <li class="has-sub"><a href="blog-default.html" title="Blog ">커뮤니티</a>
                                         <ul>
-                                            <li><a href="blog-default.html" title="Notice">게시판</a></li>
+                                            <li><a href="/notice/list" title="Notice">게시판</a></li>
                                             <li><a href="blog-single.html" title="Q&a ">Q&A</a></li>
                                         </ul>
                                     </li>

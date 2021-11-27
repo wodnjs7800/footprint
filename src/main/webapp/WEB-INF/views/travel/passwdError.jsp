@@ -6,15 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <!-- jquery ajax에 필요한 부분 start -->
+    <script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript"
+    src="<%=request.getContextPath()%>/js/ajaxerror.js"></script>
+  <!--jquery ajax에 필요한 부분 end  -->
 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
   
 <script type="text/javascript">
 $(document).ready(function(){
- var msg = '${msg}'; //Controller에서 가져온 데이터
+ var modal = '${pflag}'; //Controller에서 가져온 데이터
  checkModal(); //modal생성
  
  //history back일때는 modal 안보여주는 코드 1
@@ -22,8 +28,8 @@ $(document).ready(function(){
  
  function checkModal(){ //modal 생성함수 선언
      if(history.state) return; //코드2
-     if(msg){
-         $(".modal-body").html(msg);
+     if('${pflag}'==false){
+         $(".modal-body").html('비밀번호 오류입니다.<br>다시 입력하세요');
          $("#myModal").modal("show");
      }
    }
@@ -35,7 +41,7 @@ $(document).ready(function(){
 
 
 <!-- Modal -->
-  <div class="modal fade" id="myModal">
+  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
