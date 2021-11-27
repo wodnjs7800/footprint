@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.travel.TravelMapper">
+
+	<!-- 별점 평균 -->
+	<select id="avg" resultType="double" parameterType="int">
+		select nvl(ROUND(avg(point),1),0) as avg
+		from reply_travel
+		where travelno = #{travelno}
+	</select>
+
+
+	<select id="read" parameterType="int"
+		resultType="com.study.travel.TravelDTO">
+		select travelno, travelname, id, zipcode, address1,
+		address2, lat, lng,
+		contents, phone, viewcnt, passwd, wdate, local,
+		fname
+		from travel
+		where travelno = #{travelno}
+	</select>
+
+	<update id="updateFile" parameterType="Map">
+		update travel
+		set fname =
+		#{fname}
+		where travelno = #{travelno}
+	</update>
+
+	<select id="list" parameterType="Map"
+		resultType="com.study.travel.TravelDTO">
+		select travelno, travelname, id,zipcode, address1, address2, lat, lng,
+		contents, phone, viewcnt, passwd, wdate, local, fname, r, avg
+		from (
+		select travelno,
+		travelname, id, zipcode, address1, address2, lat, lng,
+		contents, phone, viewcnt, passwd, wdate, local, fname, rownum r, avg
+		from(
+		select travelno,
+		travelname, id, zipcode, address1, address2, lat,
+		lng,
+		contents, phone, viewcnt, passwd, to_char(wdate,'yyyy/mm/dd') as
+		wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as
+		avg
+
+
+		<choose>
+
+			<when test='col.length>2'>
+				from(select * from travel
+				<where>
+					travelname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+				)
+				<where>
+					local = #{col}
+				</where>
+			</when>
+			<otherwise>
+				from travel
+				<where>
+					travelname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='array=="1"'>
+				order by viewcnt desc
+			</when>
+			<when test='array=="2"'>
+				order by avg desc
+			</when>
+
+			<otherwise>
+				order by travelno desc
+			</otherwise>
+		</choose>
+		)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+	</select>
+
+	<select id="total" resultType="int" parameterType="Map">
+		select count(*)
+		<choose>
+			<when test='col.length>2'>
+				from(select * from travel
+				<where>
+					travelname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+				)
+
+				<where>
+					local = #{col}
+				</where>
+			</when>
+			<otherwise>
+				from travel
+				<where>
+					travelname like '%'||#{word}||'%'
+					or contents like
+					'%'||#{word}||'%'
+				</where>
+			</otherwise>
+		</choose>
+	</select>
+
+	<update id="update" parameterType="com.study.travel.TravelDTO">
+		update travel
+		<set>
+			travelname=#{travelname},zipcode=#{zipcode},address1=#{address1},
+			address2 = #{address2},
+			contents=#{contents},phone=#{phone},local=#{local},
+			<if test="fname != null">
+				fname = #{fname}
+			</if>
+
+		</set>
+		where travelno =#{travelno}
+	</update>
+
+
+	<insert id="create" parameterType="com.study.travel.TravelDTO">
+		insert into travel(travelno,
+		travelname, id, zipcode, address1, address2, lat, lng, contents,
+		phone,
+		passwd, wdate, local, fname)
+		values((select
+		nvl(max(travelno),0)+1 from
+		travel),
+		#{travelname},#{id},#{zipcode},#{address1},#{address2}, #{lat},
+		#{lng}, #{contents},
+		#{phone},#{passwd},sysdate, #{local},#{fname})
+	</insert>
+
+
+
+	<delete id="delete" parameterType="int">
+		delete from travel
+		where
+		travelno = #{travelno}
+	</delete>
+
+	<update id="viewcnt" parameterType="int">
+		update travel
+		set viewcnt =
+		viewcnt + 1
+		where travelno = #{travelno}
+	</update>
+
+	<select id="passwd" resultType="int" parameterType="HashMap">
+		SELECT
+		COUNT(*) AS cnt
+		FROM travel
+		WHERE travelno=#{travelno} AND
+		passwd=#{passwd}
+	</select>
+
+</mapper>

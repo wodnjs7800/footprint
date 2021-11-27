@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //import com.study.contents.Contents;
 //import com.study.member.*;
+import com.study.travel.*;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -16,7 +17,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         // Ubuntu: path = "/home/ubuntu/deploy/shopping/contents/storage";
         // ▶ file:////home/ubuntu/deploy/shopping/contents/storage
         // JSP 인식되는 경로: http://localhost:8000/contents/storage";
-        //registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" + Contents.getUploadDir());
+        registry.addResourceHandler("/travel/storage/**").addResourceLocations("file:///" + Travel.getUploadDir());
         // registry.addResourceHandler("/attachfile/storage/**").addResourceLocations("file:///" + Attachfile.getUploadDir());
         //registry.addResourceHandler("/member/storage/**").addResourceLocations("file:///" + Member.getUploadDir());
     }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+  <definition name="/travel/create" extends="main">
+    <put-attribute name="title" value="여행지생성"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/createForm.jsp" />
+  </definition>
+  <definition name="/travel/list" extends="main">
+    <put-attribute name="title" value="여행지목록"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/list.jsp" />
+  </definition>
+  <definition name="/travel/read" extends="main">
+    <put-attribute name="title" value="여행지조회"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/read.jsp" />
+  </definition>
+  <definition name="/travel/update" extends="main">
+    <put-attribute name="title" value="여행지수정"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/updateForm.jsp" />
+  </definition>
+  <definition name="/travel/delete" extends="main">
+    <put-attribute name="title" value="여행지삭제"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/deleteForm.jsp" />
+  </definition>
+ 
+</tiles-definitions>

@@ -23,7 +23,7 @@ public class NoticeController {
 	@Qualifier("com.study.notice.NoticeServiceImpl")
 	private NoticeService service;
 
-	@GetMapping("/admin/notice/create")
+	@GetMapping("/notice/create")
 	public String create() {
 
 		return "/notice/create";
@@ -54,7 +54,7 @@ public class NoticeController {
 		if (request.getParameter("nowPage") != null) {
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		}
-		int recordPerPage = 3;// 한페이지당 보여줄 레코드갯수
+		int recordPerPage = 10;// 한페이지당 보여줄 레코드갯수
 
 		// DB에서 가져올 순번-----------------
 		int sno = ((nowPage - 1) * recordPerPage);
@@ -122,7 +122,7 @@ public class NoticeController {
 		}
 
 		if (pcnt != 1) {
-			return "./passwdError";
+			return "/notice/passwdError";
 		} else if (cnt == 1) {
 			return "redirect:/notice/list";
 		} else {
@@ -151,7 +151,7 @@ public class NoticeController {
 		}
 		
 		if (pcnt != 1) {
-			return "./passwdError";
+			return "/notice/passwdError";
 		} else if (cnt == 1) {
 			return "redirect:/notice/list";
 		} else {
