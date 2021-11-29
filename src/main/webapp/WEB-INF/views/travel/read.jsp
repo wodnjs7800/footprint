@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -201,19 +202,22 @@
 						</div>
 					</div>
 				</div>
+				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px">
+                	<h4><b>위치 : ${dto.address1 } ${dto.address2 }</b></h4>
+                </div>
 				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<p class="blockquote">${dto.contents}</p>
 
 				</div>
 			</div>
-			<div style="margin-top: 50px;">
+			<div style="margin-top: 40px;">
 				<div class="col-xs-8">
-					<button class="btn-default" onclick="updateM()">수정</button>
-					<button class="btn-default" style="margin-left: 10px;"
-						onclick="deleteM()">삭제</button>
+					<button class="btn btn-outline-success my-2 my-sm-0" style="height:40px" onclick="updateM()">수정</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="deleteM()">삭제</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="listM()">목록</button>
 				</div>
-				<button class="btn-default" style="margin-left: 130px;">담기</button>
-				<button class="btn-default" style="margin-left: 10px;">뒤로</button>
+				<button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="">저장</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="history.back()">뒤로</button>
 			</div>
 			<hr>
 			<!--comments start-->
