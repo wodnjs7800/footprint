@@ -25,4 +25,6 @@ public interface TravelMapper {
 
 	double avg(int travelno);
 
+	int deleteReply(int travelno);
+
 }

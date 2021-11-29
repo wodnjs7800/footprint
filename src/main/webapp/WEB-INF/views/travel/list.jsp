@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>여행지 목록</title>
+    <title>여행 목록</title>
     <meta charset="utf-8">
     <link href="${pageContext.request.contextPath }/css/heon.css" rel="stylesheet">
     
