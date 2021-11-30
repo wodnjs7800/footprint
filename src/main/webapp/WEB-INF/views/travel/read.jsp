@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>조회</title>
+<title>여행 조회</title>
 <meta charset="utf-8">
 
 <link href="${pageContext.request.contextPath }/css/heon.css"
@@ -206,7 +206,7 @@
                 	<h4><b>위치 : ${dto.address1 } ${dto.address2 }</b></h4>
                 </div>
 				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<p class="blockquote">${dto.contents}</p>
+					<p class="blockquote">"${dto.contents}"</p>
 
 				</div>
 			</div>
@@ -214,7 +214,7 @@
 				<div class="col-xs-8">
 					<button class="btn btn-outline-success my-2 my-sm-0" style="height:40px" onclick="updateM()">수정</button>
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="deleteM()">삭제</button>
-                    <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="listM()">목록</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="listM()">여행목록</button>
 				</div>
 				<button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="">저장</button>
                 <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="history.back()">뒤로</button>
@@ -263,18 +263,17 @@
 				<!--comments close-->
 				<div class="leave-comments">
 					<h2 class="comment-title">댓글 달기</h2>
-					<span class="star-input"> <span class="input"> <input
-							type="radio" name="star-input" id="p2" value="1"><label
-							for="p2">1</label> <input type="radio" name="star-input" id="p4"
-							value="2"><label for="p4">2</label> <input type="radio"
-							name="star-input" id="p6" value="3"><label for="p6">3</label>
-							<input type="radio" name="star-input" id="p8" value="4"><label
-							for="p8">4</label> <input type="radio" name="star-input" id="p10"
-							value="5"><label for="p10">5</label>
-					</span> <output for="star-input">
-							<b id="point">0</b>점
-						</output>
-					</span>
+					<span class="star-input">
+  <span class="input">
+    <input type="radio" name="star-input" id="p2" value="1"><label for="p2">1</label>
+    <input type="radio" name="star-input" id="p4" value="2"><label for="p4">2</label>
+    <input type="radio" name="star-input" id="p6" value="3"><label for="p6">3</label>
+    <input type="radio" name="star-input" id="p8" value="4"><label for="p8">4</label>
+    <input type="radio" name="star-input" id="p10" value="5"><label for="p10">5</label>
+  </span>
+  <output  for="star-input"><b id="point">0</b>점</output>
+  
+</span>
 					<form>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">

@@ -160,18 +160,18 @@ function inCheck(f){
         >
     <div class="form-group">
       <label class="control-label col-sm-2" for="fnameMF">사진</label>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <input type="file" class="form-control" id="fnameMF" 
         name="fnameMF" accept=".jpg,.gif,.png">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="id"><span id="need">*</span>아이디</label>
-      <div class="col-sm-3">          
+      <div class="col-sm-4">          
         <input type="text" class="form-control" id="id" placeholder="Enter id" 
         name="id">
       </div>
-      <button type="button" class="btn btn-default col-sm-2"
+      <button type="button" class="btn col-sm-1" style="width: 120px;height: 35px; margin-top: 0px;"
       onclick="idCheck(document.frm.id.value)">ID 중복확인</button>
       <div id="idcheck"></div>
     </div>
@@ -205,24 +205,24 @@ function inCheck(f){
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="email"><span id="need">*</span>이메일</label>
-      <div class="col-sm-3">          
+      <div class="col-sm-4">          
         <input type="email" class="form-control" id="email" 
         placeholder="Enter email"  name="email">
       </div>
       
-      <button type="button" class="btn btn-default col-sm-2"
+      <button type="button" class="btn col-sm-1" style="width: 150px;height: 35px; margin-top: 0px;"
       onclick="emailCheck(document.frm.email.value)">Email 중복확인</button>
       <div id="emailcheck"></div>
       
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="sample6_postcode">우편번호</label>
-      <div class="col-sm-1">          
+      <div class="col-sm-2">          
         <input type="text" class="form-control" 
          name="zipcode" id="sample6_postcode" placeholder="우편번호">
       </div>
       
-      <button type="button" class="btn btn-default col-sm-2"
+      <button type="button" class="btn col-sm-1" style="width: 120px;height: 35px; margin-top: 0px;"
       onclick="sample6_execDaumPostcode()">주소검색</button>
       
     </div>
@@ -238,13 +238,13 @@ function inCheck(f){
     
     <div class="form-group">
     <label class="control-label col-sm-2" for="job"><span id="need">*</span>직업</label>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
     	<select name="job" class="form-control">
     		<option value="0">선택하세요</option>
 			<option value="A01">회사원</option>
 			<option value="A02">전산관련직</option>
 			<option value="A03">연구전문직</option>
-			<option value="A04">각종학교학생</option>
+			<option value="A04">학생</option>
 			<option value="A05">일반자영업</option>
 			<option value="A06">공무원</option>
 			<option value="A07">의료인</option>
@@ -258,9 +258,10 @@ function inCheck(f){
     </div>
        
     <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-5">
-        <button type="submit" class="btn btn-default">등록</button>
-        <button type="reset" class="btn btn-default">취소</button>
+      <div class="col-sm-offset-2 col-sm-6" >
+        <button type="submit" class="btn"  style="height:40px">등록</button>
+        <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
+        <button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
       </div>
     </div>
   </form>

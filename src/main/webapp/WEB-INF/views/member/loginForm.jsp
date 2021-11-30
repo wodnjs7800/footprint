@@ -54,10 +54,10 @@
       </div>
     </div>
     <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-8">
-        <button type="submit" class="btn btn-default">로그인</button>
-        <button type="button" class="btn btn-default"
-         onclick="location.href='agree'">회원가입</button>
+      <div class="col-sm-offset-2 col-sm-4" style="margin-bottom:50px">
+        <button type="submit" class="btn" style="height:40px">로그인</button>
+        <button type="button" class="btn" style="height:40px; margin-left:5px" onclick="location.href='agree'">회원가입</button>
+         <button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
        
        
       </div>

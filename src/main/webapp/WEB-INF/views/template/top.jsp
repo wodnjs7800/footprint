@@ -69,10 +69,6 @@
 						</c:when>
 						<c:when
 							test="${not empty sessionScope.id && sessionScope.grade == 'A'}">
-							<li><a href="${root}/admin/create"><span
-									class="glyphicon glyphicon-plus-sign"></span> 맛집목록</a></li>
-							<li><a href="${root}/contents/list"><span
-									class="glyphicon glyphicon-plus-sign"></span> 여행목록</a></li>
 							<li><a href="${root}/admin/list"><span
 									class="glyphicon glyphicon-list"></span> 회원목록</a></li>
 							<li><a href="${root}/member/logout"><span
@@ -115,10 +111,10 @@
                                     <li class="active"><a href="${root}/" title="Home">홈</a></li>
                                     <li><a href="/travel/list" title="travel_list">여행</a> </li>
                                     <li><a href="/food/list" title="food_list">맛집</a> </li>
-                                    <li class="has-sub"><a href="blog-default.html" title="Blog ">커뮤니티</a>
+                                    <li class="has-sub"><a title="Blog ">커뮤니티</a>
                                         <ul>
-                                            <li><a href="/notice/list" title="Notice">게시판</a></li>
-                                            <li><a href="blog-single.html" title="Q&a ">Q&A</a></li>
+                                            <li><a href="/notice/list" title="Notice">공지사항</a></li>
+                                            <li><a href="/naver_chatting" title="Q&a ">Q&A</a></li>
                                         </ul>
                                     </li>
                                       

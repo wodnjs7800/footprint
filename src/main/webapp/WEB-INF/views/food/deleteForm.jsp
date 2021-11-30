@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>삭제</title>
+  <title>음식 삭제</title>
   <meta charset="utf-8">
   <style type="text/css">
   #red{
@@ -33,7 +33,7 @@
     <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="foodname"><strong>위치</strong> :
     </label>
     <div class="col-sm-8">
-      <p>${dto.local } ${dto.address1 } ${dto.address2 }</p>
+      <p>${dto.address1 } ${dto.address2 }</p>
     </div>
   </div>
   <div class="form-group">
@@ -60,9 +60,10 @@
   <p id="red" class="col-sm-offset-2 col-sm-6">삭제하면 복구할 수 없습니다</p>
   
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
+   <div class="col-sm-offset-2 col-sm-6" style="margin-bottom:50px">
     <button class="btn">삭제</button>
     <button type="reset" class="btn">취소</button>
+    <button type="reset" class="btn"  onclick="history.back()" style="height:40px; float:right;">뒤로</button>
    </div>
  </div>
 </form>

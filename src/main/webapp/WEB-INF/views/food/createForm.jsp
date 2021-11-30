@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>음식생성</title>
+  <title>음식 생성</title>
   <meta charset="utf-8">
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   <script>
@@ -117,14 +117,14 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="foodname">음식점명
     </label>
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <input type="text" name="foodname" id="foodname" class="form-control" placeholder="음식점명" >
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-sm-2" for="contents">내용</label>
-    <div class="col-sm-8">
+    <div class="col-sm-7">
     <textarea rows="12" cols="7" id="contents" name="contents" class="form-control" placeholder="내용"></textarea>
     </div>
   </div>
@@ -133,63 +133,63 @@
     <label class="control-label col-sm-2" for="local">지역</label>
     <div class="col-sm-6">
       <select class="form-control" name="local">
-        <option value="0"
-        <c:if test= "${local==0}"> 선택 </c:if>
-        >지역을 선택해주세요</option>
-        <option value="서울시"
-        <c:if test= "${local=='서울시'}"> 선택 </c:if>
-        >서울시</option>
-        <option value="부산광역시"
-        <c:if test= "${local=='부산광역시'}"> 선택 </c:if>
-        >부산광역시</option>
-        <option value="대구광역시"
-        <c:if test= "${local=='대구광역시'}"> 선택 </c:if>
-        >대구광역시</option>
-        <option value="인천광역시"
-        <c:if test= "${local=='인천광역시'}"> 선택 </c:if>
-        >인천광역시</option>
-        <option value="광주광역시"
-        <c:if test= "${local=='광주광역시'}"> 선택 </c:if>
-        >광주광역시</option>
-        <option value="대전광역시"
-        <c:if test= "${local=='대전광역시'}"> 선택 </c:if>
-        >대전광역시</option>
-        <option value="울산광역시"
-        <c:if test= "${local=='울산광역시'}"> 선택 </c:if>
-        >울산광역시</option>
-        <option value="세종시"
-        <c:if test= "${local=='세종시'}"> 선택 </c:if>
-        >세종시</option>
-        <option value="경기남부"
-        <c:if test= "${local=='경기남부'}"> 선택 </c:if>
-        >경기남부</option>
-        <option value="경기북부"
-        <c:if test= "${local=='경기북부'}"> 선택 </c:if>
-        >경기북부</option>
-        <option value="강원도"
-        <c:if test= "${local=='강원도'}"> 선택 </c:if>
-        >강원도</option>
-        <option value="충청북도"
-        <c:if test= "${local=='충청북도'}"> 선택 </c:if>
-        >충청북도</option>
-        <option value="충청남도"
-        <c:if test= "${local=='충청남도'}"> 선택 </c:if>
-        >충청남도</option>
-        <option value="전라북도"
-        <c:if test= "${local=='전라북도'}"> 선택 </c:if>
-        >전라북도</option>
-        <option value="전라남도"
-        <c:if test= "${local=='전라남도'}"> 선택 </c:if>
-        >전라남도</option>
-        <option value="경상북도"
-        <c:if test= "${local=='경상북도'}"> 선택 </c:if>
-        >경상북도</option>
-        <option value="경상남도"
-        <c:if test= "${local=='경상남도'}"> 선택 </c:if>
-        >경상남도</option>
-        <option value="제주도"
-        <c:if test= "${local=='제주도'}"> 선택 </c:if>
-        >제주도</option>
+        				<option value="0"
+				        <c:if test= '${col=="0"}'> 선택 </c:if>
+				        >지역을 선택해주세요</option>
+				        <option value="강원도"
+				        <c:if test= "${col=='강원도'}"> 선택 </c:if>
+				        >강원도</option>
+						<option value="경기남부"
+				        <c:if test= "${col=='경기남부'}"> 선택 </c:if>
+				        >경기남부</option>
+				        <option value="경기북부"
+				        <c:if test= "${col=='경기북부'}"> 선택 </c:if>
+				        >경기북부</option>
+						<option value="경상남도"
+				        <c:if test= "${col=='경상남도'}"> 선택 </c:if>
+				        >경상남도</option>
+						<option value="경상북도"
+				        <c:if test= "${col=='경상북도'}"> 선택 </c:if>
+				        >경상북도</option>
+						<option value="광주광역시"
+				        <c:if test= "${col=='광주광역시'}"> 선택 </c:if>
+				        >광주광역시</option>
+						<option value="대구광역시"
+				        <c:if test= "${col=='대구광역시'}"> 선택 </c:if>
+				        >대구광역시</option>
+						<option value="대전광역시"
+				        <c:if test= "${col=='대전광역시'}"> 선택 </c:if>
+				        >대전광역시</option>
+ 						<option value="부산광역시"
+				        <c:if test= "${col=='부산광역시'}"> 선택 </c:if>
+				        >부산광역시</option>
+				        <option value="서울시"
+				        <c:if test= "${col=='서울시'}"> 선택 </c:if>
+				        >서울시</option>
+						<option value="세종시"
+				        <c:if test= "${col=='세종시'}"> 선택 </c:if>
+				        >세종시</option>
+ 						<option value="울산광역시"
+				        <c:if test= "${col=='울산광역시'}"> 선택 </c:if>
+				        >울산광역시</option>
+				         <option value="인천광역시"
+				        <c:if test= "${col=='인천광역시'}"> 선택 </c:if>
+				        >인천광역시</option>
+ 						<option value="전라남도"
+				        <c:if test= "${col=='전라남도'}"> 선택 </c:if>
+				        >전라남도</option>
+						<option value="전라북도"
+				        <c:if test= "${col=='전라북도'}"> 선택 </c:if>
+				        >전라북도</option>
+ 						<option value="제주도"
+				        <c:if test= "${col=='제주도'}"> 선택 </c:if>
+				        >제주도</option>
+						<option value="충청남도"
+				        <c:if test= "${col=='충청남도'}"> 선택 </c:if>
+				        >충청남도</option>
+						<option value="충청북도"
+				        <c:if test= "${col=='충청북도'}"> 선택 </c:if>
+				        >충청북도</option>
         
       </select>
     </div>
@@ -236,10 +236,10 @@
     </div>
   </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-8" style="margin-bottom:100px">
+   <div class="col-sm-offset-2 col-sm-7" style="margin-bottom:50px">
     <button type="submit" class="btn"  style="height:40px">등록</button>
     <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
-    <button type="reset" class="btn" onclick="history.back()" style="height:40px; margin-left:380px">뒤로</button>
+    <button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
    </div>
  </div>
 </form>

@@ -6,7 +6,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>Bootstrap Example</title>
+  <title>공지사항 목록</title>
   <meta charset="utf-8">
   
   
@@ -26,10 +26,10 @@
 <body>
 <div class="container">
  
-   <h2>공지 사항</h2>
-  <form class="form-inline" method="post" action="../notice/list">
-    <div class="form-group" style="height: 40px; margin-top: 5px;">
-      <select class="form-control" name="col">
+   <h2>공지 목록</h2>
+  <form class="form-inline" method="post" action="/notice/list">
+    <div class="form-group" >
+      <select class="form-control" name="col"style="height: 40px; margin-top: 10px;">
         <option value="wname"
         <c:if test= "${col=='wname'}"> selected </c:if>
         >성명</option>
@@ -49,11 +49,11 @@
     </div>
     
     <div class="form-group">
-      <input type="text" class="form-control" style="height: 40px; margin-top: 5px;" placeholder="Enter 검색어" 
+      <input type="text" class="form-control" style="height: 40px; margin-top: 10px;" placeholder="Enter 검색어" 
       name="word" value="${word}">
     </div>
-    <button type="submit" class="form-control" style="width: 120px;height: 40px; margin-top: 5px;">검색</button>
-    <button type="button" class="form-control" style="width: 120px;height: 40px; margin-top: 5px;" onclick="location.href='../admin/notice/create'">등록</button>
+    <button type="submit" class="btn" style="width: 120px;height: 40px; margin-top: 0px;">검색</button>
+    <button type="button" class="btn" style="width: 120px;height: 40px; margin-top: 0px;" onclick="location.href='../admin/notice/create'">등록</button>
   </form>
   
   <table class="table table-striped">
@@ -99,7 +99,7 @@
    </tbody>
   
   </table>
-  <div>
+  <div style="margin-bottom:50px">
       ${paging}
   </div>
 </div>
