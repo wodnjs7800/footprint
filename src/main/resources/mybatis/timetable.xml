@@ -17,6 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id}
 		and foodno is not null
 	</select>
+	<select id="plist" parameterType="int" resultType="com.study.plan.PlanDTO">
+		select * from plan
+		where ttid = #{ttid}
+	</select>
 	<!-- create -->
 	<insert id="create"
 		parameterType="com.study.timetable.TimeTableDTO">

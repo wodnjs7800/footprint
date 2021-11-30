@@ -7,34 +7,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
+	
+	let day = getDateRangeData("${startdate}", "${enddate}");
+	
+	function getDateRangeData(param1, param2){  //param1은 시작일, param2는 종료일이다.
+		var res_day = [];
+	 	var ss_day = new Date(param1);
+	   	var ee_day = new Date(param2);    	
+	  		while(ss_day.getTime() <= ee_day.getTime()){
+	  			var _mon_ = (ss_day.getMonth()+1);
+	  			_mon_ = _mon_ < 10 ? '0'+_mon_ : _mon_;
+	  			var _day_ = ss_day.getDate();
+	  			_day_ = _day_ < 10 ? '0'+_day_ : _day_;
+	   			res_day.push(ss_day.getFullYear() + '-' + _mon_ + '-' +  _day_);
+	   			ss_day.setDate(ss_day.getDate() + 1);
+	   	}
+	   	return res_day;
+	}
+	
 	function addPlan(days) {
 		var url = "/timetable/update";
 		url += "?ttid=${dto.ttid}";
-		url += "&days="+days;
+		url += "&days=" + days;
 		url += "&id=${dto.id}";
 		url += "&startdate=${startdate}"
 		url += "&enddate=${enddate}"
+		url += "&day="+day;
 		
 		location.href = url;
 	}
 	
-	function deleteTimetable(){
-		
+	function deleteTimetable() {
 		$('#delete-dialog').dialog({
-			modal:true,
-			buttons:{
+			modal : true,
+			buttons : {
 				"Yes" : function() {
-					var url ="/timetable/delete";
+					var url = "/timetable/delete";
 					url += "?ttid=${dto.ttid}";
-				
+
 					location.href = url;
 				},
-				"No" : function(){
+				"No" : function() {
 					$(this).dialog('close');
 				}
 			}
@@ -44,49 +63,46 @@
 </head>
 <body>
 	<!-- create랑 같음. 일정 날짜만 변경 할 수 있음. -->
-	<div id="delete-dialog" title="삭제" style="display:none">
-		테이블을 삭제하시겠습니까?
-	</div>
-	<div style="float: right; padding-left: 100px; padding-right: 100px;">
+	<div id="delete-dialog" title="삭제" style="display: none">테이블을
+		삭제하시겠습니까?</div>
+	<div style="padding-left: 100px;">
 		<p>
-			<a href="javascript:addPlan(${days })">일정 수정</a>&nbsp;&nbsp; <!-- 추후에 필요 여부에 따라 지울지 말지 결정하겠음. -->
+			<a href="javascript:addPlan(${days })">일정 수정</a>&nbsp;&nbsp;
+			<!-- 추후에 필요 여부에 따라 지울지 말지 결정하겠음. -->
 			<a href="javascript:deleteTimetable()">일정표 삭제</a>
 		</p>
 	</div>
-	<div style="padding-left: 100px; padding-right: 100px; width: 100%%">
-		<table style="width: 100%">
+	<div style="overflow-y:scroll; padding-left: 100px; padding-right: 100px; width: 100%%; height:500px;">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th colspan="8" style="font-size: 22px; text-align: center">${dto.name }</th>
 				</tr>
 
-				<c:forEach var="i" begin="1" end="${days }" step="1">
-					<table style="border=1 solid red; width:100%">
+				<c:forEach var="i" begin="0" end="${days-1 }" step="1">
+					<table class="table table-striped">
 						<tr>
-							<th colspan="37">${i }</th>
+							<th colspan="3" style="text-align: center">${list[i] }</th>
 						</tr>
-						<tr>
-							<c:forEach var="time" begin="12" end="48" step="1">
-
-								<c:choose>
-									<c:when test="${time%2 == 0 }">
-										<td><f:formatNumber value="${time/2}" pattern="#" />:00&nbsp;</td>
-									</c:when>
-									<c:otherwise>
-										<td><f:formatNumber value="${(time/2)-0.5 }" pattern="#" />:30&nbsp;</td>
-										<!-- 숫자가 이상하게 추력되는 경우가 있어서 -0.5 해줌 -->
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</tr>
-						<tr>
-							<c:forEach var="i" begin="1" end="37" step="1">
-								<td>
-									${i }
-								</td>
-							</c:forEach>
-						</tr>
-					</table>		
+						<c:choose>
+							<c:when test="${empty plist }">
+								<tr>
+									<td colspan="5">등록된 일정이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="dto" items="${plist }">
+									<tr>
+										<c:if test="${(dto.ddate == list[i]) }">
+											<td>${dto.bname }</td>
+											<td>${dto.starttime }</td>
+											<td>${dto.endtime }</td>
+										</c:if>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</table>
 				</c:forEach>
 			</thead>
 			<tbody>

@@ -18,6 +18,7 @@
 <script type="text/javascript">
 var map;
 var markerInfo;
+
 //출발지,도착지 마커
 var marker_s, marker_e, marker_p;
 //경로그림정보
@@ -28,51 +29,46 @@ var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
 
+
+
+//좌표 관련
 var lat, lng;
 var lat_s, lng_s, lat_e, lng_e;
 var marker;
 
+//장소간 이동시 거리 및 시간
 var tDistance;
 var tTime;
-
 var startplace;
 var goalplace;
 
+//시간
 var st;
 var et;
+var ddate;
 
-const reload=()=>window.location.reload();
+//일정 추가
+var list = new Array();
+var plan = new Object();
 
-let plan = {
-		
-};
+//시간순으로 정렬
+var result;
 
-if(lat_s == null && lng_s == null) {
+if(lat_s == null && lng_s == null) 
+{
 	navigator.geolocation.getCurrentPosition(function(pos) {
     lat_s = pos.coords.latitude;
     lng_s = pos.coords.longitude;
 	});
 }	
 
-	function checkNull(st, et, tDistance) {
-		if(st.value == ""){
-			alert("시간을 입력해주세요");
-			tDistance = 0;
-			tTime = 0;
-			return false;
-		} else if(et.value == ""){
-			alert("시간을 입력해주세요");
-			tDistance = 0;
-			tTime = 0;
-			return false;
-		} else if(tDistance == null || tDistance == 0) {
-			alert("길찾기를 해주세요");
-			return false;
-		}
-		return true;
+	/*Null Check만 해주자*/
+	function nullCheck(f){
+		f.
 	}
 
-	function addPlan(lat, lng, name) {
+
+	function addPlan() {
 		$('#addplan-dialog').dialog({
 			modal : true,
 			width : 'auto',
@@ -80,17 +76,7 @@ if(lat_s == null && lng_s == null) {
 			resizable : false,
 			buttons : {
 				"Yes" : function() {
-					st = document.getElementById("starttime");
-					et = document.getElementById("endtime");
-					if(checkNull(st, et, tDistance) == true){
-						$("#distance").text("");
-						$("#ttime").text("");
-						startplace = goalplace;
-						lat_s = lat;
-						lng_s = lng;
-					}
-					tDistance = 0;
-					tTime = 0;
+					timeCheck(this);
 					map.destroy();
 					$(this).dialog('close');
 				},
@@ -151,112 +137,97 @@ if(lat_s == null && lng_s == null) {
 					map : map
 				});
 
-		// 3. 경로탐색 API 사용요청
-		$("#btn_select")
-				.click(
-						function() {
+		calcDistance();
+	}
+	// 3. 경로탐색 API 사용요청
+	function calcDistance() {
 
-							var searchOption = $("#selectLevel").val();
+		var searchOption = 0;
 
-							//JSON TYPE EDIT [S]
-							$.ajax({
-										type : "POST",
-										url : "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
-										async : false,
-										data : {
-											"appKey" : "l7xx88497c9cdfc84f02ad5ef647680fd346",
-											"startX" : lng_s.toString(),
-											"startY" : lat_s.toString(),
-											"endX" : lng_e.toString(),
-											"endY" : lat_e.toString(),
-											"reqCoordType" : "WGS84GEO",
-											"resCoordType" : "EPSG3857",
-											"searchOption" : searchOption,
-											"trafficInfo" : "Y"
-										},
-										success : function(response) {
+		$.ajax({
+			type : "POST",
+				url : "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
+				async : false,
+				data : {
+					"appKey" : "l7xx88497c9cdfc84f02ad5ef647680fd346",
+					"startX" : lng_s.toString(),
+					"startY" : lat_s.toString(),
+					"endX" : lng_e.toString(),
+					"endY" : lat_e.toString(),
+					"reqCoordType" : "WGS84GEO",
+					"resCoordType" : "EPSG3857",
+					"searchOption" : searchOption,
+					"trafficInfo" : "Y"
+			},
+			success : function(response) {
+				var resultData = response.features;
 
-											var resultData = response.features;
+				tDistance = parseFloat((resultData[0].properties.totalDistance / 1000).toFixed(1));
+				tTime = parseFloat((resultData[0].properties.totalTime / 60).toFixed(0));
+						
+				$("#distance").text((resultData[0].properties.totalDistance / 1000).toFixed(1)+"km");
+				$("#ttime").text((resultData[0].properties.totalTime / 60).toFixed(0)+"분")
+									
+									//교통정보 표출 옵션값을 체크
+				for ( var i in resultData) { //for문 [S]
+					var geometry = resultData[i].geometry;
+					var properties = resultData[i].properties;
 
-											tDistance = parseFloat((resultData[0].properties.totalDistance / 1000).toFixed(1));
-											tTime = parseFloat((resultData[0].properties.totalTime / 60).toFixed(0));
-								
-											$("#distance").text((resultData[0].properties.totalDistance / 1000).toFixed(1)+"km");
-											$("#ttime").text((resultData[0].properties.totalTime / 60).toFixed(0)+"분")
-											
-											//교통정보 표출 옵션값을 체크
-												for ( var i in resultData) { //for문 [S]
-													var geometry = resultData[i].geometry;
-													var properties = resultData[i].properties;
+					if (geometry.type == "LineString") {
+					//교통 정보도 담음
+						chktraffic.push(geometry.traffic);
+						var sectionInfos = [];
+						var trafficArr = geometry.traffic;
 
-													if (geometry.type == "LineString") {
-														//교통 정보도 담음
-														chktraffic
-																.push(geometry.traffic);
-														var sectionInfos = [];
-														var trafficArr = geometry.traffic;
+						for ( var j in geometry.coordinates) {
+						// 경로들의 결과값들을 포인트 객체로 변환 
+							var latlng = new Tmapv2.Point(geometry.coordinates[j][0], geometry.coordinates[j][1]);
+						// 포인트 객체를 받아 좌표값으로 변환
+							var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlng);
 
-														for ( var j in geometry.coordinates) {
-															// 경로들의 결과값들을 포인트 객체로 변환 
-															var latlng = new Tmapv2.Point(
-																	geometry.coordinates[j][0],
-																	geometry.coordinates[j][1]);
-															// 포인트 객체를 받아 좌표값으로 변환
-															var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-																	latlng);
+							sectionInfos.push(convertPoint);
+						}
+						drawLine(sectionInfos, trafficArr);
+					} else {
+						var markerImg = "";
+						var pType = "";
 
-															sectionInfos
-																	.push(convertPoint);
-														}
+						if (properties.pointType == "S") { //출발지 마커
+							markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+							pType = "S";
+						} else if (properties.pointType == "E") { //도착지 마커
+							markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+							pType = "E";
+						} else { //각 포인트 마커
+							markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+							pType = "P"
+						}
 
-														drawLine(sectionInfos,
-																trafficArr);
-													} else {
+						// 경로들의 결과값들을 포인트 객체로 변환 
+						var latlon = new Tmapv2.Point(geometry.coordinates[0], geometry.coordinates[1]);
+						// 포인트 객체를 받아 좌표값으로 다시 변환
+						var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlon);
 
-														var markerImg = "";
-														var pType = "";
-
-														if (properties.pointType == "S") { //출발지 마커
-															markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
-															pType = "S";
-														} else if (properties.pointType == "E") { //도착지 마커
-															markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
-															pType = "E";
-														} else { //각 포인트 마커
-															markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-															pType = "P"
-														}
-
-														// 경로들의 결과값들을 포인트 객체로 변환 
-														var latlon = new Tmapv2.Point(
-																geometry.coordinates[0],
-																geometry.coordinates[1]);
-														// 포인트 객체를 받아 좌표값으로 다시 변환
-														var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-																latlon);
-
-														var routeInfoObj = {
-															markerImage : markerImg,
-															lng : convertPoint._lng,
-															lat : convertPoint._lat,
-															pointType : pType
-														};
-														// 마커 추가
-														addMarkers(routeInfoObj);
-													}
-												}
-										},
-										error : function(request, status, error) {
-											alert(3);
-											console.log("code:"
-													+ request.status + "\n"
-													+ "message:"
-													+ request.responseText
-													+ "\n" + "error:" + error);
-										}
-									});
-							//JSON TYPE EDIT [E]
-						});
+						var routeInfoObj = {
+							markerImage : markerImg,
+							lng : convertPoint._lng,
+							lat : convertPoint._lat,
+							pointType : pType
+						};
+												// 마커 추가
+						addMarkers(routeInfoObj);
+					}
+				}
+			},
+			error : function(request, status, error) {
+						console.log("code:"
+						+ request.status + "\n"
+						+ "message:"
+						+ request.responseText
+						+ "\n" + "error:" + error);
+					}
+			});
+					//JSON TYPE EDIT [E]
 	}
 	
 	function addComma(num) {
@@ -455,45 +426,44 @@ if(lat_s == null && lng_s == null) {
 </head>
 <body>
 	<!-- create랑 같음. 일정 날짜만 변경 할 수 있음. -->
-	<div id="addplan-dialog" title="일정 추가" style="display: none">
-		<input type="time" id="starttime"> <input type="time"
-			id="endtime">
-		<table>
-			<tr>
-				<td><label id="startplace"></label></td>
-			</tr>
-			<tr>
-				<td><label id="goalplace"></label></td>
-			</tr>
-			<tr>
-				<td><label>총 거리 :&nbsp; </label> <label id="distance"></label>&nbsp;
-				</td>
-			</tr>
-			<tr>
-				<td><label>소요시간 :&nbsp;</label> <label id="ttime"></label></td>
-			</tr>
-		</table>
-		<div class="ft_select">
-			<select id="selectLevel">
-				<option value="0" selected="selected">교통최적+추천</option>
-				<option value="1">교통최적+무료우선</option>
-				<option value="2">교통최적+최소시간</option>
-				<option value="3">교통최적+초보</option>
-				<option value="4">교통최적+고속도로우선</option>
-				<option value="10">최단거리+유/무료</option>
-				<option value="12">이륜차도로우선</option>
-				<option value="19">교통최적+어린이보호구역 회피</option>
-			</select>
-			<button id="btn_select">길찾기</button>
+	<section>
+		<div style="float: right; padding-right: 100px;">
+			<a href='/timetable/list'>목록</a>
 		</div>
-		<div id="map_div"></div>
-	</div>
-	<div>
+		<div id="addplan-dialog" title="일정 추가" style="display: none">
+			<form class="form-horisontal" action="/timetable/update"
+				method="post" name="frm" enctype="multipart/form-data"
+				onsubmit="return nullCheck(this)">
+				<input type="hidden" value="${dto.ttid }"> 
+				<input type="date" value="${dto.startdate }" 
+				min="${dto.startdate }" id="ddate" max="${dto.enddate }"> 
+				<input type="time" id="starttime"> 
+				<input type="time" id="endtime"> 
+				<input type="hidden" id="movetime" value="">
+				<input type="hidden" id="sp">
+				<table>
+					<tr>
+						<td><label id="startplace"></label></td>
+					</tr>
+					<tr>
+						<td><label id="goalplace"></label></td>
+					</tr>
+					<tr>
+						<td><label>총 거리 :&nbsp; </label> <label id="distance"></label>&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td><label>소요시간 :&nbsp;</label> <label id="ttime"></label></td>
+					</tr>
+				</table>
+			</form>
+			<div id="map_div"></div>
+		</div>
+
 		<div class="space-medium"
 			style="padding-left: 100px; padding-right: 100px;">
-
-			<div class="container" style="float: left; width: 25%;">
-				<table>
+			<div style="overflow-y:scroll; height:400px; float:left; width:25%;">
+				<table class="table table-striped">
 					<tr>
 						<th>List of Bookmark(food)</th>
 					</tr>
@@ -505,10 +475,10 @@ if(lat_s == null && lng_s == null) {
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="dto" items="${flist }">
+							<c:forEach var="dt" items="${flist }">
 								<tr>
 									<td><a
-										href="javascript:addPlan('${dto.lat }','${dto.lng }','${dto.bname }')">${dto.bname }</a>
+										href="javascript:addPlan()">${dt.bname }</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -516,8 +486,8 @@ if(lat_s == null && lng_s == null) {
 					</c:choose>
 				</table>
 			</div>
-			<div class="container" style="float: left; width: 25%;">
-				<table>
+			<div style="overflow-y:scroll; height:400px; float:left; width:25%;">
+				<table class="table table-striped">
 					<tr>
 						<th>List of Bookmark(travel)</th>
 					</tr>
@@ -529,10 +499,10 @@ if(lat_s == null && lng_s == null) {
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="dto" items="${tlist }">
+							<c:forEach var="dt" items="${tlist }">
 								<tr>
 									<td><a
-										href="javascript:addPlan('${dto.lat }','${dto.lng }','${dto.bname }')">${dto.bname }</a>
+										href="javascript:addPlan()">${dt.bname }</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -540,35 +510,47 @@ if(lat_s == null && lng_s == null) {
 					</c:choose>
 				</table>
 			</div>
-			<div class="container" style="float: left; width: 50%;">
-				<table>
-					<tr>
-						<th colspan="2"><input type="date" value="${dto.startdate }"
-							min="${dto.startdate }" max="${dto.enddate }"
-							onchange="loadPlan()"></th>
-					</tr>
-					<c:choose>
-						<c:when test="${empty list }">
-							<tr>
-								<td>일정이 없습니다.</td>
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach var="dto" items="${list }">
-								<c:if test="${empty dto.foodno }">
-									<tr>
-										<td>${dto.bmno }</td>
-									</tr>
-								</c:if>
+			<div style="overflow-y:scroll; height:400px; float:left; width:50%">
+				<table class="table table-striped" style="float:left;">
+					<!-- 여기는 for문 -->
+					<c:forEach var="i" begin="0" end="${days-1 }" step="1">
+						<tr>
+							<th style="font-size:8px; text-align: center">${list[i] }</th>
+							<th>일정ID</th>
+							<th>이름</th>
+							<th>일정 날짜</th>
+							<th colspan="2">소요시간(최소 출발시간)</th>
+						</tr>
+						<c:choose>
+							<c:when test="${empty plist }">
 								<tr>
-									<td>${dto.bmno }</td>
+									<td colspan="5">등록된 일정이 없습니다.</td>
 								</tr>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="dt" items="${plist }">
+									<tr>
+										<c:if test="${dt.ddate == list[i] }">
+											<td></td>
+											<td>${dt.planid }</td>
+											<td><a href="javascript:addPlan()">${dt.bname }</a></td>
+											<td>${dt.ddate }</td>
+											<td>${dt.starttime } ~ ${dt.endtime }</td>
+											<td>(${dt.movetime }에는 출발해야 합니다.)</td>
+										</c:if>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</table>
 			</div>
 		</div>
-	</div>
+		<div>
+			<table style="width:100%;">
+				<tr><td></td></tr>
+			</table>
+		</div>
+	</section>
 </body>
 </html>

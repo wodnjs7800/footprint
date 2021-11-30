@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.bookmark.BookmarkDTO;
+import com.study.plan.PlanDTO;
 
 @Service("com.study.timetable.TimeTableServiceImpl")
 public class TimeTableServiceImpl implements TimeTableService {
@@ -53,6 +54,12 @@ public class TimeTableServiceImpl implements TimeTableService {
 	public List<BookmarkDTO> tlist(String id) {
 		// TODO Auto-generated method stub
 		return mapper.tlist(id);
+	}
+
+	@Override
+	public List<PlanDTO> plist(int ttid) {
+		// TODO Auto-generated method stub
+		return mapper.plist(ttid);
 	}
 
 }

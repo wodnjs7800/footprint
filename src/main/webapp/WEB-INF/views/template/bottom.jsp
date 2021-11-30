@@ -77,7 +77,7 @@
         <div class="tiny-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">발자국</a></div>
+                    <div class="col-md-12">발자국</div>
                 </div>
             </div>
             <!-- tiny-footer-start -->

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.bookmark.BookmarkDTO;
+import com.study.plan.PlanDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -50,18 +51,36 @@ public class TimeTableController {
 	}
 
 	@GetMapping("/timetable/read")
-	public String read(int ttid, int days, String startdate, String enddate, Model model) {
-
+	public String read( HttpServletRequest request) {
+		
+		int ttid = Integer.parseInt(request.getParameter("ttid"));
+		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		int days = Integer.parseInt(request.getParameter("days"));
+		String day = request.getParameter("day");
+		String enddate = request.getParameter("enddate");
+		String startdate = request.getParameter("startdate");
+		
+		String[] list = day.split(",");
+		
 		TimeTableDTO dto = service.read(ttid);
+		List<PlanDTO> plist = service.plist(ttid);
 
-		model.addAttribute("dto", dto);
-		model.addAttribute("days", days);
-		model.addAttribute("enddate", enddate);
-		model.addAttribute("startdate", startdate);
+		request.setAttribute("plist",plist);
+		request.setAttribute("dto", dto);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("days", days);
+		request.setAttribute("enddate", enddate);
+		request.setAttribute("startdate", startdate);
+		request.setAttribute("list", list);
 
 		return "/timetable/read";
 	}
 
+	@GetMapping("/timetable/list")
+	public String list() {
+		return "redirect:list";
+	}
+	
 	@RequestMapping("/timetable/list")
 	public String map(HttpServletRequest request) {
 		// 페이지 관련
@@ -101,12 +120,22 @@ public class TimeTableController {
 
 		TimeTableDTO dto = service.read(Integer.parseInt(request.getParameter("ttid")));
 		List<BookmarkDTO> tlist = service.tlist(request.getParameter("id"));
+		int days = Integer.parseInt(request.getParameter("days"));
 		List<BookmarkDTO> flist = service.flist(request.getParameter("id"));
+		List<PlanDTO> plist = service.plist(Integer.parseInt(request.getParameter("ttid")));
+		String day = request.getParameter("day");
+		
+		String[] list = day.split(",");
+		
+		System.out.println(list);
 		
 		request.setAttribute("dto", dto);
+		request.setAttribute("list", list);
 		request.setAttribute("flist", flist);
 		request.setAttribute("tlist", tlist);
+		request.setAttribute("plist", plist);
 		request.setAttribute("dto", dto);
+		request.setAttribute("days", days);
 		request.setAttribute("startdate", request.getAttribute("startdate"));
 		request.setAttribute("startdate", request.getAttribute("enddate"));
 		

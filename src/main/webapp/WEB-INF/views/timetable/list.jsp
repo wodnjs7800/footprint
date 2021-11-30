@@ -19,8 +19,10 @@
 		let da1 = new Date(arrsd[0], arrsd[1], arrsd[2]);
 		let da2 = new Date(arred[0], arred[1], arred[2]);
 		let dif = da2 - da1;
-		let cDay = 24 * 60 * 60 * 1000;
+		let cDay = 24 * 60 * 60 * 1000; //시 분 초 밀리 샌컨즈
 
+		let day = getDateRangeData(startdate, enddate);
+		
 		days = parseInt(dif / cDay) + 1;
 
 		var url = "/timetable/read";
@@ -28,9 +30,25 @@
 		url += "&nowPage=${nowPage}";
 		url += "&days=" + days;
 		url += "&startdate=" + startdate;
-		url += "&enddatae=" + enddate;
+		url += "&enddate=" + enddate;
+		url += "&day=" + day;
 
 		location.href = url;
+	}
+	
+	function getDateRangeData(param1, param2){  //param1은 시작일, param2는 종료일이다.
+		var res_day = [];
+	 	var ss_day = new Date(param1);
+	   	var ee_day = new Date(param2);    	
+	  		while(ss_day.getTime() <= ee_day.getTime()){
+	  			var _mon_ = (ss_day.getMonth()+1);
+	  			_mon_ = _mon_ < 10 ? '0'+_mon_ : _mon_;
+	  			var _day_ = ss_day.getDate();
+	  			_day_ = _day_ < 10 ? '0'+_day_ : _day_;
+	   			res_day.push(ss_day.getFullYear() + '-' + _mon_ + '-' +  _day_);
+	   			ss_day.setDate(ss_day.getDate() + 1);
+	   	}
+	   	return res_day;
 	}
 </script>
 </head>

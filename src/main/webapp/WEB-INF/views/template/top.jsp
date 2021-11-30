@@ -33,8 +33,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+.kakaoChat {
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	width: 80px;
+	height: 80px;
+	z-index: 99;
+}
+</style>
 </head>
 <body>
+<a href="/naver_chatting"><img class="kakaoChat expand_img"
+		src="${pageContext.request.contextPath }/images/naverChat/naverChat.jpg" /></a>
       <!-- header-section start -->
       <div class="top-bar">
         <div class="container">
