@@ -14,13 +14,18 @@ public class TilesConfiguration {
       //해당 경로에 tiles.xml 파일을 넣음
       configurer.setDefinitions(new String[]{"classpath:/tiles/tiles.xml",  
     		  								"classpath:/tiles/tiles_notice.xml",
+
     		  								"classpath:/tiles/tiles_plan.xml",
     		  								"classpath:/tiles/tiles_timetable.xml",
     		  								"classpath:/tiles/tiles_bookmark.xml",
-    		  								"classpath:/tiles/tiles_member.xml",
+    		  								
     		  								"classpath:/tiles/tiles_travel.xml",
     		  								"classpath:/tiles/tiles_food.xml",
-    		  								"classpath:/tiles/tiles_naver_chatting.xml"});
+    		  								"classpath:/tiles/tiles_naver_chatting.xml",
+
+
+    		  								"classpath:/tiles/tiles_member.xml",
+    		  								"classpath:/tiles/tiles_cart.xml"});
 
       configurer.setCheckRefresh(true);
       return configurer;

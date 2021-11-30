@@ -4,21 +4,17 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
  
 <tiles-definitions>
-  <!-- main -->
- <definition name="main"
-    template="/WEB-INF/views/template/template.jsp">
-    <put-attribute name="header"
-      value="/WEB-INF/views/template/top.jsp" />
-    <put-attribute name="bottom"
-      value="/WEB-INF/views/template/bottom.jsp" />
-  </definition>
-  
-  
-  
-  <definition name="/home" extends="main">
-    <put-attribute name="title" value="기본페이지"></put-attribute>
+
+
+	 <definition name="/member/accessterms" extends="main">
+    <put-attribute name="title" value="이용약관"></put-attribute>
     <put-attribute name="body"
-      value="/WEB-INF/views/index.jsp" />
+      value="/WEB-INF/views/member/accessterms.jsp" />
+  </definition>
+    <definition name="/member/personaldata" extends="main">
+    <put-attribute name="title" value="개인정보취급방침"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/personaldata.jsp" />
   </definition>
   <definition name="/member/agree" extends="main">
     <put-attribute name="title" value="회원약관"></put-attribute>
@@ -36,7 +32,7 @@
       value="/WEB-INF/views/member/loginForm.jsp" />
   </definition>
   <definition name="/member/update" extends="main">
-    <put-attribute name="title" value="회원정보수정"></put-attribute>
+    <put-attribute name="title" value="회원수정"></put-attribute>
     <put-attribute name="body"
       value="/WEB-INF/views/member/updateForm.jsp" />
   </definition>
@@ -60,7 +56,11 @@
     <put-attribute name="body"
       value="/WEB-INF/views/member/mypage.jsp" />
   </definition>
-  
- 
+  <definition name="/member/delete" extends="main">
+    <put-attribute name="title" value="회원탈퇴"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/deleteForm.jsp" />
+  </definition>
+
  
 </tiles-definitions>
