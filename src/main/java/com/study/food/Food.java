@@ -11,20 +11,12 @@ public class Food {
     public static synchronized String getUploadDir() {
         String path = "";
         if (File.separator.equals("\\")) {
-<<<<<<< HEAD:src/main/java/com/study/food/Food.java
             path = "D:/AIstudy/deploy/footprint/food/storage/";
-=======
-            path = "c:/AIstudy/deploy/footprint/member/storage/";
->>>>>>> b_member:src/main/java/com/study/member/Member.java
             System.out.println("Windows 10: " + path);
             
         } else {
             // System.out.println("Linux");
-<<<<<<< HEAD:src/main/java/com/study/food/Food.java
             path = "/home/ubuntu/deploy/footprint/food/storage/";
-=======
-            path = "/home/ubuntu/deploy/footprint/contents/storage/";
->>>>>>> b_member:src/main/java/com/study/member/Member.java
         }
         
         return path;
