@@ -25,4 +25,6 @@ public interface TravelService {
 
 	double avg(int travelno);
 
+	int deleteReply(int travelno);
+
 }

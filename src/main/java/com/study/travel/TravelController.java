@@ -153,14 +153,13 @@ public class TravelController {
 	public String update(TravelDTO dto, String oldfile, HttpServletRequest request) {
 		String basePath = Travel.getUploadDir();
 		
-		if (oldfile != null && !oldfile.equals("default.jpg")) {
-			Utility.deleteFile(basePath, oldfile);
-		}
 
 		
 		int size = (int)dto.getFnameMF().getSize();
 		if(size > 0) {
-			Utility.deleteFile(basePath, oldfile);
+			if(!oldfile.equals("default.jpg")) {
+				Utility.deleteFile(basePath, oldfile);
+			}
 			dto.setFname(Utility.saveFileSpring(dto.getFnameMF(), basePath));
 		}
 		
@@ -196,10 +195,6 @@ public class TravelController {
 		
 		String basePath = Travel.getUploadDir();
 		
-		if(!oldfile.equals("food.jpg")) {
-			Utility.deleteFile(basePath, oldfile);
-		}
-		
 		Map map = new HashMap();
 		map.put("travelno", travelno);
 		map.put("passwd", passwd);
@@ -208,7 +203,10 @@ public class TravelController {
 		int cnt = 0;
 		if (pcnt == 1) {
 					
-			cnt = service.delete(travelno);
+			cnt = service.deleteReply(travelno) + service.delete(travelno);
+			if(!oldfile.equals("default.jpg")) {
+				Utility.deleteFile(basePath, oldfile);
+			}
 		}
 		
 		if (pcnt != 1) {

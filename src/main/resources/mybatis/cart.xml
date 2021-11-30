@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.cart.CartMapper">
+
+	<insert id="fcreate" parameterType="com.study.cart.CartDTO">
+		INSERT INTO cart1(cartno, id, foodno)
+		VALUES(#{cartno}, #{id}, #{foodno})
+	</insert>
+
+	<select id="list" parameterType="Map" resultType="com.study.cart.CartjoinDTO">
+	SELECT cartno,no, id, foodname, ffname, foodno,
+      travelname, tfname, travelno, opt,  r
+	from(
+         SELECT cartno, no,id, foodname, ffname, foodno,
+                travelname, tfname, travelno, opt, rownum r
+         from (
+                SELECT cartno,no, c.id id, foodname, f.fname ffname, foodno,
+                travelname, t.fname tfname, travelno, opt
+                FROM cart1 c INNER JOIN food f
+                ON c.no = f.foodno
+                JOIN travel t
+                ON c.no = t.travelno
+                where c.id = #{id}
+          )
+
+ <![CDATA[       
+    )where r >= #{sno} and r <= #{eno}
+]]>
+	</select>
+
+	<insert id="tcreate" parameterType="com.study.cart.CartDTO">
+		INSERT INTO cart1(cartno, id, travelno)
+		VALUES(#{cartno}, #{id}, #{travelno})
+	</insert>
+
+	
+	<select id="total" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM cart1 c INNER JOIN food f
+		ON c.no = f.foodno
+		JOIN travel t
+		ON c.no = t.travelno
+		<where>
+			c.id = #{id}
+		</where>
+	</select>
+	
+	
+
+</mapper>

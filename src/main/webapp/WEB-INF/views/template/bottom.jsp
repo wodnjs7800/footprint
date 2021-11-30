@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 
@@ -64,8 +65,8 @@
                         <div class="footer-widget">
                             <h3 class="footer-title">회원 약관</h3>                          
                                 <ul class="arrow arrow-chevron-circle-right">
-                                    <li><a href="${root}/member/personaldata" title="personal data">개인정보 취급방침</a> </li>
-                                    <li><a href="${root}/member/accessterms" title="access terms">이용약관</a> </li>  
+                                    <li><a href="${root}/member/personaldata">개인정보 취급방침</a></li>
+                                    <li><a href="${root}/member/accessterms">이용약관</a></li>  
                                 </ul>                          
                         </div>
                     </div>

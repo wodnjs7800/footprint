@@ -45,7 +45,12 @@ function inCheck(f){
 		return false;
 	}
 }
-
+function deleteM(){
+	  var url = "delete";
+	  url += "?id=${dto.id}";
+	  url += "&oldfile=${dto.fname}";
+	  location.href = url;
+}
 </script>
   
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -192,6 +197,7 @@ function inCheck(f){
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-5">
         <button type="submit" class="btn btn-default">수정</button>
+        <button class="btn btn-default" onclick="deleteM()">회원탈퇴</button>
         <button type="reset" class="btn btn-default">취소</button>
       </div>
     </div>

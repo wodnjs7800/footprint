@@ -46,8 +46,7 @@ ${admin}
 	name="word" required="required" value="${word}">
 </div>
 <button class="btn btn-default">검색</button>
-<button class="btn btn-default" type="button" 
-onclick="location.href='create'">등록</button>
+
 </form>
 
 <br>
@@ -55,7 +54,7 @@ onclick="location.href='create'">등록</button>
 <c:forEach var="dto" items="${list}">
 <table class="table table-bordered">
 <tr>
-	<td rowspan="5" class="col-sm-2">
+	<td rowspan="6" class="col-sm-2">
 	<img src="/member/storage/${dto.fname}"
 	 class="img-rounded" width="200px" height="200px">
 	</td>
@@ -80,6 +79,10 @@ onclick="location.href='create'">등록</button>
 	(${dto.zipcode})
 	${dto.address1} ${dto.address2}
 	</td>
+</tr>
+<tr>
+	<th class="col-sm-2">포인트</th>
+	<td class="col-sm-8">${dto.point}</td>
 </tr>
 </table>
 </c:forEach>

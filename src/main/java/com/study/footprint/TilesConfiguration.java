@@ -19,8 +19,9 @@ public class TilesConfiguration {
     		  								"classpath:/tiles/tiles_bookmark.xml",
     		  								"classpath:/tiles/tiles_travel.xml",
     		  								"classpath:/tiles/tiles_food.xml",
-    		  								"classpath:/tiles/tiles_naver_chatting.xml"});
-
+    		  								"classpath:/tiles/tiles_naver_chatting.xml",
+    		  								"classpath:/tiles/tiles_member.xml",
+    		  								"classpath:/tiles/tiles_cart.xml"});
       configurer.setCheckRefresh(true);
       return configurer;
   }

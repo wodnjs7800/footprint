@@ -66,4 +66,10 @@ public class TravelServiceImpl implements TravelService{
 		// TODO Auto-generated method stub
 		return mapper.avg(travelno);
 	}
+
+	@Override
+	public int deleteReply(int travelno) {
+		// TODO Auto-generated method stub
+		return mapper.deleteReply(travelno);
+	}
 }

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html> 
 <html> 
 <head>
@@ -53,6 +54,10 @@
             }
         }).open();
     }
+    
+    function goBack() {           //뒤로가기 버튼 생성 설정
+    	window.history.back();
+    	}
 </script>
 
 <script type="text/javascript">
@@ -67,7 +72,7 @@
             f.id.focus();
             return false;
         }
-        if(f.local_num.value==0){
+        if(f.local.value==0){
             alert("지역을 선택해 주세요");
             f.local_num.focus();
             return false;
@@ -113,7 +118,7 @@
       action="/travel/update"
       method="post"
       enctype="multipart/form-data"
-      onsubmit="return checkIn(this)">
+      onsubmit="return inCheck(this)">
 
  <input type="hidden" name="travelno" value="${dto.travelno}">
  <input type="hidden" name="oldfile" value="${dto.fname}">
@@ -146,7 +151,7 @@
     <div class="col-sm-6">
       <select class="form-control" name="local">
         <option value="${dto.local}"
-				        <c:if test="${col=='전체'}"> selected </c:if>
+				        <c:if test="${col=='0'}"> selected </c:if>
 				        >${dto.local}</option>
 				        <option value="강원도"
 				        <c:if test= "${col=='강원도'}"> selected </c:if>
@@ -214,7 +219,7 @@
        name="zipcode" id="zipcode " placeholder="우편번호" value="${dto.zipcode}">
     </div>
     
-    <button type="button" class="btn btn-default col-sm-1" style="width: 120px;height: 40px; margin-top: -2px;"
+    <button type="button" class="btn btn-default col-sm-1" style="width: 120px;height: 35px; margin-top: 0px;"
     onclick="sample6_execDaumPostcode()">주소검색</button>
     
   </div>
@@ -240,17 +245,24 @@
       <input type="text" name="passwd" id="passwd" class="form-control" placeholder="비밀번호">
     </div>
   </div>
-  
+  <div class="form-group">
+      <label class="control-label col-sm-2" for="oldfile">원본 이미지</label>
+      <div class="col-sm-6">
+        <img src="/travel/storage/${dto.fname }" 
+        class="img-rounded" width="200px" height="200px">
+      </div>
+    </div>  
   <div class="form-group">
     <label class="control-label col-sm-2" for="fnameMF">상품이미지</label>
     <div class="col-sm-6">
-      <input type="file" name="fnameMF" id="fnameMF" class="form-control" >
+      <input type="file" name="fnameMF" id="fnameMF" class="form-control" accept=".jpg,.gif,.png">
     </div>
   </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
-    <button class="btn">수정</button>
-    <button type="reset" class="btn">취소</button>
+   <div class="col-sm-offset-2 col-sm-8" style="margin-bottom:100px">
+    <button type="submit" class="btn" style="height:40px">수정</button>
+    <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
+    <button type="reset" class="btn" onclick="goBack()" style="height:40px; margin-left:380px">뒤로</button>
    </div>
  </div>
 </form>

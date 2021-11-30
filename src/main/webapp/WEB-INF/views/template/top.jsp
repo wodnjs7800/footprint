@@ -29,6 +29,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -43,6 +44,8 @@
 	z-index: 99;
 }
 </style>
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <a href="/naver_chatting"><img class="kakaoChat expand_img"
@@ -54,7 +57,8 @@
                 <div class="col-md-4 hidden-sm col-sm-12">            
                 </div>
                 <div class="col-md-8 hidden-sm hidden-xs">
-                    <div class="social">
+                     <div class="navigation">
+                            <div id="navigation">
                        <ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${empty sessionScope.id }">
@@ -68,19 +72,22 @@
 							<li><a href="${root}/admin/create"><span
 									class="glyphicon glyphicon-plus-sign"></span> 맛집목록</a></li>
 							<li><a href="${root}/contents/list"><span
-									class="glyphicon glyphicon-list"></span> 여행목록</a></li>
+									class="glyphicon glyphicon-plus-sign"></span> 여행목록</a></li>
 							<li><a href="${root}/admin/list"><span
 									class="glyphicon glyphicon-list"></span> 회원목록</a></li>
 							<li><a href="${root}/member/logout"><span
 									class="glyphicon glyphicon-log-out"></span> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${root}/member/update"><span
-									class="glyphicon glyphicon-shopping-cart"></span> 즐겨찾기</a></li>
-							<li><a href="${root}/member/update"><span
-									class="glyphicon glyphicon-shopping-cart"></span> 일정표</a></li>
+							<li><a href="${root}/cart/list">
+						<span class="glyphicon glyphicon-shopping-cart"></span>즐겨찾기</a>
+									</li>									
+							<li><a href=""><span
+									class="glyphicon glyphicon-list"></span> 일정표</a></li>
 							<li><a href="${root}/member/update"><span
 									class="glyphicon glyphicon-edit"></span> 회원수정</a></li>
+							<li><a href="${root}/member/mypage"><span
+									class="glyphicon glyphicon-user"></span> 마이페이지</a></li>		
 							<li><a href="${root}/member/logout"><span
 									class="glyphicon glyphicon-log-out"></span> 로그아웃</a></li>
 						</c:otherwise>
@@ -92,12 +99,14 @@
             </div>
         </div>
     </div>
+    </div>
+
     <div class="header-wrapper">
         <div class="header">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                        <a href="${root}/"><img src="${root}/images/logo2.png"></a>
+                        <a href="${root}/"><img src="${root}/images/homelogo.jpg"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">

@@ -6,7 +6,7 @@
  <head>
   <title>로그인 처리</title>
   <meta charset="utf-8">
- 
+
 </head>
 
 <body>
@@ -58,32 +58,12 @@
         <button type="submit" class="btn btn-default">로그인</button>
         <button type="button" class="btn btn-default"
          onclick="location.href='agree'">회원가입</button>
-        <button type="button" class="btn btn-default">아이디 찾기</button>
-        <button type="button" class="btn btn-default">패스워드 찾기</button>
+       
+       
       </div>
     </div>
   </form>
-  <a href="javascript:kakaoLogin();"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFQOJtNpYFKTS1T5QdhIDFFgLzQO93BuFjFw&usqp=CAU" style="height: 50px; width: auto;" /></a>
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-  <script>
-      window.Kakao.init("63a645c517fac82e8382ecd0e087b962");
-
-      function kakaoLogin() {
-          window.Kakao.Auth.login({
-          scope:'profile_nickname, account_email',
-          success: function(authObj) {
-              console.log(authObj);
-              window.Kakao.API.request({
-                  url:'/v2/user/me',
-                  success: res => {
-                      const kakao_account = res.kakao_account;
-                      console.log(kakao_account);
-                  }
-              });
-          }
-      });
-      }
-  </script>
+ 
 </div>
 </body>
 </html>

@@ -82,6 +82,7 @@ body {
 
 <body>
 
+
 	<!-- service-section start -->
 	<div class="space-medium">
 		<div class="container">
@@ -162,6 +163,7 @@ body {
 
 				<!-- Initialize Swiper -->
 				<script>
+
         var swiper = new Swiper(".mySwiper", {
           slidesPerView: 3,
           spaceBetween: 30,
@@ -385,7 +387,13 @@ body {
 				</div>
 				<!-- Testimonials-three-close -->
 
+<<<<<<< HEAD
 			</div>
 		</div>
 	</div>
+=======
+    
+            
+          
+>>>>>>> b_member
 </body>

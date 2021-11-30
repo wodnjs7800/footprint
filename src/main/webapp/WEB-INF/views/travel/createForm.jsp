@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>travel</title>
+  <title>여행 생성</title>
   <meta charset="utf-8">
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/ckeditor/ckeditor.js"> </script>
@@ -60,10 +60,6 @@
 </script>
 
   <script type="text/JavaScript">
- $(function() {
-	 CKEDITOR.replace('detail'); // <TEXTAREA>태그 id 값
-	 });
-
  function inCheck(f){
      if(f.travelname.value.length==0){
          alert("여행지명을 입력하세요");
@@ -121,7 +117,7 @@
       action="/travel/create"
       method="post"
       enctype="multipart/form-data"
-      onsubmit="return checkIn(this)">
+      onsubmit="return inCheck(this)">
 
   
   <div class="form-group" >
@@ -220,7 +216,7 @@
        name="zipcode" id="sample6_postcode" placeholder="우편번호">
     </div>
     
-    <button type="button" class="btn btn-default col-sm-1" style="width: 120px;height: 40px; margin-top: -2px;"
+    <button type="button" class="btn btn-default col-sm-1" style="width: 120px;height: 35px; margin-top: 0px;"
     onclick="sample6_execDaumPostcode()">주소검색</button>
     
   </div>
@@ -254,9 +250,10 @@
     </div>
   </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
-    <button class="btn">등록</button>
-    <button type="reset" class="btn">취소</button>
+   <div class="col-sm-offset-2 col-sm-8" style="margin-bottom:100px">
+    <button type="submit" class="btn"  style="height:40px">등록</button>
+    <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
+    <button type="reset" class="btn" onclick="history.back()" style="height:40px; margin-left:380px">뒤로</button>
    </div>
  </div>
 </form>
