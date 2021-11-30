@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.study.orders.OrdersDTO;
 
 import lombok.Data;
 
@@ -22,7 +22,9 @@ public class MemberDTO {
 	private String mdate                         ;
 	private String fname                         ;
 	private MultipartFile fnameMF				 ;
+	private String point						 ;
 	private String grade                         ;
 	
+	private List<OrdersDTO> list				 ;
 
 }

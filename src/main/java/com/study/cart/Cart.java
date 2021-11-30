@@ -1,9 +1,8 @@
-package com.study.member;
+package com.study.cart;
 
 import java.io.File;
 
-public class Member {
-
+public class Cart {
 	/** 페이지당 출력할 레코드 갯수 */
     public static int RECORD_PER_PAGE = 3;
 
@@ -11,7 +10,7 @@ public class Member {
     public static synchronized String getUploadDir() {
         String path = "";
         if (File.separator.equals("\\")) {
-            path = "c:/AIstudy/deploy/footprint/member/storage/";
+            path = "c:/AIstudy/deploy/footprint/cart/storage/";
             System.out.println("Windows 10: " + path);
             
         } else {
@@ -21,5 +20,4 @@ public class Member {
         
         return path;
     }
-
 }

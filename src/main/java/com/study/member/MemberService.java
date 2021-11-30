@@ -27,4 +27,10 @@ public interface MemberService {
 	
 	MemberDTO mypage(String id);
 
+	int passwd(Map map);
+
+	int delete(String id);
+
+
+
 }

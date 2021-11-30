@@ -81,7 +81,20 @@
 </head>
 
 <body>
-    
+
+    <!-- page-header-start -->
+	<div
+		style="background: url(${pageContext.request.contextPath }/images/12.jpg) no-repeat center; background-size: cover; margin: 0px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+					<div class="page-section">
+						<h1 class="page-title">메인페이지</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     <!-- service-section start -->
     <div class="space-medium">
         <div class="container">
@@ -259,67 +272,7 @@
     </div>
     <!-- service-section close -->
 
-    <!-- Testimonials-section start -->
-    <div class="bg-default space-medium">
-        <div class="container">
-            <div class="row">
-                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="section-title text-center">
-                        <h1>Our Happy Travelers Reviews</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- Testimonials-one-start -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="testimonial-block">
-                        <div class="testimonial-img"><img src="images/testimonial-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
-                        <div class="testimonial-user-img"><img src="images/testimonial-user-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
-                        <div class="testimonial-content">
-                            <h4>Paul Hasburg</h4>
-                            <span class="location">Kerala</span>
-                            <div class="rating"> <span> <i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> </div>
-                            <div>
-                                <p class="testimonial-text">“I love this tour. We have enough time to fully experience the Kerala. I have the opportunity to show my region, thank you" </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Testimonials-one-close -->
-                <!-- Testimonials-two-start -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="testimonial-block">
-                        <div class="testimonial-img"><img src="images/testimonial-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
-                        <div class="testimonial-user-img"><img src="images/testimonial-user-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
-                        <div class="testimonial-content">
-                            <h4>Plisa Moody</h4>
-                            <span class="location">Kullu-manali</span>
-                            <div class="rating"> <span> <i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> </div>
-                            <div>
-                                <p class="testimonial-text">“You were an excellent Travel Agency for us! It was invaluable trip to kullu-manali & You considered our unique needs, thank you ”</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Testimonials-two-start -->
-                <!-- Testimonials-three-start -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="testimonial-block">
-                        <div class="testimonial-img"><img src="images/testimonial-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
-                        <div class="testimonial-user-img"><img src="images/testimonial-user-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
-                        <div class="testimonial-content">
-                            <h4>Christine Smith</h4>
-                            <span class="location">Turkey</span>
-                            <div class="rating"> <span> <i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i> </span> </div>
-                            <div>
-                                <p class="testimonial-text">“Suspendisse vitaea enim dictum fringilla ullam interdum atelit id vestibulum TURKEY aecenas viverra risusit amet quam consectetu, thank you”</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Testimonials-three-close -->
+    
             
-            </div>
-        </div>
-    </div>
+          
 </body>

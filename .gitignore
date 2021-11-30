@@ -26,3 +26,4 @@ out/
 /.nb-gradle/
 ### VS Code ###
 .vscode/
+application-oauth.properties

@@ -21,7 +21,7 @@
   <div class="form-group">
     <label class="control-label col-sm-1" for="content"></label>
     <div class="col-sm-8">
-    <textarea rows="20" cols="100" id="content" name="content" class="form-control">Cummunity 서비스약관 (2005. 7. 18 부터 유효) 
+    <textarea rows="20" cols="100" id="content" name="content" class="form-control">Cummunity 서비스약관 (2021. 8. 23 부터 유효) 
  
 개인정보 수집•이용 동의서
 

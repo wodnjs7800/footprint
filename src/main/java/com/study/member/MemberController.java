@@ -33,16 +33,51 @@ public class MemberController {
 	@Autowired
 	@Qualifier("com.study.member.MemberServiceImpl")
 	private MemberService service;
+	
+
+	
+	@GetMapping("/member/delete")
+	  public String delete() {
+	 
+	 
+	    return "/member/delete";
+	  }
+	  
+	  @PostMapping("/member/delete")
+	  public String delete(HttpServletRequest request, String id, String passwd, Model model) {
+	  String sid=(String)request.getSession().getAttribute("id");
+	    Map map = new HashMap();
+	    map.put("id", id);
+	    map.put("passwd", passwd);
+	    int pcnt = service.passwd(map);
+	    
+	    int cnt = 0;
+	    if (pcnt==1) {
+	      
+	      cnt = service.delete(id);
+	    }
+	    String url="redirect:/";
+	    if (sid.equals("admin")) {
+	    	url="redirect:/admin/list";
+	    }
+	    if (pcnt != 1) {
+	    	model.addAttribute("msg", "아이디 또는 비밀번호를 잘못 입력 했거나 <br>회원이 아닙니다. 회원가입 하세요");
+	      return "/member/errorMsg";
+	    } else if (cnt==1) {
+	     if(!sid.equals("admin")) {
+		    	request.getSession().invalidate();
+		    }
+	      return url;
+	    } else {
+	      return "./error";
+	    }
+	 
+	  }
 
 	@GetMapping("/")
 	public String home() {
 
 		return "/home";
-	}
-
-	@GetMapping("/member/agree")
-	public String agree() {
-		return "/member/agree";
 	}
 	
 	@GetMapping("/member/accessterms")
@@ -53,6 +88,11 @@ public class MemberController {
 	@GetMapping("/member/personaldata")
 	public String personaldata() {
 		return "/member/personaldata";
+	}
+	
+	@GetMapping("/member/agree")
+	public String agree() {
+		return "/member/agree";
 	}
 
 	@PostMapping("/member/createForm")

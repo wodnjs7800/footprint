@@ -11,7 +11,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
-
+	
 	@Override
 	public int duplicatedId(String id) {
 		// TODO Auto-generated method stub
@@ -77,5 +77,19 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mapper.mypage(id);
 	}
+
+	@Override
+	public int passwd(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.passwd(map);
+	}
+
+	@Override
+	public int delete(String id) {
+		// TODO Auto-generated method stub
+		return mapper.delete(id);
+	}
+	
+
 
 }
