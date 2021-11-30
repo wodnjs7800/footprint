@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.study.food.FoodDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -185,8 +186,9 @@ public class TravelController {
 	}
 	
 	@GetMapping("/travel/delete")
-	public String delete() {
-
+	public String delete(int travelno, Model model) {
+		TravelDTO dto = service.read(travelno);
+		model.addAttribute("dto", dto);
 		return "/travel/delete";
 	}
 
@@ -211,7 +213,7 @@ public class TravelController {
 		
 		if (pcnt != 1) {
 			return "/travel/passwdError";
-		} else if (cnt == 1) {
+		} else if (cnt == 2) {
 			
 			return "redirect:/travel/list";
 		} else {

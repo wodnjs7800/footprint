@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>naver_chatting</title>
+<title>Q&A</title>
 
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -34,7 +34,7 @@ connect();
 </head>
 <body>
 <div id="main-content" class="container">
-    <H2>발바닥 Q&A</H2>
+    <H2>Q&A</H2>
     <div class="row">
         <div class="col-md-10">
             <table id="conversation" class="table table-striped">

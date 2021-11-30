@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>notice</title>
+  <title>공지사항 등록</title>
   <meta charset="utf-8">
   
   <script type="text/JavaScript">
@@ -33,43 +33,38 @@
 </head>
 <body> 
 <div class="container">
-<h2 class="col-sm-offset-2 col-sm-10">공지 생성</h2>
+<h2 class="col-sm-offset-2 col-sm-10">공지 등록</h2>
 <form class="form-horizontal" 
       action="/notice/create"
       method="post"
       enctype="multipart/form-data"
       onsubmit="return checkIn(this)">
- 
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="wname">작성자</label>
-    <div class="col-sm-6">
-      <input type="text" name="wname" id="wname" class="form-control">
-    </div>
-  </div>
+
   <div class="form-group">
     <label class="control-label col-sm-2" for="title">제목</label>
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <input type="text" name="title" id="title" class="form-control">
     </div>
   </div>
   
   <div class="form-group">
     <label class="control-label col-sm-2" for="content">내용</label>
-    <div class="col-sm-8">
+    <div class="col-sm-7">
     <textarea rows="12" cols="7" id="content" name="content" class="form-control"></textarea>
     </div>
   </div>
   
   <div class="form-group">
     <label class="control-label col-sm-2" for="passwd">비밀번호</label>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
       <input type="password" name="passwd" id="passwd" class="form-control">
     </div>
   </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
-    <button class="btn">등록</button>
-    <button type="reset" class="btn">취소</button>
+   <div class="col-sm-offset-2 col-sm-7">
+    <button class="btn" style="height:40px">등록</button>
+    <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
+    <button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
    </div>
  </div>
 </form>

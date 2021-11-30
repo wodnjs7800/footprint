@@ -214,11 +214,11 @@
   </div>
   
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
-    <input id="agree" type="checkbox" name="agree" value="1" ><label for="agree"> 약관에 동의합니다 </label>
+   <div class="col-sm-offset-2 col-sm-5" style="margin-bottom:50px">
+    <input id="agree" type="checkbox" name="agree" value="1"><label for="agree"> 약관에 동의합니다 </label>
     
-    <button class="btn">회원가입</button>
-    <button type="button" class="btn" onclick="history.back()">취소</button>
+    <button class="btn" style="height:40px; margin-left:20px">회원가입</button>
+    <button type="button" class="btn" style="height:40px; margin-left:5px" onclick="history.back()">취소</button>
    </div>
  </div>
 </form>

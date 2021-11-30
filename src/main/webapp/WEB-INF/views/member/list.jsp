@@ -18,14 +18,15 @@
 </head>
 <body>
 <div class="container">
-<h2 class="col-sm-offset-2 col-sm-10">회원목록</h2>
+<h2>회원목록</h2>
 ${admin}
 <br>
 <form class="form-inline"
       method="post"
       action="list">
+      
 <div class="form-group">
-	<select name="col" class="form-control">
+	<select name="col" class="form-control"style="height: 40px; margin-top: 10px;">
 	<option value="mname"
 	<c:if test="${col=='mname' }">selected</c:if>
 	>성명</option>
@@ -42,10 +43,10 @@ ${admin}
 </div>
 
 <div class="form-group">
-	<input type="text" class="form-control" 
+	<input type="text" class="form-control" style="height: 40px; margin-top: 10px;"
 	name="word" required="required" value="${word}">
 </div>
-<button class="btn btn-default">검색</button>
+<button class="btn" style="height:40px; margin-top: 0px;">검색</button>
 
 </form>
 
