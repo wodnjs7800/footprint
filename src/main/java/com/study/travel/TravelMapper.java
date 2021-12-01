@@ -3,6 +3,7 @@ package com.study.travel;
 import java.util.List;
 import java.util.Map;
 
+import com.study.food.FoodDTO;
 import com.study.notice.NoticeDTO;
 
 public interface TravelMapper {
@@ -26,5 +27,13 @@ public interface TravelMapper {
 	double avg(int travelno);
 
 	int deleteReply(int travelno);
+	
+	List<TravelDTO> travellist(Map map);
+
+	int traveltotal();
+	
+	int travelupdate(Map map);
+	
+	TravelDTO readt(int travelno);
 
 }

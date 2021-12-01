@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>음식 수정</title>
+  <title>음식생성</title>
   <meta charset="utf-8">
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   <script>
@@ -59,14 +59,19 @@
     	window.history.back();
     	}
 
-
+    function deleteM() {
+		var url = "traveldelete";
+		url += "?travelno=${dto.travelno}";
+		url += "&oldfile=${dto.fname}";
+		location.href = url;
+	}
 </script>
 
 <script type="text/javascript">
     function inCheck(f){
-        if(f.foodname.value.length==0){
+        if(f.travelname.value.length==0){
             alert("여행지명을 입력하세요");
-            f.foodname.focus();
+            f.travelname.focus();
             return false;
         }
         if(f.contents.value.length==0){
@@ -99,9 +104,8 @@
             f.phone.focus();
             return false;
         }
-        if(f.passwd.value.length==0){
-            alert("비밀번호를 입력하세요");
-            f.passwd.focus();
+        if(f.yn.value=='no'){
+            alert("등록 여부를 확인해주세요");
             return false;
         }
     }
@@ -111,28 +115,28 @@
 <body> 
 
 <div class="container">
-<h1 class="col-sm-offset-2 col-sm-10">음식점 수정</h1>
+<h1 class="col-sm-offset-2 col-sm-10">여행지 등록</h1>
 <form class="form-horizontal" 
-      action="/food/update"
+      action="/admin/travelupdate"
       method="post"
       name = 'frm'
       enctype="multipart/form-data"
       onsubmit="return inCheck(this)">
 
-<input type="hidden" name="foodno" value="${dto.foodno}">
+<input type="hidden" name="travelno" value="${dto.travelno}">
 <input type="hidden" name="oldfile" value="${param.oldfile}">
 <input type="hidden" name="fname" value="${dto.fname}">
   <div class="form-group">
-    <label class="control-label col-sm-2" for="foodname">음식점명
+    <label class="control-label col-sm-2" for="travelname">여행지명
     </label>
-    <div class="col-sm-7">
-      <input type="text" name="foodname" id="foodname" class="form-control" placeholder="음식점명" value="${dto.foodname}">
+    <div class="col-sm-8">
+      <input type="text" name="travelname" id="travelname" class="form-control" placeholder="음식점명" value="${dto.travelname}">
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-sm-2" for="contents">내용</label>
-    <div class="col-sm-7">
+    <div class="col-sm-8">
     <textarea rows="12" cols="7" id="contents" name="contents" class="form-control" placeholder="내용" >${dto.contents}</textarea>
     </div>
   </div>
@@ -142,62 +146,62 @@
     <div class="col-sm-6">
       <select class="form-control" name="local">
         <option value="0"
-				        <c:if test= '${col=="0"}'> 선택 </c:if>
-				        >지역을 선택해주세요</option>
-				        <option value="강원도"
-				        <c:if test= "${col=='강원도'}"> 선택 </c:if>
-				        >강원도</option>
-						<option value="경기남부"
-				        <c:if test= "${col=='경기남부'}"> 선택 </c:if>
-				        >경기남부</option>
-				        <option value="경기북부"
-				        <c:if test= "${col=='경기북부'}"> 선택 </c:if>
-				        >경기북부</option>
-						<option value="경상남도"
-				        <c:if test= "${col=='경상남도'}"> 선택 </c:if>
-				        >경상남도</option>
-						<option value="경상북도"
-				        <c:if test= "${col=='경상북도'}"> 선택 </c:if>
-				        >경상북도</option>
-						<option value="광주광역시"
-				        <c:if test= "${col=='광주광역시'}"> 선택 </c:if>
-				        >광주광역시</option>
-						<option value="대구광역시"
-				        <c:if test= "${col=='대구광역시'}"> 선택 </c:if>
-				        >대구광역시</option>
-						<option value="대전광역시"
-				        <c:if test= "${col=='대전광역시'}"> 선택 </c:if>
-				        >대전광역시</option>
- 						<option value="부산광역시"
-				        <c:if test= "${col=='부산광역시'}"> 선택 </c:if>
-				        >부산광역시</option>
-				        <option value="서울시"
-				        <c:if test= "${col=='서울시'}"> 선택 </c:if>
-				        >서울시</option>
-						<option value="세종시"
-				        <c:if test= "${col=='세종시'}"> 선택 </c:if>
-				        >세종시</option>
- 						<option value="울산광역시"
-				        <c:if test= "${col=='울산광역시'}"> 선택 </c:if>
-				        >울산광역시</option>
-				         <option value="인천광역시"
-				        <c:if test= "${col=='인천광역시'}"> 선택 </c:if>
-				        >인천광역시</option>
- 						<option value="전라남도"
-				        <c:if test= "${col=='전라남도'}"> 선택 </c:if>
-				        >전라남도</option>
-						<option value="전라북도"
-				        <c:if test= "${col=='전라북도'}"> 선택 </c:if>
-				        >전라북도</option>
- 						<option value="제주도"
-				        <c:if test= "${col=='제주도'}"> 선택 </c:if>
-				        >제주도</option>
-						<option value="충청남도"
-				        <c:if test= "${col=='충청남도'}"> 선택 </c:if>
-				        >충청남도</option>
-						<option value="충청북도"
-				        <c:if test= "${col=='충청북도'}"> 선택 </c:if>
-				        >충청북도</option>
+        <c:if test= "${local==0}"> 선택 </c:if>
+        >지역을 선택해주세요</option>
+        <option value="서울시"
+        <c:if test= "${local=='서울시'}"> 선택 </c:if>
+        >서울시</option>
+        <option value="부산광역시"
+        <c:if test= "${local=='부산광역시'}"> 선택 </c:if>
+        >부산광역시</option>
+        <option value="대구광역시"
+        <c:if test= "${local=='대구광역시'}"> 선택 </c:if>
+        >대구광역시</option>
+        <option value="인천광역시"
+        <c:if test= "${local=='인천광역시'}"> 선택 </c:if>
+        >인천광역시</option>
+        <option value="광주광역시"
+        <c:if test= "${local=='광주광역시'}"> 선택 </c:if>
+        >광주광역시</option>
+        <option value="대전광역시"
+        <c:if test= "${local=='대전광역시'}"> 선택 </c:if>
+        >대전광역시</option>
+        <option value="울산광역시"
+        <c:if test= "${local=='울산광역시'}"> 선택 </c:if>
+        >울산광역시</option>
+        <option value="세종시"
+        <c:if test= "${local=='세종시'}"> 선택 </c:if>
+        >세종시</option>
+        <option value="경기남부"
+        <c:if test= "${local=='경기남부'}"> 선택 </c:if>
+        >경기남부</option>
+        <option value="경기북부"
+        <c:if test= "${local=='경기북부'}"> 선택 </c:if>
+        >경기북부</option>
+        <option value="강원도"
+        <c:if test= "${local=='강원도'}"> 선택 </c:if>
+        >강원도</option>
+        <option value="충청북도"
+        <c:if test= "${local=='충청북도'}"> 선택 </c:if>
+        >충청북도</option>
+        <option value="충청남도"
+        <c:if test= "${local=='충청남도'}"> 선택 </c:if>
+        >충청남도</option>
+        <option value="전라북도"
+        <c:if test= "${local=='전라북도'}"> 선택 </c:if>
+        >전라북도</option>
+        <option value="전라남도"
+        <c:if test= "${local=='전라남도'}"> 선택 </c:if>
+        >전라남도</option>
+        <option value="경상북도"
+        <c:if test= "${local=='경상북도'}"> 선택 </c:if>
+        >경상북도</option>
+        <option value="경상남도"
+        <c:if test= "${local=='경상남도'}"> 선택 </c:if>
+        >경상남도</option>
+        <option value="제주도"
+        <c:if test= "${local=='제주도'}"> 선택 </c:if>
+        >제주도</option>
         
       </select>
       <script type="text/javascript">
@@ -234,15 +238,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="passwd">비밀번호</label>
-    <div class="col-sm-6">
-      <input type="password" name="passwd" id="passwd" class="form-control" placeholder="비밀번호">
-    </div>
-  </div>
-  <div class="form-group">
       <label class="control-label col-sm-2" for="oldfile">원본 이미지</label>
       <div class="col-sm-6">
-        <img src="/food/storage/${dto.fname }" 
+        <img src="/travel/storage/${dto.fname }" 
         class="img-rounded" width="200px" height="200px">
       </div>
     </div>
@@ -252,11 +250,18 @@
       <input type="file" name="fnameMF" id="fnameMF" class="form-control" accept=".jpg,.gif,.png">
     </div>
   </div>
+  <div class="form-group">
+  <label class="control-label col-sm-2" for="yn">등록 여부</label>
+    <div class="col-sm-6">
+      <input type="radio" name="yn" value="yes">등록
+      <input type="radio" name="yn" value="no"style="margin-left:10px" checked="checked">미등록
+    </div>
+  </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-7" style="margin-bottom:50px">
-    <button type="submit" class="btn"  style="height:40px">수정</button>
-    <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
-    <button type="reset" class="btn" onclick="goBack()" style="height:40px; float:right;">뒤로</button>
+   <div class="col-sm-offset-2 col-sm-8" style="margin-bottom:100px">
+    <button type="submit" class="btn"  style="height:40px">등록</button>
+    <button type="reset" class="btn" style="height:40px; margin-left:5px" onclick="deleteM()">삭제</button>
+    <button type="reset" class="btn" onclick="goBack()" style="height:40px; margin-left:380px">뒤로</button>
    </div>
  </div>
 </form>

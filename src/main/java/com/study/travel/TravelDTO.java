@@ -23,5 +23,6 @@ public class TravelDTO {
 	private String fname		;
 	private MultipartFile fnameMF ;
 	private String avg;
+	private String yn;
 
 }

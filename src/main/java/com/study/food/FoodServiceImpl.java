@@ -73,4 +73,28 @@ public class FoodServiceImpl implements FoodService {
 		return mapper.deleteReply(foodno);
 	}
 
+	@Override
+	public List<FoodDTO> foodlist(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.foodlist(map);
+	}
+
+	@Override
+	public int foodtotal() {
+		// TODO Auto-generated method stub
+		return mapper.foodtotal();
+	}
+
+	@Override
+	public int foodupdate(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.foodupdate(map);
+	}
+
+	@Override
+	public FoodDTO readf(int foodno) {
+		// TODO Auto-generated method stub
+		return mapper.readf(foodno);
+	}
+
 }

@@ -69,6 +69,10 @@
 						</c:when>
 						<c:when
 							test="${not empty sessionScope.id && sessionScope.grade == 'A'}">
+							<li><a href="${root}/admin/travellist"><span
+									class="glyphicon glyphicon-list"></span> 여행요청</a></li>
+							<li><a href="${root}/admin/foodlist"><span
+									class="glyphicon glyphicon-log-out"></span> 맛집요청</a></li>
 							<li><a href="${root}/admin/list"><span
 									class="glyphicon glyphicon-list"></span> 회원목록</a></li>
 							<li><a href="${root}/member/logout"><span

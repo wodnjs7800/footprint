@@ -3,6 +3,8 @@ package com.study.food;
 import java.util.List;
 import java.util.Map;
 
+import com.study.cart.CartjoinDTO;
+
 public interface FoodService {
 
 	int total(Map map);
@@ -24,5 +26,13 @@ public interface FoodService {
 	double avg(int foodno);
 
 	int deleteReply(int foodno);
+
+	List<FoodDTO> foodlist(Map map);
+
+	int foodtotal();
+
+	int foodupdate(Map map);
+
+	FoodDTO readf(int foodno);
 
 }

@@ -14,8 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.study.food.FoodDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -25,8 +25,13 @@ public class TravelController {
 	private TravelService service;
 	
 	@PostMapping("/travel/create")
-	public String create(TravelDTO dto, HttpServletRequest request){
+	public String create(TravelDTO dto, HttpServletRequest request, HttpSession session){
 		//String upDir = new ClassPathResource("/static/pstorage").getFile().getAbsolutePath();
+		String id = (String) session.getAttribute("id");
+		if(id==null) {
+			return "/member/login";
+		}
+		dto.setId(id);
 		
 		String upDir = Travel.getUploadDir();
 
@@ -220,6 +225,120 @@ public class TravelController {
 			return "/travel/error";
 		}
 
+	}
+	
+	@GetMapping("/admin/traveldelete")
+	public String fdelete(int travelno, Model model) {
+		TravelDTO dto = service.readt(travelno);
+		model.addAttribute("dto", dto);
+		return "/admin/traveldelete";
+	}
+
+	@PostMapping("/admin/traveldelete")
+	public String fdelete(HttpServletRequest request, int travelno, String passwd, String fname) {
+		String basePath = Travel.getUploadDir();
+		
+		Map map = new HashMap();
+
+		int cnt = 0;
+		
+		cnt = service.delete(travelno);
+		//fname이 디폴트 이름이 아닌경우에만 이미지 삭제
+		if(!fname.equals("default.jpg")) {
+			Utility.deleteFile(basePath, fname);
+		}
+		
+		if (cnt == 1) {
+			return "redirect:/admin/travellist";
+		} else {
+			return "/myerror";
+		}
+
+	}
+	
+	@GetMapping("/travel/complete")
+	public String complete() {
+
+		return "/admin/travelupdate";
+	}
+	
+	@GetMapping("/admin/travelupdate")
+	public String adminUpdate(int travelno, Model model) {
+		
+		TravelDTO dto = service.readt(travelno);
+
+		model.addAttribute("dto", dto);
+
+		return "/admin/travelupdate";
+	}
+
+	@PostMapping("/admin/travelupdate")
+	public String adminUpdate(MultipartFile fnameMF, String oldfile, TravelDTO dto, Model model, HttpServletRequest request) {
+		//String basePath = new ClassPathResource("/static/images/travel").getFile().getAbsolutePath();
+		String basePath = Travel.getUploadDir();
+
+		if (oldfile != null && !oldfile.equals("defalut.jpg")) {
+			Utility.deleteFile(basePath, oldfile);
+		}
+
+		Map map = new HashMap();
+		map.put("travelno", dto.getTravelno());
+		map.put("travelname", dto.getTravelname());
+		map.put("contents", dto.getContents());
+		map.put("local", dto.getLocal());
+		map.put("zipcode", dto.getZipcode());
+		map.put("address1", dto.getAddress1());
+		map.put("address2", dto.getAddress2());
+		map.put("phone", dto.getPhone());
+		map.put("yn", dto.getYn());
+
+		int size = (int) dto.getFnameMF().getSize();
+		if (size > 0) {
+			map.put("fname", Utility.saveFileSpring(fnameMF, basePath));
+		} else {
+			map.put("fname", dto.getFname());
+		}
+
+
+		int cnt = service.travelupdate(map);
+		
+		if (cnt == 1) {
+			return "redirect:/admin/travellist";
+		} else {
+			return "/member/errorMsg";
+		}
+	}
+	
+	@GetMapping("/admin/travellist")
+	public String list(HttpServletRequest request, Model model) {
+		
+		// 페이지관련-----------------------
+		int nowPage = 1;// 현재 보고있는 페이지
+		if (request.getParameter("nowPage") != null) {
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage = 8;// 한페이지당 보여줄 레코드갯수
+		
+		// DB에서 가져올 순번-----------------
+		int sno = ((nowPage - 1) * recordPerPage) + 1;
+		int eno = nowPage * recordPerPage;	
+		Map map = new HashMap();
+		map.put("sno", sno);
+		map.put("eno", eno);
+		
+		List<TravelDTO> list = service.travellist(map);
+		int total = service.traveltotal();
+		
+		String paging = Utility.pagingt(total, nowPage, recordPerPage, "", "");
+		
+		request.setAttribute("list", list);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("paging", paging);
+		
+		model.addAttribute("list", list);
+		
+		
+		return "/admin/travellist";
 	}
 
 }

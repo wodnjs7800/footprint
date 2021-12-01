@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.study.food.FoodDTO;
 import com.study.notice.NoticeDTO;
 
 @Service("com.study.travel.TravelServiceImpl")
@@ -72,4 +73,29 @@ public class TravelServiceImpl implements TravelService{
 		// TODO Auto-generated method stub
 		return mapper.deleteReply(travelno);
 	}
+
+	@Override
+	public int travelupdate(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.travelupdate(map);
+	}
+
+	@Override
+	public List<TravelDTO> travellist(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.travellist(map);
+	}
+
+	@Override
+	public int traveltotal() {
+		// TODO Auto-generated method stub
+		return mapper.traveltotal();
+	}
+
+	@Override
+	public TravelDTO readt(int travelno) {
+		// TODO Auto-generated method stub
+		return mapper.readt(travelno);
+	}
+
 }
