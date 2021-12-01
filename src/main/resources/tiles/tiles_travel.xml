@@ -29,5 +29,25 @@
     <put-attribute name="body"
       value="/WEB-INF/views/travel/deleteForm.jsp" />
   </definition>
+  <definition name="/admin/travellist" extends="main">
+    <put-attribute name="title" value="음식요청"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/travellist.jsp" />
+  </definition>
+  <definition name="/admin/travelupdate" extends="main">
+    <put-attribute name="title" value="여행수락"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/travelupdate.jsp" />
+  </definition>
+  <definition name="/travel/complete" extends="main">
+    <put-attribute name="title" value="여행등록완료"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/complete.jsp" />
+  </definition>
+  <definition name="/admin/traveldelete" extends="main">
+    <put-attribute name="title" value="관리자 여행 삭제"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/travel/traveldelete.jsp" />
+  </definition>
  
 </tiles-definitions>

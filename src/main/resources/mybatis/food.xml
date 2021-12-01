@@ -51,6 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		zipcode, address1, address2, id
 		FROM food
 		WHERE foodno=#{foodno}
+		and yn='yes'
 	</select>
 	<!-- upcnt -->
 	<update id="upCnt" parameterType="int">
@@ -74,14 +75,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 				<where>
 					local = #{col}
+					and yn = 'yes'
 				</where>
 			</when>
 			<otherwise>
-				from food
+				from(select * from food
 				<where>
 					foodname like '%'||#{word}||'%'
 					or contents like
 					'%'||#{word}||'%'
+				</where>
+				)
+				<where>
+				yn = 'yes'
 				</where>
 			</otherwise>
 		</choose>
@@ -111,14 +117,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				)
 				<where>
 					local = #{col}
+					and yn = 'yes'
 				</where>
 			</when>
 			<otherwise>
-				from food
+				from(select * from food
 				<where>
 					foodname like '%'||#{word}||'%'
 					or contents like
 					'%'||#{word}||'%'
+				</where>
+				)
+				<where>
+				yn = 'yes'
 				</where>
 			</otherwise>
 		</choose>
@@ -137,5 +148,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	<![CDATA[       
          )where r >= #{sno} and r <= #{eno}
      	]]>
+	</select>
+	<!-- foodtotal -->
+	<select id="foodtotal" resultType="int">
+		select count(*) from food
+		where yn = 'no'
+	</select>
+	<select id="foodlist" parameterType="Map" resultType="com.study.food.FoodDTO">
+		select foodno, foodname, contents, phone, viewcnt, wdate, local,
+		fname, r, avg
+		from (
+		select foodno, foodname, contents, phone, viewcnt,
+		wdate, local, fname, rownum r, avg
+		from(
+		select foodno, foodname,
+		contents,
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as avg
+				from(select * from food)
+				<where>
+				yn = 'no'
+				</where>	
+		order by foodno asc
+		)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+     	
+	</select>
+	<!-- 관리자 foodupdate -->
+	<update id="foodupdate" parameterType="com.study.food.FoodDTO">
+		UPDATE food
+		SET foodname=#{foodname}, contents=#{contents}, phone=#{phone}, local=#{local}, fname=#{fname}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}, yn=#{yn}
+		WHERE foodno=#{foodno}
+	</update>
+	<!-- readf -->
+	<select id="readf" resultType="com.study.food.FoodDTO">
+		select foodno, foodname, contents,
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname,
+		zipcode, address1, address2, id
+		FROM food
+		WHERE foodno=#{foodno}
+		and yn='no'
 	</select>
 </mapper>

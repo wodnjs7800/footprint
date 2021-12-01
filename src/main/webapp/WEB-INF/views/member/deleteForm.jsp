@@ -30,9 +30,10 @@
   <p id="red" class="col-sm-offset-2 col-sm-6">삭제하면 복구할 수 없습니다</p>
   
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-5">
-    <button class="btn">삭제</button>
-    <button type="reset" class="btn">취소</button>
+   <div class="col-sm-offset-2 col-sm-6" style="margin-bottom:50px">
+    <button class="btn"  style="height:40px">삭제</button>
+    <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
+    <button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
    </div>
  </div>
 </form>

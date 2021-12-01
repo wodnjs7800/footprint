@@ -1,8 +1,8 @@
-package com.study.travel;
+package com.study.member;
 
 import java.io.File;
 
-public class Travel {
+public class Member {
 	/** 페이지당 출력할 레코드 갯수 */
     public static int RECORD_PER_PAGE = 3;
 
@@ -10,12 +10,12 @@ public class Travel {
     public static synchronized String getUploadDir() {
         String path = "";
         if (File.separator.equals("\\")) {
-            path = "D:/AIstudy/deploy/footprint/travel/storage/";
+            path = "C:/AIstudy/deploy/footprint/member/storage/";
             System.out.println("Windows 10: " + path);
             
         } else {
             // System.out.println("Linux");
-            path = "/home/ubuntu/deploy/footprint/travel/storage/";
+            path = "/home/ubuntu/deploy/footprint/member/storage/";
         }
         return path;
     }

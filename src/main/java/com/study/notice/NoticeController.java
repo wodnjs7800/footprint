@@ -23,7 +23,7 @@ public class NoticeController {
 	@Qualifier("com.study.notice.NoticeServiceImpl")
 	private NoticeService service;
 
-	@GetMapping("/notice/create")
+	@GetMapping("admin/notice/create")
 	public String create() {
 
 		return "/notice/create";

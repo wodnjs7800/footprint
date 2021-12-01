@@ -62,74 +62,73 @@
 	<!-- page-header-close -->
 	<!-- Testimonials-section start -->
 	<div class="bg-default space-medium">
-		<div class="container">
-			<form action="./list">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light"
-					style="width: 1100px; margin-bottom: 30px; background-color: rgb(255, 253, 221); ">
-					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-						<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="width: 700px;">
-							<div class="col-sm-4" style="margin-top: 7px">
-								<select class="form-control" name="col">
-									<option value="0" <c:if test= '${col=="0"}'> selected </c:if>>전체지역보기</option>
-									<option value="강원도"
-										<c:if test= "${col=='강원도'}"> selected </c:if>>강원도</option>
-									<option value="경기남부"
-										<c:if test= "${col=='경기남부'}"> selected </c:if>>경기남부</option>
-									<option value="경기북부"
-										<c:if test= "${col=='경기북부'}"> selected </c:if>>경기북부</option>
-									<option value="경상남도"
-										<c:if test= "${col=='경상남도'}"> selected </c:if>>경상남도</option>
-									<option value="경상북도"
-										<c:if test= "${col=='경상북도'}"> selected </c:if>>경상북도</option>
-									<option value="광주광역시"
-										<c:if test= "${col=='광주광역시'}"> selected </c:if>>광주광역시</option>
-									<option value="대구광역시"
-										<c:if test= "${col=='대구광역시'}"> selected </c:if>>대구광역시</option>
-									<option value="대전광역시"
-										<c:if test= "${col=='대전광역시'}"> selected </c:if>>대전광역시</option>
-									<option value="부산광역시"
-										<c:if test= "${col=='부산광역시'}"> selected </c:if>>부산광역시</option>
-									<option value="서울시"
-										<c:if test= "${col=='서울시'}"> selected </c:if>>서울시</option>
-									<option value="세종시"
-										<c:if test= "${col=='세종시'}"> selected </c:if>>세종시</option>
-									<option value="울산광역시"
-										<c:if test= "${col=='울산광역시'}"> selected </c:if>>울산광역시</option>
-									<option value="인천광역시"
-										<c:if test= "${col=='인천광역시'}"> selected </c:if>>인천광역시</option>
-									<option value="전라남도"
-										<c:if test= "${col=='전라남도'}"> selected </c:if>>전라남도</option>
-									<option value="전라북도"
-										<c:if test= "${col=='전라북도'}"> selected </c:if>>전라북도</option>
-									<option value="제주도"
-										<c:if test= "${col=='제주도'}"> selected </c:if>>제주도</option>
-									<option value="충청남도"
-										<c:if test= "${col=='충청남도'}"> selected </c:if>>충청남도</option>
-									<option value="충청북도"
-										<c:if test= "${col=='충청북도'}"> selected </c:if>>충청북도</option>
+        <div class="container">
+        <form action="./list">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light"
+               style="margin-bottom: 75px; background-color: rgb(255, 253, 221);">
+               <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                  <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="width: 300px;">
+                     <div class="col-sm-7" style="margin-top: 7px">
+                        <select class="form-control" name="col">
+                           <option value="0" <c:if test= '${col=="0"}'> selected </c:if>>전체지역보기</option>
+                           <option value="강원도"
+                              <c:if test= "${col=='강원도'}"> selected </c:if>>강원도</option>
+                           <option value="경기남부"
+                              <c:if test= "${col=='경기남부'}"> selected </c:if>>경기남부</option>
+                           <option value="경기북부"
+                              <c:if test= "${col=='경기북부'}"> selected </c:if>>경기북부</option>
+                           <option value="경상남도"
+                              <c:if test= "${col=='경상남도'}"> selected </c:if>>경상남도</option>
+                           <option value="경상북도"
+                              <c:if test= "${col=='경상북도'}"> selected </c:if>>경상북도</option>
+                           <option value="광주광역시"
+                              <c:if test= "${col=='광주광역시'}"> selected </c:if>>광주광역시</option>
+                           <option value="대구광역시"
+                              <c:if test= "${col=='대구광역시'}"> selected </c:if>>대구광역시</option>
+                           <option value="대전광역시"
+                              <c:if test= "${col=='대전광역시'}"> selected </c:if>>대전광역시</option>
+                           <option value="부산광역시"
+                              <c:if test= "${col=='부산광역시'}"> selected </c:if>>부산광역시</option>
+                           <option value="서울시"
+                              <c:if test= "${col=='서울시'}"> selected </c:if>>서울시</option>
+                           <option value="세종시"
+                              <c:if test= "${col=='세종시'}"> selected </c:if>>세종시</option>
+                           <option value="울산광역시"
+                              <c:if test= "${col=='울산광역시'}"> selected </c:if>>울산광역시</option>
+                           <option value="인천광역시"
+                              <c:if test= "${col=='인천광역시'}"> selected </c:if>>인천광역시</option>
+                           <option value="전라남도"
+                              <c:if test= "${col=='전라남도'}"> selected </c:if>>전라남도</option>
+                           <option value="전라북도"
+                              <c:if test= "${col=='전라북도'}"> selected </c:if>>전라북도</option>
+                           <option value="제주도"
+                              <c:if test= "${col=='제주도'}"> selected </c:if>>제주도</option>
+                           <option value="충청남도"
+                              <c:if test= "${col=='충청남도'}"> selected </c:if>>충청남도</option>
+                           <option value="충청북도"
+                              <c:if test= "${col=='충청북도'}"> selected </c:if>>충청북도</option>
 
-								</select>
-							</div>
-							<li style="width: 100px; margin-top: 7px;"><select
-								class="form-control" name="array">
-									<option value="0" <c:if test= "${array=='0'}"> selected </c:if>>최신순</option>
-									<option value="1" <c:if test= "${array=='1'}"> selected </c:if>>조회순</option>
-									<option value="2" <c:if test= "${array=='2'}"> selected </c:if>>리뷰순</option>
-							</select></li>
-						</ul>
-						<form class="form-inline my-2 my-lg-0">
-							<input class="form-control mr-sm-2 col-xs-10"
-								style="width: 200px; margin: 8px; margin-left: 70px"
-								type="search" placeholder="Search" name="word" value="${word }">
-							<button class="btn btn-outline-success my-2 my-sm-0"
-								style="margin-top: 8px; height: 35px" type="submit">Search</button>
-						</form>
-					</div>
-				</nav>
-			</form>
-			<div>
-				<button class="btn btn-outline-success my-2 my-sm-0" style="height:40px; margin-bottom:20px; margin-left: 1020px;" onclick="location.href='/food/create'">글쓰기</button>
-			</div>
+                        </select>
+                     </div>
+                     <li style="width: 100px; margin-top: 7px;">
+                     <select
+                        class="form-control" name="array">
+                           <option value="0" <c:if test= "${array=='0'}"> selected </c:if>>최신순</option>
+                           <option value="1" <c:if test= "${array=='1'}"> selected </c:if>>조회순</option>
+                           <option value="2" <c:if test= "${array=='2'}"> selected </c:if>>별점순</option>
+                     </select>
+                     </li>
+                  </ul>
+                  	<form class="form-inline my-2 my-lg-0">
+                		<button class="btn btn-outline-success my-2 my-sm-0" style="margin-top: 8px; height: 35px;float:right;margin-left:10px" type="button" onclick="location.href='/food/create'">등록</button>
+                     	<button class="btn btn-outline-success my-2 my-sm-0" style="margin-top: 8px; height: 35px;float:right;" type="submit">Search</button>
+                     <input class="form-control mr-sm-2 col-xs-10" 
+                        style="width: 200px; margin: 8px; float:right;"
+                        type="search" placeholder="Search" name="word" value="${word }">
+                  </form>
+               </div>
+            </nav>
+         </form>
 			<div class="testimonial-wrapper">
 				<div class="row">
 					<!-- Testimonials-one-start -->

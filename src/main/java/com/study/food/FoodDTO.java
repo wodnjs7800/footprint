@@ -22,4 +22,5 @@ public class FoodDTO {
 	private String address2;
 	private String id;
 	private String avg;
+	private String yn;
 }

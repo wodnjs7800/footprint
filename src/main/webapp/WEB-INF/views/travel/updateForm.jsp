@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>수정</title>
+  <title>여행 수정</title>
   <meta charset="utf-8">
  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   <script>
@@ -62,19 +62,24 @@
 
 <script type="text/javascript">
     function inCheck(f){
-        if(f.travelname.value.length==0){
+    	if(f.travelname.value.length==0){
             alert("여행지명을 입력하세요");
             f.travelname.focus();
             return false;
         }
-        if(f.id.value.length==0){
-            alert("작성자를 입력하세요");
-            f.id.focus();
+        if(f.contents.value.length==0){
+            alert("내용을 입력하세요");
+            f.contents.focus();
             return false;
         }
         if(f.local.value==0){
             alert("지역을 선택해 주세요");
             f.local_num.focus();
+            return false;
+        }
+        if(f.zipcode.value.length==0){
+            alert("우편번호를 입력하세요");
+            f.zipcode.focus();
             return false;
         }
         if(f.address1.value.length==0){
@@ -87,11 +92,6 @@
             f.address2.focus();
             return false;
         }
-        if(f.contents.value.length==0){
-            alert("내용을 입력하세요");
-            f.contents.focus();
-            return false;
-        }
         if(f.phone.value.length==0){
             alert("전화번호를 입력하세요");
             f.phone.focus();
@@ -100,11 +100,6 @@
         if(f.passwd.value.length==0){
             alert("비밀번호를 입력하세요");
             f.passwd.focus();
-            return false;
-        }
-        if(f.fname.value.length==0){
-            alert("상품이미지를 1장 이상 넣어주세요");
-            f.fname.focus();
             return false;
         }
     }
@@ -117,6 +112,7 @@
 <form class="form-horizontal" 
       action="/travel/update"
       method="post"
+      name = 'frm'
       enctype="multipart/form-data"
       onsubmit="return inCheck(this)">
 
@@ -126,22 +122,14 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="travelname">여행지명
     </label>
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <input type="text" name="travelname" id="travelname" class="form-control" placeholder="여행지명" value="${dto.travelname}">
-    </div>
-  </div>
-  
-  <div class="form-group" >
-    <label class="control-label col-sm-2" for="id">작성자
-    </label>
-    <div class="col-sm-8" >
-      <input type="text" name="id" id="id" class="form-control" placeholder="작성자" value="${dto.id}">
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-sm-2" for="contents">내용</label>
-    <div class="col-sm-8">
+    <div class="col-sm-7">
     <textarea rows="12" cols="7" id="contents" name="contents" class="form-control" placeholder="내용" value="${dto.contents}">${dto.contents}</textarea>
     </div>
   </div>
@@ -150,65 +138,68 @@
     <label class="control-label col-sm-2" for="local">지역</label>
     <div class="col-sm-6">
       <select class="form-control" name="local">
-        <option value="${dto.local}"
-				        <c:if test="${col=='0'}"> selected </c:if>
-				        >${dto.local}</option>
+        <option value="0"
+				        <c:if test= '${col=="0"}'> 선택 </c:if>
+				        >지역을 선택해주세요</option>
 				        <option value="강원도"
-				        <c:if test= "${col=='강원도'}"> selected </c:if>
+				        <c:if test= "${col=='강원도'}"> 선택 </c:if>
 				        >강원도</option>
 						<option value="경기남부"
-				        <c:if test= "${col=='경기남부'}"> selected </c:if>
+				        <c:if test= "${col=='경기남부'}"> 선택 </c:if>
 				        >경기남부</option>
 				        <option value="경기북부"
-				        <c:if test= "${col=='경기북부'}"> selected </c:if>
+				        <c:if test= "${col=='경기북부'}"> 선택 </c:if>
 				        >경기북부</option>
 						<option value="경상남도"
-				        <c:if test= "${col=='경상남도'}"> selected </c:if>
+				        <c:if test= "${col=='경상남도'}"> 선택 </c:if>
 				        >경상남도</option>
 						<option value="경상북도"
-				        <c:if test= "${col=='경상북도'}"> selected </c:if>
+				        <c:if test= "${col=='경상북도'}"> 선택 </c:if>
 				        >경상북도</option>
 						<option value="광주광역시"
-				        <c:if test= "${col=='광주광역시'}"> selected </c:if>
+				        <c:if test= "${col=='광주광역시'}"> 선택 </c:if>
 				        >광주광역시</option>
 						<option value="대구광역시"
-				        <c:if test= "${col=='대구광역시'}"> selected </c:if>
+				        <c:if test= "${col=='대구광역시'}"> 선택 </c:if>
 				        >대구광역시</option>
 						<option value="대전광역시"
-				        <c:if test= "${col=='대전광역시'}"> selected </c:if>
+				        <c:if test= "${col=='대전광역시'}"> 선택 </c:if>
 				        >대전광역시</option>
  						<option value="부산광역시"
-				        <c:if test= "${col=='부산광역시'}"> selected </c:if>
+				        <c:if test= "${col=='부산광역시'}"> 선택 </c:if>
 				        >부산광역시</option>
 				        <option value="서울시"
-				        <c:if test= "${col=='서울시'}"> selected </c:if>
+				        <c:if test= "${col=='서울시'}"> 선택 </c:if>
 				        >서울시</option>
 						<option value="세종시"
-				        <c:if test= "${col=='세종시'}"> selected </c:if>
+				        <c:if test= "${col=='세종시'}"> 선택 </c:if>
 				        >세종시</option>
  						<option value="울산광역시"
-				        <c:if test= "${col=='울산광역시'}"> selected </c:if>
+				        <c:if test= "${col=='울산광역시'}"> 선택 </c:if>
 				        >울산광역시</option>
 				         <option value="인천광역시"
-				        <c:if test= "${col=='인천광역시'}"> selected </c:if>
+				        <c:if test= "${col=='인천광역시'}"> 선택 </c:if>
 				        >인천광역시</option>
  						<option value="전라남도"
-				        <c:if test= "${col=='전라남도'}"> selected </c:if>
+				        <c:if test= "${col=='전라남도'}"> 선택 </c:if>
 				        >전라남도</option>
 						<option value="전라북도"
-				        <c:if test= "${col=='전라북도'}"> selected </c:if>
+				        <c:if test= "${col=='전라북도'}"> 선택 </c:if>
 				        >전라북도</option>
  						<option value="제주도"
-				        <c:if test= "${col=='제주도'}"> selected </c:if>
+				        <c:if test= "${col=='제주도'}"> 선택 </c:if>
 				        >제주도</option>
 						<option value="충청남도"
-				        <c:if test= "${col=='충청남도'}"> selected </c:if>
+				        <c:if test= "${col=='충청남도'}"> 선택 </c:if>
 				        >충청남도</option>
 						<option value="충청북도"
-				        <c:if test= "${col=='충청북도'}"> selected </c:if>
+				        <c:if test= "${col=='충청북도'}"> 선택 </c:if>
 				        >충청북도</option>
         
       </select>
+      <script type="text/javascript">
+    		document.frm.local.value='${dto.local}';
+      </script>
     </div>
   </div>
 
@@ -219,7 +210,7 @@
        name="zipcode" id="zipcode " placeholder="우편번호" value="${dto.zipcode}">
     </div>
     
-    <button type="button" class="btn btn-default col-sm-1" style="width: 120px;height: 35px; margin-top: 0px;"
+    <button type="button" class="btn col-sm-1" style="width: 120px;height: 35px; margin-top: 0px;"
     onclick="sample6_execDaumPostcode()">주소검색</button>
     
   </div>
@@ -259,10 +250,10 @@
     </div>
   </div>
    <div class="form-group">
-   <div class="col-sm-offset-2 col-sm-8" style="margin-bottom:100px">
+   <div class="col-sm-offset-2 col-sm-7" style="margin-bottom:100px">
     <button type="submit" class="btn" style="height:40px">수정</button>
     <button type="reset" class="btn" style="height:40px; margin-left:5px">취소</button>
-    <button type="reset" class="btn" onclick="goBack()" style="height:40px; margin-left:380px">뒤로</button>
+    <button type="reset" class="btn" onclick="goBack()" style="height:40px; float:right;">뒤로</button>
    </div>
  </div>
 </form>

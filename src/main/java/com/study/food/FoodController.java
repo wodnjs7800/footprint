@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.study.cart.CartjoinDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -26,6 +27,120 @@ public class FoodController {
 	@Qualifier("com.study.food.FoodServiceImpl")
 	private FoodService service;
 
+	@GetMapping("/admin/fooddelete")
+	public String fdelete(int foodno, Model model) {
+		FoodDTO dto = service.readf(foodno);
+		model.addAttribute("dto", dto);
+		return "/admin/fooddelete";
+	}
+
+	@PostMapping("/admin/fooddelete")
+	public String fdelete(HttpServletRequest request, int foodno, String passwd, String fname) {
+		String basePath = Food.getUploadDir();
+		
+		Map map = new HashMap();
+
+		int cnt = 0;
+		
+		cnt = service.delete(foodno);
+		//fname이 디폴트 이름이 아닌경우에만 이미지 삭제
+		if(!fname.equals("food.jpg")) {
+			Utility.deleteFile(basePath, fname);
+		}
+		
+		if (cnt == 1) {
+			return "redirect:/admin/foodlist";
+		} else {
+			return "/myerror";
+		}
+
+	}
+	
+	@GetMapping("/food/complete")
+	public String complete() {
+
+		return "/admin/foodupdate";
+	}
+	
+	@GetMapping("/admin/foodupdate")
+	public String adminUpdate(int foodno, Model model) {
+		
+		FoodDTO dto = service.readf(foodno);
+
+		model.addAttribute("dto", dto);
+
+		return "/admin/foodupdate";
+	}
+
+	@PostMapping("/admin/foodupdate")
+	public String adminUpdate(MultipartFile fnameMF, String oldfile, FoodDTO dto, Model model, HttpServletRequest request) {
+		//String basePath = new ClassPathResource("/static/images/food").getFile().getAbsolutePath();
+		String basePath = Food.getUploadDir();
+
+		if (oldfile != null && !oldfile.equals("food.jpg")) {
+			Utility.deleteFile(basePath, oldfile);
+		}
+
+		Map map = new HashMap();
+		map.put("foodno", dto.getFoodno());
+		map.put("foodname", dto.getFoodname());
+		map.put("contents", dto.getContents());
+		map.put("local", dto.getLocal());
+		map.put("zipcode", dto.getZipcode());
+		map.put("address1", dto.getAddress1());
+		map.put("address2", dto.getAddress2());
+		map.put("phone", dto.getPhone());
+		map.put("yn", dto.getYn());
+
+		int size = (int) dto.getFnameMF().getSize();
+		if (size > 0) {
+			map.put("fname", Utility.saveFileSpring(fnameMF, basePath));
+		} else {
+			map.put("fname", dto.getFname());
+		}
+
+
+		int cnt = service.foodupdate(map);
+		
+		if (cnt == 1) {
+			return "redirect:/admin/foodlist";
+		} else {
+			return "/member/errorMsg";
+		}
+	}
+	
+	@GetMapping("/admin/foodlist")
+	public String list(HttpServletRequest request, Model model) {
+		
+		// 페이지관련-----------------------
+		int nowPage = 1;// 현재 보고있는 페이지
+		if (request.getParameter("nowPage") != null) {
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage = 8;// 한페이지당 보여줄 레코드갯수
+		
+		// DB에서 가져올 순번-----------------
+		int sno = ((nowPage - 1) * recordPerPage) + 1;
+		int eno = nowPage * recordPerPage;	
+		Map map = new HashMap();
+		map.put("sno", sno);
+		map.put("eno", eno);
+		
+		List<FoodDTO> list = service.foodlist(map);
+		int total = service.foodtotal();
+		
+		String paging = Utility.pagingf(total, nowPage, recordPerPage, "", "");
+		
+		request.setAttribute("list", list);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("paging", paging);
+		
+		model.addAttribute("list", list);
+		
+		
+		return "/admin/foodlist";
+	}
+	
 	@GetMapping("/food/list")
 	public String list(HttpServletRequest request) {
 		// 검색관련------------------------
@@ -71,7 +186,6 @@ public class FoodController {
 	public String read(int foodno, Model model, HttpSession session, HttpServletRequest request) {
 		//세션 id 가져온다.
 		String id = (String) session.getAttribute("id");
-		id="dlgjs5260";
 				
 		if(id==null) {
 			return "/member/login";
@@ -119,9 +233,8 @@ public class FoodController {
 
 	@PostMapping("/food/create")
 	public String create(FoodDTO dto, HttpSession session) {
-		//세션 id 가져온다.
-		//String id = (String) session.getAttribute("id");
-		String id ="dlgjs5260";
+		
+		String id = (String) session.getAttribute("id");
 		if(id==null) {
 			return "/member/login";
 		}
@@ -140,7 +253,7 @@ public class FoodController {
 		}
 
 		if (service.create(dto) > 0) {
-			return "redirect:list";
+			return "/food/complete";
 		} else {
 			return "/myerror";
 		}
@@ -207,11 +320,13 @@ public class FoodController {
 	public String delete(int foodno, Model model) {
 		FoodDTO dto = service.read(foodno);
 		model.addAttribute("dto", dto);
+
 		return "/food/delete";
 	}
 
 	@PostMapping("/food/delete")
 	public String delete(HttpServletRequest request, int foodno, String passwd, String fname) {
+		
 		String basePath = Food.getUploadDir();
 		
 		Map map = new HashMap();
@@ -221,8 +336,8 @@ public class FoodController {
 
 		int cnt = 0;
 		if (pcnt == 1) {
-			
-			cnt = service.deleteReply(foodno) + service.delete(foodno);
+			service.deleteReply(foodno);
+			cnt = service.delete(foodno);
 			//fname이 디폴트 이름이 아닌경우에만 이미지 삭제
 			if(!fname.equals("food.jpg")) {
 				Utility.deleteFile(basePath, fname);
@@ -231,7 +346,7 @@ public class FoodController {
 
 		if (pcnt != 1) {
 			return "./passwdError";
-		} else if (cnt == 2) {
+		} else if (cnt == 1) {
 			return "redirect:/food/list";
 		} else {
 			return "/myerror";

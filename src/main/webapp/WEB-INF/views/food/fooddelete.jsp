@@ -16,7 +16,7 @@
  
 <h2 class="col-sm-offset-2 col-sm-10" style="padding:0px; margin-bottom:20px">음식점 삭제</h2>
 <form class="form-horizontal" 
-      action="./delete"
+      action="./fooddelete"
       method="post"
       >
   <input type="hidden" name="foodno" value="${dto.foodno}">
@@ -48,12 +48,6 @@
     </label>
     <div class="col-sm-8">
       <p>${dto.phone }</p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="passwd"><strong>비밀번호</strong> :</label>
-    <div class="col-sm-6">
-      <input type="password" name="passwd" id="passwd" class="form-control">
     </div>
   </div>
   

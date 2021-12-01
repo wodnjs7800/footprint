@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		fname
 		from travel
 		where travelno = #{travelno}
+		and yn='yes'
 	</select>
 
 	<update id="updateFile" parameterType="Map">
@@ -63,14 +64,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				)
 				<where>
 					local = #{col}
+					and yn = 'yes'
 				</where>
 			</when>
 			<otherwise>
-				from travel
+				from(select * from travel
 				<where>
 					travelname like '%'||#{word}||'%'
 					or contents like
 					'%'||#{word}||'%'
+				</where>
+				)
+				<where>
+				yn = 'yes'
 				</where>
 			</otherwise>
 		</choose>
@@ -106,14 +112,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 				<where>
 					local = #{col}
+					and yn = 'yes'
 				</where>
 			</when>
 			<otherwise>
-				from travel
+				from(select * from travel
 				<where>
 					travelname like '%'||#{word}||'%'
 					or contents like
 					'%'||#{word}||'%'
+				</where>
+				)
+				<where>
+				yn = 'yes'
 				</where>
 			</otherwise>
 		</choose>
@@ -169,5 +180,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE travelno=#{travelno} AND
 		passwd=#{passwd}
 	</select>
-
+	<!-- traveltotal -->
+	<select id="traveltotal" resultType="int">
+		select count(*) from travel
+		where yn = 'no'
+	</select>
+	<select id="travellist" parameterType="Map" resultType="com.study.travel.TravelDTO">
+		select travelno, travelname, contents, phone, viewcnt, wdate, local,
+		fname, r, avg
+		from (
+		select travelno, travelname, contents, phone, viewcnt,
+		wdate, local, fname, rownum r, avg
+		from(
+		select travelno, travelname,
+		contents,
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as avg
+				from(select * from travel)
+				<where>
+				yn = 'no'
+				</where>	
+		order by travelno asc
+		)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+     	
+	</select>
+	<!-- 관리자 travelupdate -->
+	<update id="travelupdate" parameterType="com.study.travel.TravelDTO">
+		UPDATE travel
+		SET travelname=#{travelname}, contents=#{contents}, phone=#{phone}, local=#{local}, fname=#{fname}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}, yn=#{yn}
+		WHERE travelno=#{travelno}
+	</update>
+	<!-- readt -->
+	<select id="readt" resultType="com.study.travel.TravelDTO">
+		select travelno, travelname, contents,
+		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname,
+		zipcode, address1, address2, id
+		FROM travel
+		WHERE travelno=#{travelno}
+		and yn='no'
+	</select>
+	
 </mapper>

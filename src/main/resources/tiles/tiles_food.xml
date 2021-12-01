@@ -29,5 +29,25 @@
     <put-attribute name="body"
       value="/WEB-INF/views/food/deleteForm.jsp" />
   </definition>
+  <definition name="/admin/foodlist" extends="main">
+    <put-attribute name="title" value="음식요청"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/food/foodlist.jsp" />
+  </definition>
+  <definition name="/admin/foodupdate" extends="main">
+    <put-attribute name="title" value="음식수락"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/food/foodupdate.jsp" />
+  </definition>
+  <definition name="/food/complete" extends="main">
+    <put-attribute name="title" value="음식등록완료"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/food/complete.jsp" />
+  </definition>
+  <definition name="/admin/fooddelete" extends="main">
+    <put-attribute name="title" value="관리자 음식 삭제"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/food/fooddelete.jsp" />
+  </definition>
  
 </tiles-definitions>

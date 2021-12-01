@@ -70,10 +70,11 @@
  </tr>
  
  </table>
- <div style="text-align: center">
- <button class="btn btn-default" onclick="updateM()">정보수정</button>
- <button class="btn btn-default" onclick="deleteM()">회원탈퇴</button>
- <button class="btn btn-default" onclick="location.href='${root}/admin/list'">회원목록</button>
+ <div style="text-align: center; margin-bottom:50px " >
+ <button class="btn"  style="height:40px" onclick="updateM()">정보수정</button>
+ <button class="btn" style="height:40px; margin-left:5px" onclick="deleteM()">회원탈퇴</button>
+ <button class="btn" style="height:40px; margin-left:5px" onclick="location.href='${root}/admin/list'">회원목록</button>
+ <button type="reset" class="btn" onclick="history.back()" style="height:40px; margin-left:5px">뒤로</button>
  </div>
  
  <br>

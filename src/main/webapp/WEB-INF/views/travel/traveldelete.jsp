@@ -14,46 +14,40 @@
 <body> 
 <div class="container">
  
-<h2 class="col-sm-offset-2 col-sm-10" style="padding:0px; margin-bottom:20px">음식점 삭제</h2>
+<h2 class="col-sm-offset-2 col-sm-10" style="padding:0px; margin-bottom:20px">여형지 삭제</h2>
 <form class="form-horizontal" 
-      action="./delete"
+      action="./traveldelete"
       method="post"
       >
-  <input type="hidden" name="foodno" value="${dto.foodno}">
+  <input type="hidden" name="travelno" value="${dto.travelno}">
   <input type="hidden" name="fname" value="${dto.fname}">
   
   <div class="form-group">
-    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="foodname"><strong>음식점명</strong> :
+    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="travelname"><strong>음식점명</strong> :
     </label>
     <div class="col-sm-8">
-      <p>${dto.foodname }</p>
+      <p>${dto.travelname }</p>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="foodname"><strong>위치</strong> :
+    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="travelname"><strong>위치</strong> :
     </label>
     <div class="col-sm-8">
       <p>${dto.address1 } ${dto.address2 }</p>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="foodname"><strong>내용</strong> :
+    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="travelname"><strong>내용</strong> :
     </label>
     <div class="col-sm-8">
       <p>${dto.contents }</p>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="foodname"><strong>전화번호</strong> :
+    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="travelname"><strong>전화번호</strong> :
     </label>
     <div class="col-sm-8">
       <p>${dto.phone }</p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" style="padding-top:4px; padding-right:0px" for="passwd"><strong>비밀번호</strong> :</label>
-    <div class="col-sm-6">
-      <input type="password" name="passwd" id="passwd" class="form-control">
     </div>
   </div>
   
