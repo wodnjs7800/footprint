@@ -15,6 +15,11 @@
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx88497c9cdfc84f02ad5ef647680fd346">
 </script>
 <title>Insert title here</title>
+<style type="text/css">
+#startcheck, #endcheck {
+	color: red;
+}
+</style>
 <script type="text/javascript">
 var map;
 var markerInfo;
@@ -37,38 +42,50 @@ var lat_s, lng_s, lat_e, lng_e;
 var marker;
 
 //장소간 이동시 거리 및 시간
-var tDistance;
-var tTime;
-var startplace;
-var goalplace;
+var tDistance;	//이동 거리
+var tTime;		//이동시간
+var startplace;	//이전장소 이름
+var goalplace;	//목적지 이름
 
 //시간
-var st;
-var et;
-var ddate;
+var st;			//시작 시간
+var et;			//종료시간
+var ddate;		//일정 날짜
 
-//일정 추가
-var list = new Array();
-var plan = new Object();
+var movetime;	//이동시간 반영 출발 시간
+var bmovetime;	//이후 일정이 있을 시 지금 일정의 위치와 다음일정의 이동시간 반영 출발시간.
+var bdist;
+
 
 //시간순으로 정렬
 var result;
 
-if(lat_s == null && lng_s == null) 
-{
-	navigator.geolocation.getCurrentPosition(function(pos) {
-    lat_s = pos.coords.latitude;
-    lng_s = pos.coords.longitude;
-	});
-}	
-
-	/*Null Check만 해주자*/
-	function nullCheck(f){
-		f.
+navigator.geolocation.getCurrentPosition(function(pos) {
+    lat = pos.coords.latitude;
+    lng = pos.coords.longitude;
+});
+	
+	function changeMovetime(time){
+		let arrtime = time.value.split(':');
+		let time1 = new Date(0,0,0,arrtime[0],arrtime[1]);
+		let calcTime = (time1.getHours()*60)+time1.getMinutes()-tTime;
+		calcTime = parseInt(calcTime);
+		let hour = parseInt(calcTime/60);
+		let minute = calcTime%60;
+		let arr;
+		
+		if(minute < 10){
+	        arr  = [hour, "0"+minute];
+	    } else {
+	        arr = [hour, minute];
+	    }
+		
+		let mtime = arr.join(":");
+		
+		return mtime;
 	}
-
-
-	function addPlan() {
+	
+	function addPlan(lat, lng, name) {
 		$('#addplan-dialog').dialog({
 			modal : true,
 			width : 'auto',
@@ -76,38 +93,159 @@ if(lat_s == null && lng_s == null)
 			resizable : false,
 			buttons : {
 				"Yes" : function() {
-					timeCheck(this);
-					map.destroy();
-					$(this).dialog('close');
 				},
 				"No" : function() {
+					resettingMap();
+					$("#startplace").text('');
+					$("#goalplace").text('');
 					map.destroy();
 					$(this).dialog('close');
 				}
 			}
 		});
-		initTmap(lat, lng, name);
+		
+		st = document.getElementById("starttime");
+		et = document.getElementById("endtime");
+		
+		st.addEventListener('change', function(event){
+			if(st.value != "" && et.value != ""){
+				ddate = document.getElementById("ddate");
+				if(st.value > et.value){
+					alert("시작시간보다 종료시간 값이 작습니다. 다시 입력해주세요.");
+					et.value = "";
+					return false;
+				} else{
+					timeCheck(st.value, et.value, ddate.value, lat, lng);
+				}
+			}
+		});
+		et.addEventListener('change', function(event){
+			if(st.value != "" && et.value != ""){
+				ddate = document.getElementById("ddate");
+				if(st.value > et.value){
+					alert("시작시간보다 종료시간 값이 작습니다. 다시 입력해주세요.");
+					et.value = "";
+					return false;
+				} else{
+					timeCheck(st.value, et.value, ddate.value, lat, lng);
+				}
+			}
+		});
+		$("#goalplace").text('도착지 : '+name);
+		initTmap();
 	}
-		
-	function initTmap(getlat, getlng, getname){
-
-		lat_e = getlat;
-		lng_e = getlng;
-		
-		lat = (lat_s - lat_e)>0 ? lat_s - (Math.abs(lat_s-lat_e)/2).toFixed(14) : lat_e - (Math.abs(lat_s-lat_e)/2).toFixed(14);
-		lng = (lng_s - lng_e)>0 ? lng_s - (Math.abs(lng_s-lng_e)/2).toFixed(14) : lng_e - (Math.abs(lng_s-lng_e)/2).toFixed(14);
-		
-		goalplace = getname;
-
-		if(startplace == null){
-			startplace="현재위치";
-			$("#startplace").text("출발지 : "+startplace);
-			$("#goalplace").text('도착지 : '+goalplace);
-		}
-		else{
-			$("#startplace").text('출발지 : '+startplace);
-			$("#goalplace").text('도착지 : '+goalplace);
-		}
+	
+	function timeCheck(stime, etime, ddate, lat_a, lng_a) {
+		var ttid = ${dto.ttid};
+		$.ajax({
+			url : "/timetable/timecheck/?ttid="+ttid,
+			type : "GET",
+			async : true,
+			dataType : "JSON",
+			success : function(data){
+				console.log(data);
+				if(data.length != 0){ //plan이 있을 때
+					for(var i = 0; i < data.length; i++){
+						if(data[i].ddate == ddate){
+							if(i == 0){
+								if(stime < data[i].movetime){
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
+									
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									
+									/*update에 쓰일 예정*/
+									lat_s = lat; lng_s = lng; lat_e = lat_a; lng_e = lng_a;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+								}
+							}else if(i == data.length-1){
+								lat_s = data[data.length-1].lat; 
+								lng_s = data[data.length-1].lng; 
+								lat_e = lat_a; 
+								lng_e = lng_a;
+								map.destroy();
+								initTmap();
+								calcDistance(lat_s, lng_s, lat_e, lng_e);
+							} else{
+								if(stime < data[i].movetime) {
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									/*update에 쓰일 예정*/
+									
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i-1].lat; lng_e = data[i-1].lng;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+								} else if(stime > data[i].endtime) {
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i+1].lat; lng_e = data[i+1].lng;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									
+									/*update에 쓰일 예정*/
+									
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+								}
+							}
+							
+							if(stime >= data[i].movetime && stime <= data[i].endtime){
+								alert(data[i].movetime+" ~ "+data[i].endtime+"은 일정이 있습니다.");
+								strttime.focus();
+							} else if(etime >= data[i].movetime && etime <= data[i].endtime){
+								alert(data[i].movetime+" ~ "+data[i].endtime+"은 일정이 있습니다.");
+								endtime.focus();
+							} else {
+								if(i == 0){
+									if(stime < data[i].movetime){
+										$("#startplace").text('출발지 : 현재위치');
+										break;
+									}
+								} else if (i == (data.length-1)) {
+									if(stime > data[i].endtime){
+										$("#startplace").text('출발지 : '+data[i].bname);
+										break;
+									}
+								} else {
+									if(stime < data[i].movetime) {
+										$("#startplace").text('출발지 : '+data[i-1].bname);
+										break;
+									} else if(stime > data[i].endtime) {
+										$("#startplace").text('출발지 : '+data[i].bname);
+										break;
+									}
+								}
+							}
+						}
+					}
+				} else {
+					alert(2);
+					/*아무런 일정이 없을 때*/
+					lat_s = lat;
+					lng_s = lng;
+					lat_e = lat_a; 
+					lng_e = lng_a;
+					map.destroy();
+					initTmap();
+					calcDistance(lat_s, lng_s, lat_e, lng_e);
+					$("#startplace").text('출발지 : 현재위치');
+				}
+			},
+			error : function(request, status, error) {
+				alert("code = " + request.status + " message = "
+						+ request.responseText + " error = " + error); // 실패 시 처리
+			}
+		});
+	}
+	
+	function initTmap(lat_s, lng_s, lat_e, lng_e){
 		
 		map = new Tmapv2.Map("map_div", {
 			center : new Tmapv2.LatLng(lat, lng),
@@ -136,24 +274,22 @@ if(lat_s == null && lng_s == null)
 					iconSize : new Tmapv2.Size(24, 38),
 					map : map
 				});
-
-		calcDistance();
 	}
 	// 3. 경로탐색 API 사용요청
-	function calcDistance() {
-
+	function calcDistance(lat_s, lng_s, lat_e, lng_e) {
+		
 		var searchOption = 0;
-
+		
 		$.ajax({
 			type : "POST",
 				url : "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
 				async : false,
 				data : {
 					"appKey" : "l7xx88497c9cdfc84f02ad5ef647680fd346",
-					"startX" : lng_s.toString(),
-					"startY" : lat_s.toString(),
-					"endX" : lng_e.toString(),
-					"endY" : lat_e.toString(),
+					"startX" : lng_s,
+					"startY" : lat_s,
+					"endX" : lng_e,
+					"endY" : lat_e,
 					"reqCoordType" : "WGS84GEO",
 					"resCoordType" : "EPSG3857",
 					"searchOption" : searchOption,
@@ -164,7 +300,7 @@ if(lat_s == null && lng_s == null)
 
 				tDistance = parseFloat((resultData[0].properties.totalDistance / 1000).toFixed(1));
 				tTime = parseFloat((resultData[0].properties.totalTime / 60).toFixed(0));
-						
+				
 				$("#distance").text((resultData[0].properties.totalDistance / 1000).toFixed(1)+"km");
 				$("#ttime").text((resultData[0].properties.totalTime / 60).toFixed(0)+"분")
 									
@@ -226,7 +362,8 @@ if(lat_s == null && lng_s == null)
 						+ request.responseText
 						+ "\n" + "error:" + error);
 					}
-			});
+			}
+		);
 					//JSON TYPE EDIT [E]
 	}
 	
@@ -434,13 +571,15 @@ if(lat_s == null && lng_s == null)
 			<form class="form-horisontal" action="/timetable/update"
 				method="post" name="frm" enctype="multipart/form-data"
 				onsubmit="return nullCheck(this)">
-				<input type="hidden" value="${dto.ttid }"> 
-				<input type="date" value="${dto.startdate }" 
-				min="${dto.startdate }" id="ddate" max="${dto.enddate }"> 
-				<input type="time" id="starttime"> 
-				<input type="time" id="endtime"> 
+				<input type="hidden" value="${dto.ttid }">
+				<input type="hidden" id="bmno" value="">
+				<input type="hidden" id="dist" value="">
 				<input type="hidden" id="movetime" value="">
-				<input type="hidden" id="sp">
+				<input type="hidden" id="planid" value="">
+				<input type="hidden" id="bmovetime" value="">
+				<input type="date" id="ddate" value="${dto.startdate }" min="${dto.startdate }" max="${dto.enddate }"> 
+				<input type="time" id="starttime"> 
+				<input type="time" id="endtime">
 				<table>
 					<tr>
 						<td><label id="startplace"></label></td>
@@ -456,13 +595,15 @@ if(lat_s == null && lng_s == null)
 						<td><label>소요시간 :&nbsp;</label> <label id="ttime"></label></td>
 					</tr>
 				</table>
+				<button type="submit" class="btn btn-default">등록</button>
 			</form>
 			<div id="map_div"></div>
 		</div>
 
 		<div class="space-medium"
 			style="padding-left: 100px; padding-right: 100px;">
-			<div style="overflow-y:scroll; height:400px; float:left; width:25%;">
+			<div
+				style="overflow-y: scroll; height: 400px; float: left; width: 25%;">
 				<table class="table table-striped">
 					<tr>
 						<th>List of Bookmark(food)</th>
@@ -478,7 +619,7 @@ if(lat_s == null && lng_s == null)
 							<c:forEach var="dt" items="${flist }">
 								<tr>
 									<td><a
-										href="javascript:addPlan()">${dt.bname }</a>
+										href="javascript:addPlan('${dt.lat }','${dt.lng }','${dt.bname }','${dt.bmno }')">${dt.bname }</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -486,7 +627,8 @@ if(lat_s == null && lng_s == null)
 					</c:choose>
 				</table>
 			</div>
-			<div style="overflow-y:scroll; height:400px; float:left; width:25%;">
+			<div
+				style="overflow-y: scroll; height: 400px; float: left; width: 25%;">
 				<table class="table table-striped">
 					<tr>
 						<th>List of Bookmark(travel)</th>
@@ -502,7 +644,7 @@ if(lat_s == null && lng_s == null)
 							<c:forEach var="dt" items="${tlist }">
 								<tr>
 									<td><a
-										href="javascript:addPlan()">${dt.bname }</a>
+										href="javascript:addPlan('${dt.lat }','${dt.lng }','${dt.bname }','${dt.bmno }')">${dt.bname }</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -510,12 +652,13 @@ if(lat_s == null && lng_s == null)
 					</c:choose>
 				</table>
 			</div>
-			<div style="overflow-y:scroll; height:400px; float:left; width:50%">
-				<table class="table table-striped" style="float:left;">
+			<div
+				style="overflow-y: scroll; height: 400px; float: left; width: 50%">
+				<table class="table table-striped" style="float: left;">
 					<!-- 여기는 for문 -->
 					<c:forEach var="i" begin="0" end="${days-1 }" step="1">
 						<tr>
-							<th style="font-size:8px; text-align: center">${list[i] }</th>
+							<th style="font-size: 8px; text-align: center">${list[i] }</th>
 							<th>일정ID</th>
 							<th>이름</th>
 							<th>일정 날짜</th>
@@ -535,7 +678,7 @@ if(lat_s == null && lng_s == null)
 											<td>${dt.planid }</td>
 											<td><a href="javascript:addPlan()">${dt.bname }</a></td>
 											<td>${dt.ddate }</td>
-											<td>${dt.starttime } ~ ${dt.endtime }</td>
+											<td>${dt.starttime }~${dt.endtime }</td>
 											<td>(${dt.movetime }에는 출발해야 합니다.)</td>
 										</c:if>
 									</tr>
@@ -547,8 +690,10 @@ if(lat_s == null && lng_s == null)
 			</div>
 		</div>
 		<div>
-			<table style="width:100%;">
-				<tr><td></td></tr>
+			<table style="width: 100%;">
+				<tr>
+					<td></td>
+				</tr>
 			</table>
 		</div>
 	</section>

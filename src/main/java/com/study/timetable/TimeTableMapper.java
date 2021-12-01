@@ -26,5 +26,9 @@ public interface TimeTableMapper {
 	List<BookmarkDTO> flist(String id);
 
 	List<PlanDTO> plist(int ttid);
+
+	boolean update(PlanDTO dto);
+
+	boolean bupdate(Map map);
 	
 }

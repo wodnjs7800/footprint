@@ -17,9 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id}
 		and foodno is not null
 	</select>
+	<!-- plist -->
 	<select id="plist" parameterType="int" resultType="com.study.plan.PlanDTO">
 		select * from plan
 		where ttid = #{ttid}
+		order by starttime asc
 	</select>
 	<!-- create -->
 	<insert id="create"
@@ -45,6 +47,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	]]>
 
 	</select>
+	<!-- update -->
+	<insert id = "update" parameterType="com.study.plan.PlanDTO">
+		insert into plan
+		values( (select nvl(max(planid),0)+1 from plan),
+		(select lat from bookmark where bmno = #{bmno}),
+		(select lng from bookmark where bmno = #{bmno}),
+		#{bmno},
+		#{ttid},
+		(select bname from bookmark where bmno = #{bmno}),
+		#{dist}, #{ddate}, #{starttime}, #{endtime}, #{movetime})
+	</insert>
 	<!-- total -->
 	<select id="total" resultType="int" parameterType="Map">
 		select

@@ -62,4 +62,16 @@ public class TimeTableServiceImpl implements TimeTableService {
 		return mapper.plist(ttid);
 	}
 
+	@Override
+	public boolean update(PlanDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.update(dto);
+	}
+
+	@Override
+	public boolean bupdate(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.bupdate(map);
+	}
+
 }

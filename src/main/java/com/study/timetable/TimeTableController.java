@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.bookmark.BookmarkDTO;
 import com.study.plan.PlanDTO;
@@ -75,15 +76,14 @@ public class TimeTableController {
 
 		return "/timetable/read";
 	}
-
-	@GetMapping("/timetable/list")
-	public String list() {
-		return "redirect:list";
-	}
 	
 	@RequestMapping("/timetable/list")
-	public String map(HttpServletRequest request) {
+	public String list(String id, HttpServletRequest request, HttpSession session) {
 		// 페이지 관련
+		if(id == null) {
+			id = (String) session.getAttribute("id");
+		}
+		
 		int nowPage = 1;
 		if (request.getParameter("nowPage") != null) {
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
@@ -97,7 +97,6 @@ public class TimeTableController {
 
 		Map map = new HashMap();
 
-		String id = "wogus774";
 		map.put("id", id);
 		map.put("eno", eno);
 		map.put("sno", sno);
@@ -115,18 +114,26 @@ public class TimeTableController {
 		return "/timetable/list";
 	}
 
+	@GetMapping(value = "/timetable/timecheck", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public List<PlanDTO> timeCheck(HttpServletRequest request) {
+		
+		int ttid = Integer.parseInt(request.getParameter("ttid"));
+		
+		List<PlanDTO> list = service.plist(ttid);
+		
+		return list;
+	}
+	
 	@GetMapping("/timetable/update")
 	public String update(HttpServletRequest request) {
 
 		TimeTableDTO dto = service.read(Integer.parseInt(request.getParameter("ttid")));
 		List<BookmarkDTO> tlist = service.tlist(request.getParameter("id"));
-		int days = Integer.parseInt(request.getParameter("days"));
 		List<BookmarkDTO> flist = service.flist(request.getParameter("id"));
 		List<PlanDTO> plist = service.plist(Integer.parseInt(request.getParameter("ttid")));
 		String day = request.getParameter("day");
-		
-		String[] list = day.split(",");
-		
+		String[] list = day.split(",");		
 		System.out.println(list);
 		
 		request.setAttribute("dto", dto);
@@ -134,8 +141,7 @@ public class TimeTableController {
 		request.setAttribute("flist", flist);
 		request.setAttribute("tlist", tlist);
 		request.setAttribute("plist", plist);
-		request.setAttribute("dto", dto);
-		request.setAttribute("days", days);
+		request.setAttribute("days", Integer.parseInt(request.getParameter("days")));
 		request.setAttribute("startdate", request.getAttribute("startdate"));
 		request.setAttribute("startdate", request.getAttribute("enddate"));
 		

@@ -82,7 +82,7 @@
 							<li><a href="${root}/cart/list">
 						<span class="glyphicon glyphicon-shopping-cart"></span>즐겨찾기</a>
 									</li>									
-							<li><a href=""><span
+							<li><a href="${root}/timetable/list"><span
 									class="glyphicon glyphicon-list"></span> 일정표</a></li>
 							<li><a href="${root}/member/update"><span
 									class="glyphicon glyphicon-edit"></span> 회원수정</a></li>

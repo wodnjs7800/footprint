@@ -22,7 +22,7 @@
 		let cDay = 24 * 60 * 60 * 1000; //시 분 초 밀리 샌컨즈
 
 		let day = getDateRangeData(startdate, enddate);
-		
+
 		days = parseInt(dif / cDay) + 1;
 
 		var url = "/timetable/read";
@@ -35,27 +35,29 @@
 
 		location.href = url;
 	}
-	
-	function getDateRangeData(param1, param2){  //param1은 시작일, param2는 종료일이다.
+
+	function getDateRangeData(param1, param2) { //param1은 시작일, param2는 종료일이다.
 		var res_day = [];
-	 	var ss_day = new Date(param1);
-	   	var ee_day = new Date(param2);    	
-	  		while(ss_day.getTime() <= ee_day.getTime()){
-	  			var _mon_ = (ss_day.getMonth()+1);
-	  			_mon_ = _mon_ < 10 ? '0'+_mon_ : _mon_;
-	  			var _day_ = ss_day.getDate();
-	  			_day_ = _day_ < 10 ? '0'+_day_ : _day_;
-	   			res_day.push(ss_day.getFullYear() + '-' + _mon_ + '-' +  _day_);
-	   			ss_day.setDate(ss_day.getDate() + 1);
-	   	}
-	   	return res_day;
+		var ss_day = new Date(param1);
+		var ee_day = new Date(param2);
+		while (ss_day.getTime() <= ee_day.getTime()) {
+			var _mon_ = (ss_day.getMonth() + 1);
+			_mon_ = _mon_ < 10 ? '0' + _mon_ : _mon_;
+			var _day_ = ss_day.getDate();
+			_day_ = _day_ < 10 ? '0' + _day_ : _day_;
+			res_day.push(ss_day.getFullYear() + '-' + _mon_ + '-' + _day_);
+			ss_day.setDate(ss_day.getDate() + 1);
+		}
+		return res_day;
 	}
 </script>
 </head>
 <body>
 	<div class="space-medium">
 		<div style="float: right; padding-right: 100px;">
-			<a href='/timetable/create'>생성</a>
+			<p>
+				<a href='/timetable/create'>생성</a>
+			</p>
 		</div>
 		<div style="padding-left: 100px; padding-right: 100px;">
 			<table class="table table-striped">

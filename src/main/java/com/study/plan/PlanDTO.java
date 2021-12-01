@@ -7,7 +7,10 @@ public class PlanDTO {
 	private int planid;
 	private int bmno;
 	private int ttid;
+	private float lat;
+	private float lng;
 	private String bname;
+	private float dist;
 	private String ddate;
 	private String starttime;
 	private String endtime;
