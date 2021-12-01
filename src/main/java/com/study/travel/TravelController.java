@@ -107,7 +107,6 @@ public class TravelController {
 	public String read(int travelno, Model model, HttpSession session, HttpServletRequest request) {
 		
 		String id = (String) session.getAttribute("id");
-		id="dlgjs";
 				
 		if(id==null) {
 			return "/member/login";
