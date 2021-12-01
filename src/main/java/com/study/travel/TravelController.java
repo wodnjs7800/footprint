@@ -209,8 +209,8 @@ public class TravelController {
 		
 		int cnt = 0;
 		if (pcnt == 1) {
-					
-			cnt = service.deleteReply(travelno) + service.delete(travelno);
+			service.deleteReply(travelno);
+			cnt = service.delete(travelno);
 			if(!oldfile.equals("default.jpg")) {
 				Utility.deleteFile(basePath, oldfile);
 			}
@@ -218,7 +218,7 @@ public class TravelController {
 		
 		if (pcnt != 1) {
 			return "/travel/passwdError";
-		} else if (cnt == 2) {
+		} else if (cnt == 1) {
 			
 			return "redirect:/travel/list";
 		} else {

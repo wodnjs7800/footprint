@@ -320,11 +320,13 @@ public class FoodController {
 	public String delete(int foodno, Model model) {
 		FoodDTO dto = service.read(foodno);
 		model.addAttribute("dto", dto);
+
 		return "/food/delete";
 	}
 
 	@PostMapping("/food/delete")
 	public String delete(HttpServletRequest request, int foodno, String passwd, String fname) {
+		
 		String basePath = Food.getUploadDir();
 		
 		Map map = new HashMap();
@@ -334,8 +336,8 @@ public class FoodController {
 
 		int cnt = 0;
 		if (pcnt == 1) {
-			
-			cnt = service.deleteReply(foodno) + service.delete(foodno);
+			service.deleteReply(foodno);
+			cnt = service.delete(foodno);
 			//fname이 디폴트 이름이 아닌경우에만 이미지 삭제
 			if(!fname.equals("food.jpg")) {
 				Utility.deleteFile(basePath, fname);
@@ -344,7 +346,7 @@ public class FoodController {
 
 		if (pcnt != 1) {
 			return "./passwdError";
-		} else if (cnt == 2) {
+		} else if (cnt == 1) {
 			return "redirect:/food/list";
 		} else {
 			return "/myerror";
