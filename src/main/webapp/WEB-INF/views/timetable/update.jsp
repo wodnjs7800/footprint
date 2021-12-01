@@ -52,9 +52,12 @@ var st;			//시작 시간
 var et;			//종료시간
 var ddate;		//일정 날짜
 
-var movetime;	//이동시간 반영 출발 시간
-var bmovetime;	//이후 일정이 있을 시 지금 일정의 위치와 다음일정의 이동시간 반영 출발시간.
-var bdist;
+var mtime = document.getElementById("movetime");	//이동시간 반영 출발 시간
+var bmovetime = document.getElementById("bmovetime");	//이후 일정이 있을 시 지금 일정의 위치와 다음일정의 이동시간 반영 출발시간.
+var bdist = document.getElementById("bdist");
+var dist = document.getElementById("dist");
+var planid = document.getElementById("planid");
+var bmno = document.getElementById("bmno");
 
 
 //시간순으로 정렬
@@ -66,7 +69,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 });
 	
 	function changeMovetime(time){
-		let arrtime = time.value.split(':');
+		let arrtime = time.split(":");
 		let time1 = new Date(0,0,0,arrtime[0],arrtime[1]);
 		let calcTime = (time1.getHours()*60)+time1.getMinutes()-tTime;
 		calcTime = parseInt(calcTime);
@@ -103,7 +106,6 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				}
 			}
 		});
-		
 		st = document.getElementById("starttime");
 		et = document.getElementById("endtime");
 		
@@ -153,13 +155,16 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									
 									map.destroy();
 									initTmap();
+									/*update*/
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("1. 이전 movetime 수정 = "+changeMovetime(data[i].movetime));
 									
-									/*update에 쓰일 예정*/
+									/*insert*/
 									lat_s = lat; lng_s = lng; lat_e = lat_a; lng_e = lng_a;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("1. movetime = "+changeMovetime(stime.value));
 								}
 							}else if(i == data.length-1){
 								lat_s = data[data.length-1].lat; 
@@ -169,23 +174,27 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 								map.destroy();
 								initTmap();
 								calcDistance(lat_s, lng_s, lat_e, lng_e);
+								alert("2. movetime = "+changeMovetime(stime.value));
 							} else{
 								if(stime < data[i].movetime) {
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("2. 이전 movetime 수정 = "+changeMovetime(data[i].movetime));
 									/*update에 쓰일 예정*/
 									
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i-1].lat; lng_e = data[i-1].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("3. movetime = "+changeMovetime(stime.value));
 								} else if(stime > data[i].endtime) {
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i+1].lat; lng_e = data[i+1].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("3. 이전 movetime 수정 = "+changeMovetime(data[i+1].starttime));
 									
 									/*update에 쓰일 예정*/
 									
@@ -193,6 +202,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("4. movetime = "+changeMovetime(stime.value));
 								}
 							}
 							
@@ -226,7 +236,6 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 						}
 					}
 				} else {
-					alert(2);
 					/*아무런 일정이 없을 때*/
 					lat_s = lat;
 					lng_s = lng;
@@ -235,6 +244,11 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 					map.destroy();
 					initTmap();
 					calcDistance(lat_s, lng_s, lat_e, lng_e);
+					
+					mtime.value =  changeMovetime(stime);
+					dist.value = tDistance;
+					
+					alert(mtime.value);
 					$("#startplace").text('출발지 : 현재위치');
 				}
 			},
