@@ -24,7 +24,7 @@
  
 </head>
 <body>
-<div class="container">
+<div class="container" style="margin-top:50px">
  
    <h2>공지 목록</h2>
   <form class="form-inline" method="post" action="/notice/list">

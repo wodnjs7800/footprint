@@ -109,8 +109,6 @@ body {
 </head>
 
 <body>
-
-	<!-- service-section start -->
 	<div class="space-medium">
 		<div class="container">
 			<div class="row">

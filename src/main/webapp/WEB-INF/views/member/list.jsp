@@ -17,7 +17,7 @@
   </script>
 </head>
 <body>
-<div class="container">
+<div class="container" style="margin-top:50px">
 <h2>회원목록</h2>
 ${admin}
 <br>

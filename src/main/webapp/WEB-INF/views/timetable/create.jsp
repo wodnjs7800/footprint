@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Create Time Table</title>
+<title>일정표 생성</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 	window.onload = function() {
@@ -66,7 +66,7 @@
 </script>
 </head>
 <body>
-	<h2 class="col-sm-offset-2 col-sm-10">일정표 생성</h2>
+	<h2 class="col-sm-offset-2 col-sm-10" style="margin-top:50px">일정표 생성</h2>
 	<form class="form-horizontal" action="/timetable/create" method="post"
 		name='frm' enctype="multipart/form-data"
 		onsubmit="return inCheck(this)">

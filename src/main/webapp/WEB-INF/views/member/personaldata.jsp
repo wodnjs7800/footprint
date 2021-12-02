@@ -9,7 +9,7 @@
 </head>
 <body> 
 <div class="container">
-<h2 class="col-sm-offset-1 col-sm-11">개인정보취급방침</h2>
+<h2 class="col-sm-offset-1 col-sm-11" style="margin-top:50px">개인정보취급방침</h2>
 <form class="form-horizontal" 
       action="createForm"
       method="post"
@@ -18,7 +18,7 @@
       >
  
   
-  <div class="form-group">
+  <div class="form-group" style="margin-bottom:100px">
     <label class="control-label col-sm-1" for="content"></label>
     <div class="col-sm-8">
     <textarea rows="20" cols="100" id="content" name="content" class="form-control">Cummunity 서비스약관 (2021. 8. 23 부터 유효) 

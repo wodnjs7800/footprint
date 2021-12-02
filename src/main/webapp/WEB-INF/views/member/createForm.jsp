@@ -229,7 +229,7 @@ function inCheck(f){
 
 </head>
 <body>
-<div class="container">
+<div class="container" style="margin-top:50px">
 
 <h2 class="col-sm-offset-2 col-sm-10">회원가입</h2>
 <label class="col-sm-offset-2 col-sm-10">(<span id="need">*</span> 필수입력사항)</label>

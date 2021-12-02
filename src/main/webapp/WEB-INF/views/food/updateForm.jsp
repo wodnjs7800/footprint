@@ -110,7 +110,7 @@
 </head>
 <body> 
 
-<div class="container">
+<div class="container" style="margin-top:50px">
 <h1 class="col-sm-offset-2 col-sm-10">음식점 수정</h1>
 <form class="form-horizontal" 
       action="/food/update"

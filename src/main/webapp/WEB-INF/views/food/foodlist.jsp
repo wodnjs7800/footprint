@@ -6,7 +6,7 @@
 <html>
 
 <head>
-<title>음식 목록</title>
+<title>음식 등록 요청</title>
 <meta charset="utf-8">
 <link href="${pageContext.request.contextPath }/css/heon.css"
 	rel="stylesheet">

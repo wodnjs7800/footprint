@@ -32,33 +32,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
- <!-- page-header-start -->
-	<div
-		style="background: url(${pageContext.request.contextPath }/images/12.jpg) no-repeat center; background-size: cover; margin: 0px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-					<div class="page-section">
-						<h1 class="page-title">마이페이지</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="page-breadcrumb">
-		<div class="container">
-			<div class="row">
-				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<ol class="breadcrumb">
-						<li><a onclick="location.href='/'">Home</a></li>
-						<li>My page</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- page-header-close -->
 
 	<!-- Testimonials-section start -->
 <div class="bg-default space-medium">

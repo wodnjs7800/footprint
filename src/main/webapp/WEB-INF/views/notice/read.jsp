@@ -29,7 +29,7 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="margin-top:50px">
 
 		<h2>공지 조회</h2>
 		<div class="panel panel-default">

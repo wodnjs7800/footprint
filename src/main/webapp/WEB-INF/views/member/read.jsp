@@ -24,9 +24,9 @@
   </script>
 </head>
 <body>
-<div class="container">
+<div class="container" style="margin-top:50px">
 
-<h2 class="col-sm-offset-2 col-sm-10">${dto.mname}의 회원정보</h2>
+<h2 class="col-sm-offset-2 col-sm-10">"${dto.mname}"님의 회원정보</h2>
  <table class="table table-bordered">
  <tr>
  	<td colspan="2" style="text-align: center">

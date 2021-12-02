@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>일정표 수정</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -711,7 +711,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 <body>
 	<!-- create랑 같음. 일정 날짜만 변경 할 수 있음. -->
 	<section>
-		<div style="float: right; padding-right: 100px;">
+		<div style="float: right; padding-right: 100px;margin-top:50px">
 			<a href='/timetable/list'>목록</a>
 		</div>
 		<div id="addplan-dialog" title="일정 추가" style="display: none">
@@ -843,7 +843,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 			</div>
 		</div>
 		<div>
-			<table style="width: 100%;">
+			<table style="width: 100%;margin-bottom:50px">
 				<tr>
 					<td></td>
 				</tr>

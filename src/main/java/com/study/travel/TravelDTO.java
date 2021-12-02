@@ -24,5 +24,6 @@ public class TravelDTO {
 	private MultipartFile fnameMF ;
 	private String avg;
 	private String yn;
+	private int pointcnt;
 
 }

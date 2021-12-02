@@ -373,7 +373,7 @@ img { width: auto; max-width: 100%; height: auto; margin: 0; padding: 0; border:
     5.4 Page Header
 ----------------------------------------------*/
 .page-header { background: url(../images/page-header.jpg) no-repeat center; background-size: cover; margin: 0px; }
-.page-section { padding-top: 150px; padding-bottom: 120px; }
+.page-section { padding-top: 150px; padding-bottom: 170px; }
 .page-description { }
 .page-description p { color: #FFF; }
 .page-title { font-size: 38px; color: #fff; font-weight: 700; }

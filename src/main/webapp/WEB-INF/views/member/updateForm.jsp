@@ -107,7 +107,7 @@ function deleteM(){
 <body>
 <div class="container">
 
-<h2 class="col-sm-offset-2 col-sm-10">회원수정</h2>
+<h2 class="col-sm-offset-2 col-sm-10" style="margin-top:50px">회원수정</h2>
 <label class="col-sm-offset-2 col-sm-10">(<span id="need">*</span> 필수입력사항)</label>
   <form class="form-horizontal" 
         action="update"

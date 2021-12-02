@@ -34,32 +34,6 @@
 </head>
 
 <body>
-	<!-- page-header-start -->
-	<div
-		style="background: url(/food/storage/foodmain.jpg) no-repeat center; background-size: cover; margin: 0px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-					<div class="page-section">
-						<h1 class="page-title"></h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="page-breadcrumb">
-		<div class="container">
-			<div class="row">
-				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<ol class="breadcrumb">
-						<li><a onclick="location.href='/'">Home</a></li>
-						<li>food List</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- page-header-close -->
 	<!-- Testimonials-section start -->
 	<div class="bg-default space-medium">
         <div class="container">

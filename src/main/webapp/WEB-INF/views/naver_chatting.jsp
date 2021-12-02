@@ -33,7 +33,7 @@ connect();
 </style>
 </head>
 <body>
-<div id="main-content" class="container">
+<div id="main-content" class="container" style="margin-top:50px">
     <H2>Q&A</H2>
     <div class="row">
         <div class="col-md-10">

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>즐겨찾기</title>
 
 <link href="${pageContext.request.contextPath }/css/heon.css"
 	rel="stylesheet">	
@@ -34,19 +34,7 @@
 </head>
 <body>
 
-<div class="page-breadcrumb">
-		<div class="container">
-			<div class="row">
-				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<ol class="breadcrumb">
-						<li><a onclick="location.href='/'">Home</a></li>
-						<li>즐겨찾기</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-<div class="container">
+<div class="container" style="margin-top:50px">
         
 <c:choose>   
 <c:when test="${empty list}">
@@ -112,6 +100,7 @@
  </c:forEach>
  
 </div>
+<button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
 ${paging}
 </c:otherwise>
 </c:choose>

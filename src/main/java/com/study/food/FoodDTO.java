@@ -23,4 +23,5 @@ public class FoodDTO {
 	private String id;
 	private String avg;
 	private String yn;
+	private int pointcnt;
 }

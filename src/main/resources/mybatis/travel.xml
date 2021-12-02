@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select travelno, travelname, id, zipcode, address1,
 		address2, lat, lng,
 		contents, phone, viewcnt, passwd, wdate, local,
-		fname
+		fname, pointcnt
 		from travel
 		where travelno = #{travelno}
 		and yn='yes'

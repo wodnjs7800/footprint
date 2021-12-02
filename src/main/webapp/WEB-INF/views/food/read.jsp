@@ -178,7 +178,7 @@
 						<small>${dto.viewcnt } views</small>
 					</div>
 					<div class="col-xs-1 mt10" style="padding: 0px; width: 100px;">
-						<small>❤️ 152</small>
+						<small>❤️ ${dto.pointcnt }</small>
 					</div>
 					<div class="col-xs-3 mt10" style="padding: 0px; width: 100px;">
 						<small>tel)${dto.phone }</small>
