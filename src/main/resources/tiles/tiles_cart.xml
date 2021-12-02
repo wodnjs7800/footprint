@@ -10,5 +10,6 @@
     <put-attribute name="body"
       value="/WEB-INF/views/cart/list.jsp" />
    </definition>
-  
+   
+ 
 </tiles-definitions>

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,10 +80,35 @@ body {
 	object-fit: cover;
 }
 </style>
+<style>
+.hiddenx{
+	overflow: hidden;
+	white-space: nowrap;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	height:30px;
+	width: 300px;
+}
+</style>
+<script type="text/javascript">
+	function readF(foodno) {
+		var url = "food/read";
+		url += "?foodno=" + foodno;
+		url += "&nowPage=1";
+		location.href = url;
+
+	}
+	function readT(travelno) {
+		var url = "travel/read";
+		url += "?travelno=" + travelno;
+		url += "&nowPage=1";
+		location.href = url;
+
+	}
+</script>
 </head>
 
 <body>
-
 
 	<!-- service-section start -->
 	<div class="space-medium">
@@ -97,61 +124,34 @@ body {
 				<!-- Swiper -->
 				<div class="swiper mySwiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
+					
+						<c:forEach var="dto" items="${travelList}">
+						<div class="swiper-slide expand_img">
 							<div class="service-block">
 								<div class="service-img">
-									<a href="#"><img src="images/service-img-1.jpg"
-										alt="Tour and Travel Agency - Responsive Website Template"></a>
+									<a href="javascript:readT(${dto.travelno} )"><img style="width:318px; height:247px" src="/food/storage/${dto.fname }"></a>
 								</div>
 								<div class="service-content">
-									<h3>
-										<a href="#" class="title">Tour</a>
+									<h3 class="hiddenx">
+										<a href="javascript:readT(${dto.travelno} )" class="title">(${dto.local})${dto.travelname }</a>
 									</h3>
-									<p>Scelerisque vitae velit e llamcorper plvinar esras sit
-										amet odio et dolor por bibendum sit amet neceros.</p>
-
+									<div style="margin-top: 4px; display: flex; justify-content: center">
+										<img src="/food/storage/star.jpg"
+											style="width: 18px; height: 18px; margin-top:4px"><b style="font-size:15px">(${dto.avg })</b>
+									</div>
+									<div
+										style="margin-top: 20px; display: flex; justify-content: right">
+										<small>${dto.viewcnt } views </small>
+									</div>
+									<div style="display: flex; justify-content: right">
+									<small>등록일:${dto.wdate }</small>
+									</div>
 								</div>
 
 							</div>
 						</div>
-						<div class="swiper-slide">
-							<div class="service-block">
-								<div class="service-img">
-									<a href="#"><img src="images/service-img-1.jpg"
-										alt="Tour and Travel Agency - Responsive Website Template"></a>
-								</div>
-								<div class="service-content">
-									<h3>
-										<a href="#" class="title">Tour</a>
-									</h3>
-									<p>Scelerisque vitae velit e llamcorper plvinar esras sit
-										amet odio et dolor por bibendum sit amet neceros.</p>
+						</c:forEach>
 
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="service-block">
-								<div class="service-img">
-									<a href="#"><img src="images/service-img-1.jpg"
-										alt="Tour and Travel Agency - Responsive Website Template"></a>
-								</div>
-								<div class="service-content">
-									<h3>
-										<a href="#" class="title">Tour</a>
-									</h3>
-									<p>Scelerisque vitae velit e llamcorper plvinar esras sit
-										amet odio et dolor por bibendum sit amet neceros.</p>
-
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">Slide 4</div>
-						<div class="swiper-slide">Slide 5</div>
-						<div class="swiper-slide">Slide 6</div>
-						<div class="swiper-slide">Slide 7</div>
-						<div class="swiper-slide">Slide 8</div>
-						<div class="swiper-slide">Slide 9</div>
 					</div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
@@ -163,7 +163,6 @@ body {
 
 				<!-- Initialize Swiper -->
 				<script>
-
         var swiper = new Swiper(".mySwiper", {
           slidesPerView: 3,
           spaceBetween: 30,
@@ -196,63 +195,32 @@ body {
 				<!-- Swiper -->
 				<div class="swiper mySwiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
+						<c:forEach var="dto" items="${foodList}">
+						<div class="swiper-slide expand_img">
 							<div class="service-block">
 								<div class="service-img">
-									<a href="#"><img src="images/service-img-1.jpg"
-										alt="Tour and Travel Agency - Responsive Website Template"></a>
+									<a href="javascript:readF(${dto.foodno} )"><img style="width:318px; height:247px" src="/food/storage/${dto.fname }"></a>
 								</div>
 								<div class="service-content">
-									<h3>
-										<a href="#" class="title">Food</a>
+									<h3 class="hiddenx">
+										<a href="javascript:readF(${dto.foodno} )" class="title">(${dto.local})${dto.foodname }</a>
 									</h3>
-									<p>Scelerisque vitae velit e llamcorper plvinar esras sit
-										amet odio et dolor por bibendum sit amet neceros.</p>
-
+									<div style="margin-top: 4px; display: flex; justify-content: center">
+										<img src="/food/storage/star.jpg"
+											style="width: 18px; height: 18px; margin-top:4px"><b style="font-size:15px">(${dto.avg })</b>
+									</div>
+									<div
+										style="margin-top: 20px; display: flex; justify-content: right">
+										<small>${dto.viewcnt } views </small>
+									</div>
+									<div style="display: flex; justify-content: right">
+									<small>등록일:${dto.wdate }</small>
+									</div>
 								</div>
 
 							</div>
 						</div>
-						<div class="swiper-slide">
-							<div class="service-block">
-								<div class="service-img">
-									<a href="#"><img src="images/service-img-1.jpg"
-										alt="Tour and Travel Agency - Responsive Website Template"></a>
-								</div>
-								<div class="service-content">
-									<h3>
-										<a href="#" class="title">Food</a>
-									</h3>
-									<p>Scelerisque vitae velit e llamcorper plvinar esras sit
-										amet odio et dolor por bibendum sit amet neceros.</p>
-
-								</div>
-
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="service-block">
-								<div class="service-img">
-									<a href="#"><img src="images/service-img-1.jpg"
-										alt="Tour and Travel Agency - Responsive Website Template"></a>
-								</div>
-								<div class="service-content">
-									<h3>
-										<a href="#" class="title">Food</a>
-									</h3>
-									<p>Scelerisque vitae velit e llamcorper plvinar esras sit
-										amet odio et dolor por bibendum sit amet neceros.</p>
-
-								</div>
-
-							</div>
-						</div>
-						<div class="swiper-slide">Slide 4</div>
-						<div class="swiper-slide">Slide 5</div>
-						<div class="swiper-slide">Slide 6</div>
-						<div class="swiper-slide">Slide 7</div>
-						<div class="swiper-slide">Slide 8</div>
-						<div class="swiper-slide">Slide 9</div>
+						</c:forEach>
 					</div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
@@ -283,117 +251,5 @@ body {
 			</div>
 		</div>
 	</div>
-	<!-- service-section close -->
 
-	<!-- Testimonials-section start -->
-	<div class="bg-default space-medium">
-		<div class="container">
-			<div class="row">
-				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="section-title text-center">
-						<h1>Our Happy Travelers Reviews</h1>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- Testimonials-one-start -->
-				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-					<div class="testimonial-block">
-						<div class="testimonial-img">
-							<img src="images/testimonial-img-1.jpg"
-								alt="Tour and Travel Agency - Responsive Website Template">
-						</div>
-						<div class="testimonial-user-img">
-							<img src="images/testimonial-user-img-1.jpg"
-								alt="Tour and Travel Agency - Responsive Website Template"
-								class="img-circle">
-						</div>
-						<div class="testimonial-content">
-							<h4>Paul Hasburg</h4>
-							<span class="location">Kerala</span>
-							<div class="rating">
-								<span> <i class="fa fa-star"></i></span> <span><i
-									class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i>
-								</span> <span><i class="fa fa-star"></i> </span> <span><i
-									class="fa fa-star"></i> </span>
-							</div>
-							<div>
-								<p class="testimonial-text">“I love this tour. We have
-									enough time to fully experience the Kerala. I have the
-									opportunity to show my region, thank you"</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Testimonials-one-close -->
-				<!-- Testimonials-two-start -->
-				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-					<div class="testimonial-block">
-						<div class="testimonial-img">
-							<img src="images/testimonial-img-2.jpg"
-								alt="Tour and Travel Agency - Responsive Website Template">
-						</div>
-						<div class="testimonial-user-img">
-							<img src="images/testimonial-user-img-2.jpg"
-								alt="Tour and Travel Agency - Responsive Website Template"
-								class="img-circle">
-						</div>
-						<div class="testimonial-content">
-							<h4>Plisa Moody</h4>
-							<span class="location">Kullu-manali</span>
-							<div class="rating">
-								<span> <i class="fa fa-star"></i></span> <span><i
-									class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i>
-								</span> <span><i class="fa fa-star"></i> </span> <span><i
-									class="fa fa-star"></i> </span>
-							</div>
-							<div>
-								<p class="testimonial-text">“You were an excellent Travel
-									Agency for us! It was invaluable trip to kullu-manali & You
-									considered our unique needs, thank you ”</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Testimonials-two-start -->
-				<!-- Testimonials-three-start -->
-				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-					<div class="testimonial-block">
-						<div class="testimonial-img">
-							<img src="images/testimonial-img-3.jpg"
-								alt="Tour and Travel Agency - Responsive Website Template">
-						</div>
-						<div class="testimonial-user-img">
-							<img src="images/testimonial-user-img-3.jpg"
-								alt="Tour and Travel Agency - Responsive Website Template"
-								class="img-circle">
-						</div>
-						<div class="testimonial-content">
-							<h4>Christine Smith</h4>
-							<span class="location">Turkey</span>
-							<div class="rating">
-								<span> <i class="fa fa-star"></i></span> <span><i
-									class="fa fa-star"></i> </span> <span><i class="fa fa-star"></i>
-								</span> <span><i class="fa fa-star"></i> </span> <span><i
-									class="fa fa-star"></i> </span>
-							</div>
-							<div>
-								<p class="testimonial-text">“Suspendisse vitaea enim dictum
-									fringilla ullam interdum atelit id vestibulum TURKEY aecenas
-									viverra risusit amet quam consectetu, thank you”</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Testimonials-three-close -->
-
-<<<<<<< HEAD
-			</div>
-		</div>
-	</div>
-=======
-    
-            
-          
->>>>>>> b_member
 </body>

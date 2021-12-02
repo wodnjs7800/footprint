@@ -22,7 +22,7 @@ public class Utility {
 		codes.put("A01", "회사원");
 		codes.put("A02", "전산관련직");
 		codes.put("A03", "연구전문직");
-		codes.put("A04", "각종학교학생");
+		codes.put("A04", "학생");
 		codes.put("A05", "일반자영업");
 		codes.put("A06", "공무원");
 		codes.put("A07", "의료인");

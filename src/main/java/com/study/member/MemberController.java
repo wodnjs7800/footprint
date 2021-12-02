@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.study.food.FoodDTO;
+import com.study.travel.TravelDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -75,7 +76,13 @@ public class MemberController {
 	  }
 
 	@GetMapping("/")
-	public String home() {
+	public String home(Model model) {
+		
+		List<FoodDTO> foodList = service.foodList();
+		List<TravelDTO> travelList = service.travelList();
+		
+		model.addAttribute("foodList",foodList);
+		model.addAttribute("travelList",travelList);
 
 		return "/home";
 	}
