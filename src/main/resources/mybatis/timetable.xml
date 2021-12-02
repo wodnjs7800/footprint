@@ -5,15 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.study.timetable.TimeTableMapper">
 	<!-- tlist -->
 	<select id="tlist" parameterType="Map"
-		resultType="com.study.bookmark.BookmarkDTO">
-		select * from bookmark 
+		resultType="com.study.cart.CartDTO">
+		select * from cart1 
 		where id = #{id}
 		and travelno is not null
 	</select>
 	<!-- flist -->
 	<select id="flist" parameterType="Map"
-		resultType="com.study.bookmark.BookmarkDTO">
-		select * from bookmark 
+		resultType="com.study.cart.CartDTO">
+		select * from cart1 
 		where id = #{id}
 		and foodno is not null
 	</select>
@@ -51,11 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id = "update" parameterType="Map">
 		insert into plan
 		values( (select nvl(max(planid),0)+1 from plan),
-		(select lat from bookmark where bmno = #{bmno}),
-		(select lng from bookmark where bmno = #{bmno}),
-		#{bmno},
+		(select lat from cart1 where cartno = #{cartno}),
+		(select lng from cart1 where cartno = #{cartno}),
+		#{cartno},
 		#{ttid},
-		(select bname from bookmark where bmno = #{bmno}),
+		(select bname from cart1 where cartno = #{cartno}),
 		#{dist}, #{ddate}, #{starttime}, #{endtime}, #{movetime})
 	</insert>
 	<!-- update -->
@@ -76,8 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from timetable where ttid = #{ttid}
 	</select>
 	<!-- bread -->
-	<select id = "bread" resultType="com.study.bookmark.BookmarkDTO" parameterType="String">
-		select * from bookmark where id = #{id}
+	<select id = "bread" resultType="com.study.cart.CartDTO" parameterType="String">
+		select * from cart1 where id = #{id}
 	</select>
 	<!-- delete -->
 	<delete id="delete" parameterType="int">

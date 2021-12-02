@@ -7,52 +7,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.study.cart.CartMapper">
 
 	<insert id="fcreate" parameterType="com.study.cart.CartDTO">
-		INSERT INTO cart1(cartno, id, no, opt)
-		VALUES((select nvl(max(cartno),0)+1 from cart1), #{id}, #{no}, #{opt})
+		insert into cart1
+		values((select nvl(max(cartno),0)+1 from cart1),
+		#{lat}, #{lng}, #{foodno}, 
+		(select foodname from food where foodno = #{foodno}),
+		(select phone from food where foodno = #{foodno}),
+		#{id} )
 	</insert>
-	
-	<select id="list" parameterType="Map" resultType="com.study.cart.CartjoinDTO">
-	SELECT cartno,no, id, foodname, ffname, foodno,
-      travelname, tfname, travelno, opt,  r
-	from(
-         SELECT cartno, no,id, foodname, ffname, foodno,
-                travelname, tfname, travelno, opt, rownum r
-         from (
-                SELECT cartno,no, c.id id, foodname, f.fname ffname, foodno,
-                travelname, t.fname tfname, travelno, opt
-                FROM cart1 c INNER JOIN food f
-                ON c.no = f.foodno
-                JOIN travel t
-                ON c.no = t.travelno
-                where c.id = #{id}
-                order by cartno desc
-          )
-
- <![CDATA[       
-    )where r >= #{sno} and r <= #{eno}
-]]>
-	</select>
 
 	<insert id="tcreate" parameterType="com.study.cart.CartDTO">
-		INSERT INTO cart1(cartno, id, no, opt)
-		VALUES((select nvl(max(cartno),0)+1 from cart1), #{id}, #{no}, #{opt})
+		insert into cart1
+		values((select nvl(max(cartno),0)+1 from cart1),
+		#{lat}, #{lng}, #{travelno}, 
+		(select travelname from food where travelno = #{travelno}),
+		(select phone from food where travelno = #{travelno}),
+		#{id} )
 	</insert>
-
 	
-	<select id="total" parameterType="String" resultType="int">
-		SELECT count(*)
-		FROM cart1 c INNER JOIN food f
-		ON c.no = f.foodno
-		JOIN travel t
-		ON c.no = t.travelno
-		<where>
-			c.id = #{id}
-		</where>
+	<!-- tlist -->
+	<select id="tlist" parameterType="Map"
+		resultType="com.study.cart.CartDTO">
+		select * from cart1 
+		where id = #{id}
+		and travelno is not null
+	</select>
+	<!-- flist -->
+	<select id="flist" parameterType="Map"
+		resultType="com.study.cart.CartDTO">
+		select * from cart1 
+		where id = #{id}
+		and foodno is not null
 	</select>
 	
 	<delete id="delete" parameterType="int">
     DELETE FROM cart1
     WHERE cartno=#{cartno}
-  </delete>  
+ 	</delete>  
 
 </mapper>

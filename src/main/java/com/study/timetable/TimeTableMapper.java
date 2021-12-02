@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.study.bookmark.BookmarkDTO;
+import com.study.cart.CartDTO;
 import com.study.plan.PlanDTO;
 
 @Mapper
@@ -21,9 +21,9 @@ public interface TimeTableMapper {
 
 	int delete(int ttid);
 
-	List<BookmarkDTO> tlist(String id);
+	List<CartDTO> tlist(String id);
 	
-	List<BookmarkDTO> flist(String id);
+	List<CartDTO> flist(String id);
 
 	List<PlanDTO> plist(int ttid);
 

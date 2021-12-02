@@ -11,11 +11,17 @@ public class CartServiceImpl implements CartService{
 
 	@Autowired
 	private CartMapper mapper;
-	
+
 	@Override
-	public int tcreate(CartDTO dto) {
+	public List<CartDTO> flist(String id) {
 		// TODO Auto-generated method stub
-		return mapper.tcreate(dto);
+		return mapper.flist(id);
+	}
+
+	@Override
+	public List<CartDTO> tlist(String id) {
+		// TODO Auto-generated method stub
+		return mapper.tlist(id);
 	}
 
 	@Override
@@ -23,22 +29,11 @@ public class CartServiceImpl implements CartService{
 		// TODO Auto-generated method stub
 		return mapper.fcreate(dto);
 	}
-	@Override
-	public List<CartjoinDTO> list(Map map) {
-		// TODO Auto-generated method stub
-		return mapper.list(map);
-	}
-	@Override
-	public int total(String id) {
-		// TODO Auto-generated method stub
-		return mapper.total(id);
-	}
 
 	@Override
-	public int delete(int cartno) {
+	public int tcreate(CartDTO dto) {
 		// TODO Auto-generated method stub
-		return mapper.delete(cartno);
+		return mapper.tcreate(dto);
 	}
 
-	
 }

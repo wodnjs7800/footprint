@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.study.bookmark.BookmarkDTO;
+import com.study.cart.CartDTO;
 import com.study.plan.PlanDTO;
 import com.study.utility.Utility;
 
@@ -193,8 +193,8 @@ public class TimeTableController {
 	public String update(HttpServletRequest request) {
 
 		TimeTableDTO dto = service.read(Integer.parseInt(request.getParameter("ttid")));
-		List<BookmarkDTO> tlist = service.tlist(request.getParameter("id"));
-		List<BookmarkDTO> flist = service.flist(request.getParameter("id"));
+		List<CartDTO> tlist = service.tlist(request.getParameter("id"));
+		List<CartDTO> flist = service.flist(request.getParameter("id"));
 		List<PlanDTO> plist = service.plist(Integer.parseInt(request.getParameter("ttid")));
 		String day = request.getParameter("day");
 		String day1 = day;

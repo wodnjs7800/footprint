@@ -108,7 +108,8 @@
 	function createt(){
 		var url = "/cart/tcreate";
 		url += "?no=${dto.travelno}";
-		url += "&opt=t";
+		url += "&lat=${dto.lat}";
+		url += "&lng=${dto.lng}";
 		url += "&id=${sessionScope.id}";
 		location.href = url;
 	}

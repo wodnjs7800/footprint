@@ -26,86 +26,37 @@ public class CartController {
 	@Qualifier("com.study.cart.CartServiceImpl")
 	private CartService service;
 	
-	@GetMapping("/cart/delete")
-	public String delete(int cartno) {
-	
-		int cnt = 0;		
-
-		cnt = service.delete(cartno);
-		if(cnt>0) {
-			return "redirect:/cart/list";
-		}else {
-			return "/error";
-		}
-	}
-	
 	@GetMapping("/cart/list")
 	public String list(HttpSession session, HttpServletRequest request, Model model) {
-		
-		// 페이지관련-----------------------
-		int nowPage = 1;// 현재 보고있는 페이지
-		if (request.getParameter("nowPage") != null) {
-			nowPage = Integer.parseInt(request.getParameter("nowPage"));
-		}
-		int recordPerPage = 8;// 한페이지당 보여줄 레코드갯수
-		
-		// DB에서 가져올 순번-----------------
-		int sno = ((nowPage - 1) * recordPerPage) + 1;
-		int eno = nowPage * recordPerPage;
-		
+
 		String id = (String)session.getAttribute("id");
-				
-		Map map = new HashMap();
-		map.put("sno", sno);
-		map.put("eno", eno);
-		map.put("id", id);
 		
+		List<CartDTO> flist = service.flist(id);
+		List<CartDTO> tlist = service.tlist(id);
 		
-		
-		List<CartjoinDTO> list = service.list(map);
-		int total = service.total(id);
-		
-		String paging = Utility.paging(total, nowPage, recordPerPage, "", "");
-		
-		request.setAttribute("list", list);
-		request.setAttribute("nowPage", nowPage);
-		request.setAttribute("paging", paging);
-		
-		model.addAttribute("list", list);
-		
+		request.setAttribute("flist", flist);
+		request.setAttribute("tlist", tlist);
 		
 		return "/cart/list";
 	}
 	
-	
-	
 	@GetMapping("/cart/fcreate")
-	  public String fcreate(CartDTO dto) {
-	 
+	public String fcreate(CartDTO dto) {
 		int cnt = service.fcreate(dto);
-		
 		if(cnt>0) {
 			return "redirect:./list";
 		}else {
 			return "/error";
 		}
-		
-	  }
-		
-	
+	}
+
 	@GetMapping("/cart/tcreate")
-	  public String tcreate(CartDTO dto) {
-	 
+	public String tcreate(CartDTO dto) {
 		int cnt = service.tcreate(dto);
-		
 		if(cnt>0) {
 			return "redirect:./list";
 		}else {
 			return "/error";
 		}
-		
-	  }
-	
-	
-	
+	}
 }
