@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="fcreate" parameterType="com.study.cart.CartDTO">
 		insert into cart1(cartno, lat, lng, foodno, bname, phone, id, fname)
 		values((select nvl(max(cartno),0)+1 from cart1),
-		#{lat}, #{lng}, #{foodno}, 
+		(select lat from food where foodno = #{foodno}), (select lng from food where foodno = #{foodno}), #{foodno}, 
 		(select foodname from food where foodno = #{foodno}),
 		(select phone from food where foodno = #{foodno}),
 		#{id}, (select fname from food where foodno = #{foodno}) )
