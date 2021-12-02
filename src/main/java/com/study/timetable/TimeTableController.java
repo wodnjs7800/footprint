@@ -34,6 +34,7 @@ public class TimeTableController {
 		if(id == null) {
 			id = (String) session.getAttribute("id");
 		}
+		
 		request.setAttribute("id", id);
 		
 		return "/timetable/create";

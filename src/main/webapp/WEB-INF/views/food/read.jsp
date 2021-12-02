@@ -95,7 +95,7 @@
 
 	function createf(){
 		var url = "/cart/fcreate";
-		url += "?no=${dto.foodno}";
+		url += "?foodno=${dto.foodno}";
 		url += "&lat=${dto.lat}";
 		url += "&lng=${dto.lng}";
 		url += "&id=${sessionScope.id}";

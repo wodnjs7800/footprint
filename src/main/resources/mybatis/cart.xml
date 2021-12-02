@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.study.cart.CartMapper">
 
 	<insert id="fcreate" parameterType="com.study.cart.CartDTO">
-		insert into cart1
+		insert into cart1 (cartno, lat, lng, foodno, bname, phone, id)
 		values((select nvl(max(cartno),0)+1 from cart1),
 		#{lat}, #{lng}, #{foodno}, 
 		(select foodname from food where foodno = #{foodno}),
@@ -16,11 +16,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<insert id="tcreate" parameterType="com.study.cart.CartDTO">
-		insert into cart1
+		insert into cart1 (cartno, lat, lng, travelno, bname, phone, id)
 		values((select nvl(max(cartno),0)+1 from cart1),
 		#{lat}, #{lng}, #{travelno}, 
-		(select travelname from food where travelno = #{travelno}),
-		(select phone from food where travelno = #{travelno}),
+		(select travelname from travel where travelno = #{travelno}),
+		(select phone from travel where travelno = #{travelno}),
 		#{id} )
 	</insert>
 	

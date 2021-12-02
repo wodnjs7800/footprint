@@ -52,6 +52,7 @@ public class CartController {
 
 	@GetMapping("/cart/tcreate")
 	public String tcreate(CartDTO dto) {
+		System.out.println(dto.getFoodno());
 		int cnt = service.tcreate(dto);
 		if(cnt>0) {
 			return "redirect:./list";
