@@ -36,4 +36,10 @@ public class CartServiceImpl implements CartService{
 		return mapper.tcreate(dto);
 	}
 
+	@Override
+	public int delete(int cartno) {
+		// TODO Auto-generated method stub
+		return mapper.delete(cartno);
+	}
+
 }

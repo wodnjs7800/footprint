@@ -143,7 +143,7 @@ public class TimeTableController {
 			id = (String) session.getAttribute("id");
 		}
 		int ttid = Integer.parseInt(map.get("ttid"));
-		int bmno = Integer.parseInt(map.get("bmno"));;
+		int cartno  = Integer.parseInt(map.get("cartno"));;
 		float dist = Float.parseFloat(map.get("dist"));
 		String movetime = map.get("movetime");
 		String ddate = map.get("ddate");
@@ -168,7 +168,7 @@ public class TimeTableController {
 		}
 		
 		m.put("ttid",ttid);
-		m.put("bmno",bmno);
+		m.put("cartno",cartno);
 		m.put("dist",dist);
 		m.put("movetime",movetime);
 		m.put("ddate",ddate);
@@ -192,7 +192,8 @@ public class TimeTableController {
 	
 	@GetMapping("/timetable/update")
 	public String update(HttpServletRequest request) {
-
+		System.out.println("h1");
+		
 		TimeTableDTO dto = service.read(Integer.parseInt(request.getParameter("ttid")));
 		List<CartDTO> tlist = service.tlist(request.getParameter("id"));
 		List<CartDTO> flist = service.flist(request.getParameter("id"));

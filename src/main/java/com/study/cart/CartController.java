@@ -26,6 +26,19 @@ public class CartController {
 	@Qualifier("com.study.cart.CartServiceImpl")
 	private CartService service;
 	
+	@GetMapping("/cart/delete")
+	public String delete(int cartno) {
+	
+		int cnt = 0;		
+
+		cnt = service.delete(cartno);
+		if(cnt>0) {
+			return "redirect:/cart/list";
+		}else {
+			return "/error";
+		}
+	}
+	
 	@GetMapping("/cart/list")
 	public String list(HttpSession session, HttpServletRequest request, Model model) {
 

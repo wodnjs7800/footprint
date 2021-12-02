@@ -5,29 +5,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>즐겨찾기</title>
-
-<link href="${pageContext.request.contextPath }/css/heon.css" rel="stylesheet">
+<title>Insert title here</title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Style CSS -->
+<link href="css/style.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+	rel="stylesheet">
+<!-- FontAwesome CSS -->
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link href="${pageContext.request.contextPath }/css/heon.css"
+	rel="stylesheet">	
 <script type="text/javascript">
-   function readf(foodno) {
-      var url = "../food/read";
-      url += "?foodno=" + foodno;
-      url += "&nowPage=1";
-      location.href = url;
-
-   }
-   function readt(travelno) {
-      var url = "../travel/read";
-      url += "?travelno=" + travelno;
-      url += "&nowPage=1";
-      location.href = url;
-
-   }
-   function deleteC(cartno) {
-      var url = "/cart/delete";
-      url += "?cartno=" + cartno;
-      location.href = url;
-   }
+	function readf(foodno) {
+		var url = "../food/read";
+		url += "?foodno=" + foodno;
+		url += "&nowPage=1";
+		location.href = url;
+		
+	}
+	function readt(travelno) {
+		var url = "../travel/read";
+		url += "?travelno=" + travelno;
+		url += "&nowPage=1";
+		location.href = url;
+		
+	}
+	function deleteC(cartno) {
+		var url = "/cart/delete";
+		url += "?cartno="+cartno;
+		location.href = url;
+	}
 </script>
 </head>
 <body>
@@ -145,8 +164,6 @@
 
             <!-- Swiper JS -->
             <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-
             <!-- Initialize Swiper -->
             <script>
                var swiper = new Swiper(".mySwiper", {
@@ -168,6 +185,5 @@
          </div>
       </div>
    </div>
-
 </body>
 </html>

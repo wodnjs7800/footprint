@@ -14,4 +14,6 @@ public interface CartMapper {
 
 	int tcreate(CartDTO dto);
 
+	int delete(int cartno);
+
 }
