@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.study.food.Food;
+import com.study.food.FoodDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -24,7 +26,18 @@ public class CartController {
 	@Qualifier("com.study.cart.CartServiceImpl")
 	private CartService service;
 	
+	@GetMapping("/cart/delete")
+	public String delete(int cartno) {
+	
+		int cnt = 0;		
 
+		cnt = service.delete(cartno);
+		if(cnt>0) {
+			return "redirect:/cart/list";
+		}else {
+			return "/error";
+		}
+	}
 	
 	@GetMapping("/cart/list")
 	public String list(HttpSession session, HttpServletRequest request, Model model) {
@@ -74,7 +87,7 @@ public class CartController {
 		if(cnt>0) {
 			return "redirect:./list";
 		}else {
-			return "/cart/error";
+			return "/error";
 		}
 		
 	  }
@@ -88,9 +101,11 @@ public class CartController {
 		if(cnt>0) {
 			return "redirect:./list";
 		}else {
-			return "/cart/error";
+			return "/error";
 		}
 		
 	  }
+	
+	
 	
 }

@@ -27,7 +27,7 @@
       <label class="control-label col-sm-2" for="id">아이디</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" id="id" 
-        placeholder="Enter id" name="id" required="required">
+        placeholder="Enter id" name="id" required="required" value='${c_id_val}'>
       </div>
     </div>
     <div class="form-group">
