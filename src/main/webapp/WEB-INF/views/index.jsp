@@ -109,8 +109,6 @@ body {
 </head>
 
 <body>
-
-	<!-- service-section start -->
 	<div class="space-medium">
 		<div class="container">
 			<div class="row">
@@ -129,14 +127,14 @@ body {
 						<div class="swiper-slide expand_img">
 							<div class="service-block">
 								<div class="service-img">
-									<a href="javascript:readT(${dto.travelno} )"><img style="width:318px; height:247px" src="/food/storage/${dto.fname }"></a>
+									<a href="javascript:readT(${dto.travelno} )"><img style="width:318px; height:247px" src="/travel/storage/${dto.fname }"></a>
 								</div>
 								<div class="service-content">
 									<h3 class="hiddenx">
 										<a href="javascript:readT(${dto.travelno} )" class="title">(${dto.local})${dto.travelname }</a>
 									</h3>
 									<div style="margin-top: 4px; display: flex; justify-content: center">
-										<img src="/food/storage/star.jpg"
+										<img src="/travel/storage/star.jpg"
 											style="width: 18px; height: 18px; margin-top:4px"><b style="font-size:15px">(${dto.avg })</b>
 									</div>
 									<div

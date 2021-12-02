@@ -5,10 +5,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.study.food.Food;
-
-//import com.study.contents.Contents;
-//import com.study.member.*;
-import com.study.travel.*;
+import com.study.member.Member;
+import com.study.travel.Travel;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -23,6 +21,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         // registry.addResourceHandler("/attachfile/storage/**").addResourceLocations("file:///" + Attachfile.getUploadDir());
         //registry.addResourceHandler("/member/storage/**").addResourceLocations("file:///" + Member.getUploadDir());
     	registry.addResourceHandler("/food/storage/**").addResourceLocations("file:///" + Food.getUploadDir());
+    	registry.addResourceHandler("/member/storage/**").addResourceLocations("file:///" + Member.getUploadDir());
     }
 }
 

@@ -10,7 +10,7 @@ public class Travel {
     public static synchronized String getUploadDir() {
         String path = "";
         if (File.separator.equals("\\")) {
-            path = "D:/AIstudy/deploy/footprint/travel/storage/";
+            path = "C:/AIstudy/deploy/footprint/travel/storage/";
             System.out.println("Windows 10: " + path);
             
         } else {

@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="read" resultType="com.study.food.FoodDTO">
 		select foodno, foodname, contents,
 		phone, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname,
-		zipcode, address1, address2, id
+		zipcode, address1, address2, id, pointcnt
 		FROM food
 		WHERE foodno=#{foodno}
 		and yn='yes'

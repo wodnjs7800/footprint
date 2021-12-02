@@ -19,7 +19,7 @@
 </head>
 <body> 
 <div class="container">
-<h2 class="col-sm-offset-1 col-sm-11">약관동의</h2>
+<h2 class="col-sm-offset-1 col-sm-11" style="margin-top:50px">약관동의</h2>
 <form class="form-horizontal" 
       action="createForm"
       method="post"

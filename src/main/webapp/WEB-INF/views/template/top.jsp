@@ -130,6 +130,16 @@
             </div>
         </div>
     </div>
-    <!-- header-section close -->
+    <div style="background: url(${pageContext.request.contextPath }/images/top.jpg) no-repeat center; background-size: cover; margin: 0px;">
+        <div class="container" >
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    <div class="page-section">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -12,7 +12,7 @@
   </style>
 </head>
 <body> 
-<div class="container">
+<div class="container" style="margin-top:50px">
  
 <h2 class="col-sm-offset-2 col-sm-10">공지 삭제</h2>
 <form class="form-horizontal" 
