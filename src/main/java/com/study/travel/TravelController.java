@@ -72,7 +72,7 @@ public class TravelController {
 		if (request.getParameter("nowPage") != null) {
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		}
-		int recordPerPage = 12;// 한페이지당 보여줄 레코드갯수
+		int recordPerPage = 8;// 한페이지당 보여줄 레코드갯수
 
 		// DB에서 가져올 순번-----------------
 		int sno = ((nowPage - 1) * recordPerPage) + 1;

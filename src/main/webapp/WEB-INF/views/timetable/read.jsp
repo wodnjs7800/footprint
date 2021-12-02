@@ -11,7 +11,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<title>Insert title here</title>
+<title>일정 조회</title>
 <script type="text/javascript">
 	let day = getDateRangeData("${startdate}", "${enddate}");
 
@@ -67,7 +67,7 @@
 	<div id="delete-dialog" title="삭제" style="display: none">테이블을
 		삭제하시겠습니까?
 	</div>
-	<div style="text-align:right ;padding-right: 100px; width:100%;">
+	<div style="text-align:right ;padding-right: 100px; width:100%; margin-top:50px">
 		<a href="javascript:addPlan(${days })">일정 수정</a>&nbsp;&nbsp;
 		<!-- 추후에 필요 여부에 따라 지울지 말지 결정하겠음. -->
 		<a href="javascript:deleteTimetable()">일정표 삭제</a>
