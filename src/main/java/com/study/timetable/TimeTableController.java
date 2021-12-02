@@ -44,9 +44,13 @@ public class TimeTableController {
 	}
 
 	@PostMapping("/timetable/create")
-	public String create(TimeTableDTO dto, HttpServletRequest request) {
+	public String create(TimeTableDTO dto, String id, HttpServletRequest request,  HttpSession session) {
 
-		if (service.create(dto) == 1) {
+		if(id == null) {
+			id = (String) session.getAttribute("id");
+		}
+		
+		if (id != null && service.create(dto) == 1) {
 			return "redirect:list";
 		}
 

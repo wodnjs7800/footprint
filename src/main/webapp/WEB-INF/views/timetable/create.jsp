@@ -70,9 +70,7 @@
 	<form class="form-horizontal" action="/timetable/create" method="post"
 		name='frm' enctype="multipart/form-data"
 		onsubmit="return inCheck(this)">
-
-		<input type="hidden" id="id" name="id" value="wogus774">
-
+		
 		<div class="form-group">
 			<label class="control-label col-sm-2">일정 이름</label>
 			<div class="col-sm-4">

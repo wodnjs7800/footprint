@@ -137,6 +137,23 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 		initTmap();
 	}
 	
+	if(compare("11:30","9:30")){
+		alert("앞이 큼");
+	} else {
+		alert("작음")
+	}
+	function compare(a,b){
+		var arr1 = a.split(":");
+		var arr2 = b.split(":");
+		var a1 = parseInt(arr1[0]);
+		var b1 = parseInt(arr2[0]);
+		if(a1>b1){
+			return true;
+		} else if(a1 == b1){
+			a1 = parseI
+		}
+	}
+	
 	function timeCheck(stime, etime, ddate, lat_a, lng_a) {
 		var ttid = ${dto.ttid};
 		var st = stime;
@@ -146,21 +163,35 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 			async : true,
 			dataType : "JSON",
 			success : function(data){
-				let j = 0;
-				let k = 0;
+				var j = 0;
+				var k = 0;
 				for(var i = 0; i < data.length; i++){
-				if(data[i].ddate == ddate){
-					j++;
-				}}
+					if(data[i].ddate == ddate){
+						j++;
+					}
+				}
 				console.log(data);
-				if(data.length != 0){ 
-					for(var i = 0; i < data.length; i++){//plan이 있을 때
+				if(data.length != 0){ //기간내 일정이 하나도 없을 때
+					for(var i = 0; i < data.length; i++){ // 기간 내 플랜이 하나라도 있을 때
 						if(data[i].ddate == ddate)//그 날짜에 일정이 있는가?
-						{ 
-							k = k+1;
-							if(i == 0 || j==0){
-								if(st < data[i].movetime){
-									//앞에 일정이 없을 때
+						{
+							if(j == 0){ // 다른날에 일정이 있으나 오늘 일정이 없을 때
+								/*아무런 일정이 없을 때*/
+								lat_s = lat;
+								lng_s = lng;
+								lat_e = lat_a; 
+								lng_e = lng_a;
+								map.destroy();
+								initTmap();
+								calcDistance(lat_s, lng_s, lat_e, lng_e);
+								dist.value = tDistance;
+								mtime.value = changeMovetime(st);
+								$("#startplace").text('출발지 : 현재위치');
+							}
+							if(i == 0) { // 처음 일정과 비교
+								if(st < data[i].movetime){ // 처음 일정보다 일정이 빠를 때
+									alert(typeof(st));
+									alert(st+", "+data[i].movetime)
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									map.destroy();
 									initTmap();
@@ -179,7 +210,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									mtime.value = changeMovetime(st);
 									st = mtime.value;
 									break;
-								} else if(st > data[i].movetime) {
+								} else if(st > data[i].movetime) {// 일정이 더 느릴 때 
 									lat_s = data[i].lat; 
 									lng_s = data[i].lng; 
 									lat_e = lat_a; 
@@ -192,14 +223,47 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									st = mtime.value;
 									break;
 								}
-							}else if(i == data.length-1 || j == k){
-								if(st < data[i].movetime){
+							} else if(j == 1) { // 처음 일정과 비교
+								if(st < data[i].movetime){ // 처음 일정보다 일정이 빠를 때
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("2. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
+									planid.value = data[i].planid;
+									bdist.value = tDistance;
+									bmtime.value = changeMovetime(data[i].starttime);
+									data[i].movetime = bmtime.value;
+									
+									lat_s = lat; lng_s = lng; lat_e = lat_a; lng_e = lng_a;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
+								} else if(st > data[i].movetime) {// 일정이 더 느릴 때 
+									lat_s = data[i].lat; 
+									lng_s = data[i].lng; 
+									lat_e = lat_a; 
+									lng_e = lng_a;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
+								}
+							} else if(i == data.length-1 || j != 0){ //그날의 마지막 일정 j는 일정의 갯수
+								if(st < data[i].movetime){ // 기존 일정보다 빠를 때
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("2. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
+									alert("3. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
 									planid.value = data[i].planid;
 									bdist.value = tDistance;
 									bmtime.value = changeMovetime(data[i].starttime);
@@ -213,7 +277,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									mtime.value = changeMovetime(st);
 									st = mtime.value;
 									break;
-								} else if(st > data[i].movetime){
+								} else if(st > data[i].movetime){ // 기존 일정 보다 느릴 때
 									lat_s = data[i].lat; 
 									lng_s = data[i].lng; 
 									lat_e = lat_a; 
@@ -227,13 +291,13 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									break;
 								}
 								
-							} else{
+							} else{ // 그 외의 모든 상황
 								if(st < data[i].movetime) {
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("3. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
+									alert("4. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
 									planid.value = data[i].planid;
 									bdist.value = tDistance;
 									bmtime.value = changeMovetime(data[i].starttime);
@@ -252,7 +316,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("4. 이전 movetime 수정 = "+changeMovetime(data[i+1].starttime));
+									alert("5. 이전 movetime 수정 = "+changeMovetime(data[i+1].starttime));
 									planid.value = data[i+1].planid;
 									bdist.value = tDistance;
 									bmtime.value = changeMovetime(data[i+1].movetime);
@@ -268,18 +332,6 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									break;
 								}
 							}break;
-						} else {
-							/*아무런 일정이 없을 때*/
-							lat_s = lat;
-							lng_s = lng;
-							lat_e = lat_a; 
-							lng_e = lng_a;
-							map.destroy();
-							initTmap();
-							calcDistance(lat_s, lng_s, lat_e, lng_e);
-							dist.value = tDistance;
-							mtime.value = changeMovetime(st);
-							$("#startplace").text('출발지 : 현재위치');
 						}
 					}
 					for(var i = 0; i < data.length; i++){//plan이 있을 때
@@ -291,7 +343,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 								alert(data[i].movetime+" ~ "+data[i].endtime+"은 일정이 있습니다.");
 								endtime.focus();
 							} else {
-								if(i == 0 || j == 0){
+								if(i == 0 || j == 1){
 									if(st < data[i].movetime){
 										$("#startplace").text('출발지 : 현재위치');
 										break;
@@ -299,7 +351,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 										$("#startplace").text('출발지 : '+data[i].bname);
 										break;
 									}
-								} else if (i == (data.length-1) || j == k) {
+								} else if (i == (data.length-1) || j != 0) {
 									if(st > data[i].endtime){ 
 										$("#startplace").text('출발지 : '+data[i].bname);
 										break;
@@ -319,7 +371,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 							}
 						}
 					}
-				} else {
+				} else { //plan이 비어있을 때
 					/*아무런 일정이 없을 때*/
 					lat_s = lat;
 					lng_s = lng;
