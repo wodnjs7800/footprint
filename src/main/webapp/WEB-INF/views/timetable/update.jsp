@@ -51,6 +51,7 @@ var planid;
 var bmno;
 var mtime;
 var bmtime;
+
 window.onload =function(){
 	bdist = document.getElementById("bdist");
 	dist = document.getElementById("dist");
@@ -59,7 +60,6 @@ window.onload =function(){
 	mtime = document.getElementById("movetime"); //이동시간 반영 출발 시간
 	bmtime = document.getElementById("bmovetime");
 }
-
 
 //시간순으로 정렬
 var result;
@@ -96,8 +96,6 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 			height : 'auto',
 			resizable : false,
 			buttons : {
-				"Yes" : function() {
-				},
 				"No" : function() {
 					resettingMap();
 					$("#startplace").text('');
@@ -158,9 +156,9 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				if(data.length != 0){ 
 					for(var i = 0; i < data.length; i++){//plan이 있을 때
 						if(data[i].ddate == ddate)//그 날짜에 일정이 있는가?
-						{
-							k++;
-							if(i == 0 && j == 0){
+						{ 
+							k = k+1;
+							if(i == 0 || j==0){
 								if(st < data[i].movetime){
 									//앞에 일정이 없을 때
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
@@ -194,7 +192,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 									st = mtime.value;
 									break;
 								}
-							}else if(i == data.length-1 || j-1 == k){
+							}else if(i == data.length-1 || j == k){
 								if(st < data[i].movetime){
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									
@@ -293,14 +291,20 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 								alert(data[i].movetime+" ~ "+data[i].endtime+"은 일정이 있습니다.");
 								endtime.focus();
 							} else {
-								if(i == 0){
+								if(i == 0 || j == 0){
 									if(st < data[i].movetime){
 										$("#startplace").text('출발지 : 현재위치');
 										break;
-									}
-								} else if (i == (data.length-1)) {
-									if(st > data[i].endtime){
+									} else if (st> data[i].endtime){
 										$("#startplace").text('출발지 : '+data[i].bname);
+										break;
+									}
+								} else if (i == (data.length-1) || j == k) {
+									if(st > data[i].endtime){ 
+										$("#startplace").text('출발지 : '+data[i].bname);
+										break;
+									} else if(st < data[i].stattime){
+										$("#startplace").text('출발지 : '+data[i-1].bname);
 										break;
 									}
 								} else {
@@ -661,6 +665,10 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 		<div id="addplan-dialog" title="일정 추가" style="display: none">
 			<form class="form-horisontal" action="/timetable/update"
 				method="post" name="frm">
+				<input type="hidden" id="days" name="days" value="${days }">
+				<input type="hidden" id="day" name="day" value="${day }">
+				<input type="hidden" id="startdate" name="startdate" value="${startdate }">
+				<input type="hidden" id="enddate" name="enddate" value="${enddate }">
 				<input type="hidden" id="ttid" name="ttid" value="${dto.ttid }">
 				<input type="hidden" id="bmno" name="bmno" value="1"> <input
 					type="hidden" id="dist" name="dist" value="1"> <input
@@ -769,7 +777,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 										<c:if test="${dt.ddate == list[i] }">
 											<td></td>
 											<td>${dt.planid }</td>
-											<td><a href="javascript:addPlan()">${dt.bname }</a></td>
+											<td>${dt.bname }</td>
 											<td>${dt.ddate }</td>
 											<td>${dt.starttime }~${dt.endtime }</td>
 											<td>(${dt.movetime }에는 출발해야 합니다.)</td>

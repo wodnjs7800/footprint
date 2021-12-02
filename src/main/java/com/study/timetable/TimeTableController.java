@@ -72,6 +72,7 @@ public class TimeTableController {
 		request.setAttribute("dto", dto);
 		request.setAttribute("nowPage", nowPage);
 		request.setAttribute("days", days);
+		request.setAttribute("day", day);
 		request.setAttribute("enddate", enddate);
 		request.setAttribute("startdate", startdate);
 		request.setAttribute("list", list);
@@ -128,10 +129,12 @@ public class TimeTableController {
 	}
 	
 	@PostMapping("/timetable/update")
-	public String update(@RequestParam Map<String, String> map, RedirectAttributes redirect, HttpSession session) {
+	public String update(@RequestParam Map<String, String> map, String id, RedirectAttributes redirect, HttpSession session) {
 		
 		Map m = new HashMap();
-		
+		if(id == null) {
+			id = (String) session.getAttribute("id");
+		}
 		int ttid = Integer.parseInt(map.get("ttid"));
 		int bmno = Integer.parseInt(map.get("bmno"));;
 		float dist = Float.parseFloat(map.get("dist"));
@@ -140,6 +143,12 @@ public class TimeTableController {
 		String starttime = map.get("starttime");
 		String endtime = map.get("endtime");
 		String pd = map.get("planid");
+		int days = Integer.parseInt(map.get("days"));
+		String startdate = map.get("startdate");
+		String enddate = map.get("enddate");
+		String day = map.get("day");
+		
+		System.out.println(enddate);
 		
 		if(pd != "1000000000") {
 			int planid = Integer.parseInt(map.get("planid")); 
@@ -160,16 +169,17 @@ public class TimeTableController {
 		m.put("endtime",endtime);
 		
 		if(service.update(m) == true) {
-			redirect.addAttribute("ttid");
-			redirect.addAttribute("days");
-			redirect.addAttribute("startdate");
-			redirect.addAttribute("enddate");
-			redirect.addAttribute("day");
-			return "redirect:update";
+			redirect.addAttribute("ttid",ttid);
+			redirect.addAttribute("days",days);
+			redirect.addAttribute("id", id);
+			redirect.addAttribute("startdate",startdate);
+			redirect.addAttribute("enddate", enddate);
+			redirect.addAttribute("day", day);
+			
+			return "redirect:/timetable/update";
 		} else {
 			return "/error";
-		}
-		
+		}	
 	}
 	
 	
@@ -181,17 +191,20 @@ public class TimeTableController {
 		List<BookmarkDTO> flist = service.flist(request.getParameter("id"));
 		List<PlanDTO> plist = service.plist(Integer.parseInt(request.getParameter("ttid")));
 		String day = request.getParameter("day");
-		String[] list = day.split(",");		
-		System.out.println(list);
+		String day1 = day;
+		String[] list = day1.split(",");
+		
+		System.out.println(day);
 		
 		request.setAttribute("dto", dto);
 		request.setAttribute("list", list);
 		request.setAttribute("flist", flist);
 		request.setAttribute("tlist", tlist);
 		request.setAttribute("plist", plist);
+		request.setAttribute("day", day);
 		request.setAttribute("days", Integer.parseInt(request.getParameter("days")));
-		request.setAttribute("startdate", request.getAttribute("startdate"));
-		request.setAttribute("startdate", request.getAttribute("enddate"));
+		request.setAttribute("startdate", request.getParameter("startdate"));
+		request.setAttribute("enddate", request.getParameter("enddate"));
 		
 
 		return "/timetable/update";
