@@ -47,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	]]>
 
 	</select>
-	<!-- update -->
-	<insert id = "update" parameterType="com.study.plan.PlanDTO">
+	<!-- insertplan -->
+	<insert id = "update" parameterType="Map">
 		insert into plan
 		values( (select nvl(max(planid),0)+1 from plan),
 		(select lat from bookmark where bmno = #{bmno}),
@@ -58,6 +58,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(select bname from bookmark where bmno = #{bmno}),
 		#{dist}, #{ddate}, #{starttime}, #{endtime}, #{movetime})
 	</insert>
+	<!-- update -->
+	<update id = "bupdate" parameterType="Map">
+		update plan
+		set dist = #{bdist}, movetime = #{bmtime}
+		where planid = #{planid}
+	</update>
 	<!-- total -->
 	<select id="total" resultType="int" parameterType="Map">
 		select

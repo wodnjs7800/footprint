@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -14,12 +15,6 @@
 <script
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx88497c9cdfc84f02ad5ef647680fd346">
 </script>
-<title>Insert title here</title>
-<style type="text/css">
-#startcheck, #endcheck {
-	color: red;
-}
-</style>
 <script type="text/javascript">
 var map;
 var markerInfo;
@@ -33,8 +28,6 @@ var drawInfoArr2 = [];
 var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
-
-
 
 //좌표 관련
 var lat, lng;
@@ -50,14 +43,22 @@ var goalplace;	//목적지 이름
 //시간
 var st;			//시작 시간
 var et;			//종료시간
-var ddate;		//일정 날짜
+var ddate;		//일정 날짜	
 
-var mtime = document.getElementById("movetime");	//이동시간 반영 출발 시간
-var bmovetime = document.getElementById("bmovetime");	//이후 일정이 있을 시 지금 일정의 위치와 다음일정의 이동시간 반영 출발시간.
-var bdist = document.getElementById("bdist");
-var dist = document.getElementById("dist");
-var planid = document.getElementById("planid");
-var bmno = document.getElementById("bmno");
+var bdist;
+var dist;
+var planid;
+var bmno;
+var mtime;
+var bmtime;
+window.onload =function(){
+	bdist = document.getElementById("bdist");
+	dist = document.getElementById("dist");
+	planid = document.getElementById("planid");
+	bmno = document.getElementById("bmno");
+	mtime = document.getElementById("movetime"); //이동시간 반영 출발 시간
+	bmtime = document.getElementById("bmovetime");
+}
 
 
 //시간순으로 정렬
@@ -83,12 +84,12 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 	        arr = [hour, minute];
 	    }
 		
-		let mtime = arr.join(":");
+	    let btime = arr.join(":");
 		
-		return mtime;
+		return btime;
 	}
 	
-	function addPlan(lat, lng, name) {
+	function addPlan(lat, lng, name, bbmno) {
 		$('#addplan-dialog').dialog({
 			modal : true,
 			width : 'auto',
@@ -106,6 +107,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				}
 			}
 		});
+		bmno.value = bbmno;
 		st = document.getElementById("starttime");
 		et = document.getElementById("endtime");
 		
@@ -139,95 +141,173 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 	
 	function timeCheck(stime, etime, ddate, lat_a, lng_a) {
 		var ttid = ${dto.ttid};
+		var st = stime;
 		$.ajax({
 			url : "/timetable/timecheck/?ttid="+ttid,
 			type : "GET",
 			async : true,
 			dataType : "JSON",
 			success : function(data){
+				let j = 0;
+				let k = 0;
+				for(var i = 0; i < data.length; i++){
+				if(data[i].ddate == ddate){
+					j++;
+				}}
 				console.log(data);
-				if(data.length != 0){ //plan이 있을 때
-					for(var i = 0; i < data.length; i++){
-						if(data[i].ddate == ddate){
-							if(i == 0){
-								if(stime < data[i].movetime){
+				if(data.length != 0){ 
+					for(var i = 0; i < data.length; i++){//plan이 있을 때
+						if(data[i].ddate == ddate)//그 날짜에 일정이 있는가?
+						{
+							k++;
+							if(i == 0 && j == 0){
+								if(st < data[i].movetime){
+									//앞에 일정이 없을 때
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
-									
 									map.destroy();
 									initTmap();
-									/*update*/
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("1. 이전 movetime 수정 = "+changeMovetime(data[i].movetime));
+									alert("1. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
+									planid.value = data[i].planid;
+									bdist.value = tDistance;
+									bmtime.value = changeMovetime(data[i].starttime);
+									data[i].movetime = bmtime.value;
 									
-									/*insert*/
 									lat_s = lat; lng_s = lng; lat_e = lat_a; lng_e = lng_a;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("1. movetime = "+changeMovetime(stime.value));
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
+								} else if(st > data[i].movetime) {
+									lat_s = data[i].lat; 
+									lng_s = data[i].lng; 
+									lat_e = lat_a; 
+									lng_e = lng_a;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
 								}
-							}else if(i == data.length-1){
-								lat_s = data[data.length-1].lat; 
-								lng_s = data[data.length-1].lng; 
-								lat_e = lat_a; 
-								lng_e = lng_a;
-								map.destroy();
-								initTmap();
-								calcDistance(lat_s, lng_s, lat_e, lng_e);
-								alert("2. movetime = "+changeMovetime(stime.value));
+							}else if(i == data.length-1 || j-1 == k){
+								if(st < data[i].movetime){
+									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
+									
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									alert("2. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
+									planid.value = data[i].planid;
+									bdist.value = tDistance;
+									bmtime.value = changeMovetime(data[i].starttime);
+									data[i].movetime = bmtime.value;
+									
+									lat_s = data[i-1].lat; lng_s = data[i-1].lng; lat_e = lat_a; lng_e = lng_a;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
+								} else if(st > data[i].movetime){
+									lat_s = data[i].lat; 
+									lng_s = data[i].lng; 
+									lat_e = lat_a; 
+									lng_e = lng_a;
+									map.destroy();
+									initTmap();
+									calcDistance(lat_s, lng_s, lat_e, lng_e);
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
+								}
+								
 							} else{
-								if(stime < data[i].movetime) {
+								if(st < data[i].movetime) {
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("2. 이전 movetime 수정 = "+changeMovetime(data[i].movetime));
-									/*update에 쓰일 예정*/
+									alert("3. 이전 movetime 수정 = "+changeMovetime(data[i].starttime));
+									planid.value = data[i].planid;
+									bdist.value = tDistance;
+									bmtime.value = changeMovetime(data[i].starttime);
+									data[i].movetime = bmtime.value;
 									
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i-1].lat; lng_e = data[i-1].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("3. movetime = "+changeMovetime(stime.value));
-								} else if(stime > data[i].endtime) {
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
+								} else if(st > data[i].endtime) {
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i+1].lat; lng_e = data[i+1].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("3. 이전 movetime 수정 = "+changeMovetime(data[i+1].starttime));
-									
-									/*update에 쓰일 예정*/
+									alert("4. 이전 movetime 수정 = "+changeMovetime(data[i+1].starttime));
+									planid.value = data[i+1].planid;
+									bdist.value = tDistance;
+									bmtime.value = changeMovetime(data[i+1].movetime);
+									data[i+1].movetime = bmtime.value;
 									
 									lat_s = lat_a; lng_s = lng_a; lat_e = data[i].lat; lng_e = data[i].lng;
 									map.destroy();
 									initTmap();
 									calcDistance(lat_s, lng_s, lat_e, lng_e);
-									alert("4. movetime = "+changeMovetime(stime.value));
+									dist.value = tDistance;
+									mtime.value = changeMovetime(st);
+									st = mtime.value;
+									break;
 								}
-							}
-							
-							if(stime >= data[i].movetime && stime <= data[i].endtime){
+							}break;
+						} else {
+							/*아무런 일정이 없을 때*/
+							lat_s = lat;
+							lng_s = lng;
+							lat_e = lat_a; 
+							lng_e = lng_a;
+							map.destroy();
+							initTmap();
+							calcDistance(lat_s, lng_s, lat_e, lng_e);
+							dist.value = tDistance;
+							mtime.value = changeMovetime(st);
+							$("#startplace").text('출발지 : 현재위치');
+						}
+					}
+					for(var i = 0; i < data.length; i++){//plan이 있을 때
+						if(data[i].ddate == ddate){
+							if(st >= data[i].movetime && st <= data[i].endtime){
 								alert(data[i].movetime+" ~ "+data[i].endtime+"은 일정이 있습니다.");
-								strttime.focus();
+								starttime.focus();
 							} else if(etime >= data[i].movetime && etime <= data[i].endtime){
 								alert(data[i].movetime+" ~ "+data[i].endtime+"은 일정이 있습니다.");
 								endtime.focus();
 							} else {
 								if(i == 0){
-									if(stime < data[i].movetime){
+									if(st < data[i].movetime){
 										$("#startplace").text('출발지 : 현재위치');
 										break;
 									}
 								} else if (i == (data.length-1)) {
-									if(stime > data[i].endtime){
+									if(st > data[i].endtime){
 										$("#startplace").text('출발지 : '+data[i].bname);
 										break;
 									}
 								} else {
-									if(stime < data[i].movetime) {
+									if(st < data[i].movetime) {
 										$("#startplace").text('출발지 : '+data[i-1].bname);
 										break;
-									} else if(stime > data[i].endtime) {
+									} else if(st > data[i].endtime) {
 										$("#startplace").text('출발지 : '+data[i].bname);
 										break;
 									}
@@ -244,11 +324,8 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 					map.destroy();
 					initTmap();
 					calcDistance(lat_s, lng_s, lat_e, lng_e);
-					
-					mtime.value =  changeMovetime(stime);
 					dist.value = tDistance;
-					
-					alert(mtime.value);
+					mtime.value = changeMovetime(st);
 					$("#startplace").text('출발지 : 현재위치');
 				}
 			},
@@ -311,7 +388,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 			},
 			success : function(response) {
 				var resultData = response.features;
-
+				
 				tDistance = parseFloat((resultData[0].properties.totalDistance / 1000).toFixed(1));
 				tTime = parseFloat((resultData[0].properties.totalTime / 60).toFixed(0));
 				
@@ -583,34 +660,36 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 		</div>
 		<div id="addplan-dialog" title="일정 추가" style="display: none">
 			<form class="form-horisontal" action="/timetable/update"
-				method="post" name="frm" enctype="multipart/form-data"
-				onsubmit="return nullCheck(this)">
-				<input type="hidden" value="${dto.ttid }">
-				<input type="hidden" id="bmno" value="">
-				<input type="hidden" id="dist" value="">
-				<input type="hidden" id="movetime" value="">
-				<input type="hidden" id="planid" value="">
-				<input type="hidden" id="bmovetime" value="">
-				<input type="date" id="ddate" value="${dto.startdate }" min="${dto.startdate }" max="${dto.enddate }"> 
-				<input type="time" id="starttime"> 
-				<input type="time" id="endtime">
-				<table>
-					<tr>
-						<td><label id="startplace"></label></td>
-					</tr>
-					<tr>
-						<td><label id="goalplace"></label></td>
-					</tr>
-					<tr>
-						<td><label>총 거리 :&nbsp; </label> <label id="distance"></label>&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td><label>소요시간 :&nbsp;</label> <label id="ttime"></label></td>
-					</tr>
-				</table>
+				method="post" name="frm">
+				<input type="hidden" id="ttid" name="ttid" value="${dto.ttid }">
+				<input type="hidden" id="bmno" name="bmno" value="1"> <input
+					type="hidden" id="dist" name="dist" value="1"> <input
+					type="hidden" id="bdist" name="bdist" value="1"> <input
+					type="hidden" id="movetime" name="movetime" value="1"> <input
+					type="hidden" id="planid" name="planid" value="1000000000">
+				<input type="hidden" id="bmovetime" name="bmovetime" value="1">
+				<input type="date" id="ddate" name="ddate" value="${dto.startdate }"
+					min="${dto.startdate }" max="${dto.enddate }"> <input
+					type="time" id="starttime" name="starttime"> <input
+					type="time" id="endtime" name="endtime">
+
 				<button type="submit" class="btn btn-default">등록</button>
 			</form>
+			<table>
+				<tr>
+					<td><label id="startplace"></label></td>
+				</tr>
+				<tr>
+					<td><label id="goalplace"></label></td>
+				</tr>
+				<tr>
+					<td><label>총 거리 :&nbsp; </label> <label id="distance"></label>&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td><label>소요시간 :&nbsp;</label> <label id="ttime"></label></td>
+				</tr>
+			</table>
 			<div id="map_div"></div>
 		</div>
 

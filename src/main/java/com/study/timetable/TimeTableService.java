@@ -24,7 +24,7 @@ public interface TimeTableService {
 
 	List<PlanDTO> plist(int ttid);
 
-	boolean update(PlanDTO dto);
+	boolean update(Map m);
 
 	boolean bupdate(Map map);
 

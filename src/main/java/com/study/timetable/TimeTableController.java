@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.bookmark.BookmarkDTO;
 import com.study.plan.PlanDTO;
@@ -124,6 +126,52 @@ public class TimeTableController {
 		
 		return list;
 	}
+	
+	@PostMapping("/timetable/update")
+	public String update(@RequestParam Map<String, String> map, RedirectAttributes redirect, HttpSession session) {
+		
+		Map m = new HashMap();
+		
+		int ttid = Integer.parseInt(map.get("ttid"));
+		int bmno = Integer.parseInt(map.get("bmno"));;
+		float dist = Float.parseFloat(map.get("dist"));
+		String movetime = map.get("movetime");
+		String ddate = map.get("ddate");
+		String starttime = map.get("starttime");
+		String endtime = map.get("endtime");
+		String pd = map.get("planid");
+		
+		if(pd != "1000000000") {
+			int planid = Integer.parseInt(map.get("planid")); 
+			double bdist = Double.parseDouble(map.get("bdist"));
+			String bmtime = map.get("bmovetime");
+			m.put("planid", planid);
+			m.put("bdist", bdist);
+			m.put("bmtime", bmtime);
+			service.bupdate(m);
+		}
+		
+		m.put("ttid",ttid);
+		m.put("bmno",bmno);
+		m.put("dist",dist);
+		m.put("movetime",movetime);
+		m.put("ddate",ddate);
+		m.put("starttime",starttime);
+		m.put("endtime",endtime);
+		
+		if(service.update(m) == true) {
+			redirect.addAttribute("ttid");
+			redirect.addAttribute("days");
+			redirect.addAttribute("startdate");
+			redirect.addAttribute("enddate");
+			redirect.addAttribute("day");
+			return "redirect:update";
+		} else {
+			return "/error";
+		}
+		
+	}
+	
 	
 	@GetMapping("/timetable/update")
 	public String update(HttpServletRequest request) {
