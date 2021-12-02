@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>즐겨찾기</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Style CSS -->
@@ -72,9 +72,9 @@
                   <c:forEach var="dto" items="${tlist }">
                      <div class="swiper-slide expand_img">
                         <div class="service-block">
-                           <div class="testimonial" style="width: 230px; height: 168px">
-                              <img src="/travel/storage/${dto.bname }" class="img-thumbnail"
-                                 style="width: 230px; height: 168px"
+                           <div class="testimonial" style="width:318px; height:247px">
+                              <img src="/travel/storage/${dto.fname }" class="img-thumbnail"
+                                 style="width:318px; height:247px"
                                  onclick='location.href="javascript:readt(${dto.travelno} )"'>
                            </div>
                            <div class="service-content">
@@ -142,9 +142,9 @@
                   <c:forEach var="dto" items="${flist }">
                      <div class="swiper-slide expand_img">
                         <div class="service-block">
-                           <div class="testimonial" style="width: 230px; height: 168px">
-                              <img src="/food/storage/${dto.bname }" class="img-thumbnail"
-                                 style="width: 230px; height: 168px"
+                           <div class="testimonial" style="width:318px; height:247px">
+                              <img src="/food/storage/${dto.fname }" class="img-thumbnail"
+                                 style="width:318px; height:247px"
                                  onclick='location.href="javascript:readf(${dto.foodno} )"'>
                            </div>
                            <div class="service-content">
@@ -155,6 +155,7 @@
                                        class="btn btn-outline-success my-2 my-sm-0"
                                        style="margin-left: 5px; height: 30px"
                                        onclick="deleteC('${dto.cartno}')">X</button>
+                                       
                                  </h4>
                               </div>
                            </div>

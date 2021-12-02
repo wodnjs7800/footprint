@@ -12,4 +12,5 @@ public class CartDTO {
 	private String bname;
 	private String phone;
 	private String id;
+	private String fname;
 }
