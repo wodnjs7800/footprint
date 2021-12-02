@@ -29,7 +29,13 @@ public class TimeTableController {
 	private TimeTableService service;
 	
 	@GetMapping("/timetable/create")
-	public String create() {
+	public String create(HttpSession session, String id, HttpServletRequest request) {
+		// 페이지 관련
+		if(id == null) {
+			id = (String) session.getAttribute("id");
+		}
+		request.setAttribute("id", id);
+		
 		return "/timetable/create";
 	}
 
@@ -44,13 +50,9 @@ public class TimeTableController {
 	}
 
 	@PostMapping("/timetable/create")
-	public String create(TimeTableDTO dto, String id, HttpServletRequest request,  HttpSession session) {
-
-		if(id == null) {
-			id = (String) session.getAttribute("id");
-		}
+	public String create(TimeTableDTO dto,  HttpServletRequest request) {
 		
-		if (id != null && service.create(dto) == 1) {
+		if (service.create(dto) == 1) {
 			return "redirect:list";
 		}
 
