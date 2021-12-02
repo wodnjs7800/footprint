@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.study.food.FoodDTO;
+import com.study.travel.TravelDTO;
+
 @Service("com.study.member.MemberServiceImpl")
 public class MemberServiceImpl implements MemberService {
 	
@@ -88,6 +91,18 @@ public class MemberServiceImpl implements MemberService {
 	public int delete(String id) {
 		// TODO Auto-generated method stub
 		return mapper.delete(id);
+	}
+
+	@Override
+	public List<TravelDTO> travelList() {
+		// TODO Auto-generated method stub
+		return mapper.travelList();
+	}
+
+	@Override
+	public List<FoodDTO> foodList() {
+		// TODO Auto-generated method stub
+		return mapper.foodList();
 	}
 	
 

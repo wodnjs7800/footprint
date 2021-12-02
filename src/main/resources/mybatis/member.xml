@@ -5,7 +5,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.member.MemberMapper">
-
+	
+	
+	<!-- 메인 foodList -->
+	<select id="foodList" resultType="com.study.food.FoodDTO">
+		select foodno, foodname, viewcnt, wdate, local, avg, fname
+		from (select foodno, foodname, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as avg
+        from food
+        order by avg desc)
+        <![CDATA[
+			WHERE rownum < 10
+	    ]]>     
+	</select>
+	<!-- 메인 travelList -->
+	<select id="travelList" resultType="com.study.travel.TravelDTO">
+		select travelno, travelname, viewcnt, wdate, local, avg, fname
+		from (select travelno, travelname, viewcnt, to_char(wdate,'yyyy/mm/dd') as wdate, local, fname, nvl(round(point_sum/NULLIF(pointcnt, 0),1),0) as avg
+        from travel
+        order by avg desc)
+        <![CDATA[
+			WHERE rownum < 10
+	    ]]>   
+	</select>
+	
+	
 	
 	<select id="mypage" parameterType="String"
 		resultType="com.study.member.MemberDTO">

@@ -104,6 +104,15 @@
 </style>
 
 <script type="text/javascript">
+	
+	function createt(){
+		var url = "/cart/tcreate";
+		url += "?no=${dto.travelno}";
+		url += "&opt=t";
+		url += "&id=${sessionScope.id}";
+		location.href = url;
+	}
+	
 	function updateM() {
 		var url = "update";
 		url += "?travelno=${dto.travelno}";
@@ -216,7 +225,7 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="deleteM()">삭제</button>
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="listM()">여행목록</button>
 				</div>
-				<button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="">저장</button>
+				<button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="createt()">저장</button>
                 <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="history.back()">뒤로</button>
 			</div>
 			<hr>

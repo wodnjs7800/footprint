@@ -74,7 +74,7 @@
 		<p>
 		<div class="container">
 
-<h2 class="col-sm-offset-2 col-sm-10">${dto.mname}의 회원정보</h2>
+<h3 class="col-sm-offset-2 col-sm-10">${dto.mname}의 회원정보</h3>
  <table class="table table-bordered">
  <tr>
  	<td colspan="2" style="text-align: center">

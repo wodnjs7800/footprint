@@ -11,12 +11,26 @@ public class Food {
     public static synchronized String getUploadDir() {
         String path = "";
         if (File.separator.equals("\\")) {
+
             path = "D:/AIstudy/deploy/footprint/food/storage/";
+
+
+            
+
+
             System.out.println("Windows 10: " + path);
             
         } else {
             // System.out.println("Linux");
+
             path = "/home/ubuntu/deploy/footprint/food/storage/";
+
+
+            
+
+           
+
+
         }
         
         return path;

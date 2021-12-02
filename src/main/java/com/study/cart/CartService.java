@@ -12,4 +12,8 @@ public interface CartService {
 	int total(String id);
 
 	List<CartjoinDTO> list(Map map);
+
+	int delete(int cartno);
+
+
 }

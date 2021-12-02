@@ -33,4 +33,12 @@ public class CartServiceImpl implements CartService{
 		// TODO Auto-generated method stub
 		return mapper.total(id);
 	}
+
+	@Override
+	public int delete(int cartno) {
+		// TODO Auto-generated method stub
+		return mapper.delete(cartno);
+	}
+
+	
 }

@@ -118,8 +118,10 @@ function deleteM(){
      <input type="hidden" name="id" value="${dto.id}">
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">아이디</label>
-      <div class="col-sm-4" style="margin-top: 7px;height: 25px;">          
-       ${dto.id}
+
+      <div class="col-sm-3">          
+       ${dto.id} <a href="/member/updateFile?oldfile=${dto.fname}">사진수정</a> 
+
       </div>
     </div>
     <div class="form-group">

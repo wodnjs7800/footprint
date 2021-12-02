@@ -7,10 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.study.cart.CartMapper">
 
 	<insert id="fcreate" parameterType="com.study.cart.CartDTO">
-		INSERT INTO cart1(cartno, id, foodno)
-		VALUES(#{cartno}, #{id}, #{foodno})
+		INSERT INTO cart1(cartno, id, no, opt)
+		VALUES((select nvl(max(cartno),0)+1 from cart1), #{id}, #{no}, #{opt})
 	</insert>
-
+	
 	<select id="list" parameterType="Map" resultType="com.study.cart.CartjoinDTO">
 	SELECT cartno,no, id, foodname, ffname, foodno,
       travelname, tfname, travelno, opt,  r
@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 JOIN travel t
                 ON c.no = t.travelno
                 where c.id = #{id}
+                order by cartno desc
           )
 
  <![CDATA[       
@@ -33,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="tcreate" parameterType="com.study.cart.CartDTO">
-		INSERT INTO cart1(cartno, id, travelno)
-		VALUES(#{cartno}, #{id}, #{travelno})
+		INSERT INTO cart1(cartno, id, no, opt)
+		VALUES((select nvl(max(cartno),0)+1 from cart1), #{id}, #{no}, #{opt})
 	</insert>
 
 	
@@ -49,6 +50,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
-	
+	<delete id="delete" parameterType="int">
+    DELETE FROM cart1
+    WHERE cartno=#{cartno}
+  </delete>  
 
 </mapper>

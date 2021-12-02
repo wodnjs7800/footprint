@@ -3,6 +3,9 @@ package com.study.member;
 import java.util.List;
 import java.util.Map;
 
+import com.study.food.FoodDTO;
+import com.study.travel.TravelDTO;
+
 public interface MemberMapper {
 
 	int duplicatedId(String id);
@@ -31,7 +34,9 @@ public interface MemberMapper {
 
 	int delete(String id);
 
-	
+	List<TravelDTO> travelList();
+
+	List<FoodDTO> foodList();
 	
 	
 	

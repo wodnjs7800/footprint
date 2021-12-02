@@ -92,6 +92,14 @@
 	</style>
 
 <script type="text/javascript">
+
+	function createf(){
+		var url = "/cart/fcreate";
+		url += "?no=${dto.foodno}";
+		url += "&opt=f";
+		url += "&id=${sessionScope.id}";
+		location.href = url;
+	}
 	function updateM() {
 		var url = "update";
 		url += "?foodno=${dto.foodno}";
@@ -203,8 +211,12 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="deleteM()">삭제</button>
                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="listM()">맛집목록</button>
                 </div>
-                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="">저장</button>
+
+                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 130px;height:40px" onclick="createf()">저장</button>
                 <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;height:40px" onclick="history.back()">뒤로</button>
+
+              
+
             </div>
 			<hr>
 			<!--comments start-->
