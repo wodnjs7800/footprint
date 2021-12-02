@@ -13,4 +13,6 @@ public interface CartService {
 
 	int tcreate(CartDTO dto);
 
+	int delete(int cartno);
+
 }

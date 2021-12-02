@@ -107,7 +107,7 @@
 	
 	function createt(){
 		var url = "/cart/tcreate";
-		url += "?no=${dto.travelno}";
+		url += "?travelno=${dto.travelno}";
 		url += "&lat=${dto.lat}";
 		url += "&lng=${dto.lng}";
 		url += "&id=${sessionScope.id}";

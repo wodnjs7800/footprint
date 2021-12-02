@@ -48,7 +48,7 @@ var ddate;		//일정 날짜
 var bdist;
 var dist;
 var planid;
-var bmno;
+var cartno;
 var mtime;
 var bmtime;
 
@@ -56,7 +56,7 @@ window.onload =function(){
 	bdist = document.getElementById("bdist");
 	dist = document.getElementById("dist");
 	planid = document.getElementById("planid");
-	bmno = document.getElementById("bmno");
+	cartno = document.getElementById("cartno");
 	mtime = document.getElementById("movetime"); //이동시간 반영 출발 시간
 	bmtime = document.getElementById("bmovetime");
 }
@@ -89,7 +89,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 		return btime;
 	}
 	
-	function addPlan(lat, lng, name, bbmno) {
+	function addPlan(lat, lng, name, bcartno) {
 		$('#addplan-dialog').dialog({
 			modal : true,
 			width : 'auto',
@@ -105,7 +105,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				}
 			}
 		});
-		bmno.value = bbmno;
+		cartno.value = bcartno;
 		st = document.getElementById("starttime");
 		et = document.getElementById("endtime");
 		
@@ -722,7 +722,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				<input type="hidden" id="startdate" name="startdate" value="${startdate }">
 				<input type="hidden" id="enddate" name="enddate" value="${enddate }">
 				<input type="hidden" id="ttid" name="ttid" value="${dto.ttid }">
-				<input type="hidden" id="bmno" name="bmno" value="1"> <input
+				<input type="hidden" id="cartno" name="cartno" value="1"> <input
 					type="hidden" id="dist" name="dist" value="1"> <input
 					type="hidden" id="bdist" name="bdist" value="1"> <input
 					type="hidden" id="movetime" name="movetime" value="1"> <input
@@ -772,7 +772,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 							<c:forEach var="dt" items="${flist }">
 								<tr>
 									<td><a
-										href="javascript:addPlan('${dt.lat }','${dt.lng }','${dt.bname }','${dt.bmno }')">${dt.bname }</a>
+										href="javascript:addPlan('${dt.lat }','${dt.lng }','${dt.bname }','${dt.cartno }')">${dt.bname }</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -797,7 +797,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 							<c:forEach var="dt" items="${tlist }">
 								<tr>
 									<td><a
-										href="javascript:addPlan('${dt.lat }','${dt.lng }','${dt.bname }','${dt.bmno }')">${dt.bname }</a>
+										href="javascript:addPlan('${dt.lat }','${dt.lng }','${dt.bname }','${dt.cartno }')">${dt.bname }</a>
 									</td>
 								</tr>
 							</c:forEach>
