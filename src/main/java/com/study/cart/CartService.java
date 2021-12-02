@@ -15,4 +15,6 @@ public interface CartService {
 
 	int delete(int cartno);
 
+	List<CartDTO> list(String id);
+
 }

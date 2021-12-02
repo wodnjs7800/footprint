@@ -16,4 +16,6 @@ public interface CartMapper {
 
 	int delete(int cartno);
 
+	List<CartDTO> list(String id);
+
 }

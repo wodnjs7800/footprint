@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,8 @@
 <link href="css/style.css" rel="stylesheet">
 <!-- Google Fonts -->
 <link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
-	rel="stylesheet">
+   href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+   rel="stylesheet">
 <!-- FontAwesome CSS -->
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -24,33 +25,39 @@
     <![endif]-->
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet"
-	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+   href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link href="${pageContext.request.contextPath }/css/heon.css"
-	rel="stylesheet">	
+   rel="stylesheet">   
 <script type="text/javascript">
-	function readf(foodno) {
-		var url = "../food/read";
-		url += "?foodno=" + foodno;
-		url += "&nowPage=1";
-		location.href = url;
-		
-	}
-	function readt(travelno) {
-		var url = "../travel/read";
-		url += "?travelno=" + travelno;
-		url += "&nowPage=1";
-		location.href = url;
-		
-	}
-	function deleteC(cartno) {
-		var url = "/cart/delete";
-		url += "?cartno="+cartno;
-		location.href = url;
-	}
+   function readf(foodno) {
+      var url = "../food/read";
+      url += "?foodno=" + foodno;
+      url += "&nowPage=1";
+      location.href = url;
+      
+   }
+   function readt(travelno) {
+      var url = "../travel/read";
+      url += "?travelno=" + travelno;
+      url += "&nowPage=1";
+      location.href = url;
+      
+   }
+   function deleteC(cartno) {
+      var url = "/cart/delete";
+      url += "?cartno="+cartno;
+      location.href = url;
+   }
 </script>
 </head>
 <body>
-
+<c:choose>
+<c:when test="${empty list}">
+   <div class="row"align="center">
+	<img style="width:318px; height:247px;margin:100px;" src="/images/cart.jpg">
+    </div>
+</c:when>
+<c:otherwise>
    <div class="space-medium">
       <div class="container">
          <div class="row">
@@ -187,5 +194,7 @@
          </div>
       </div>
    </div>
+   </c:otherwise>
+   </c:choose>
 </body>
 </html>

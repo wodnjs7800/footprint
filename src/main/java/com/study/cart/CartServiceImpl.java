@@ -42,4 +42,10 @@ public class CartServiceImpl implements CartService{
 		return mapper.delete(cartno);
 	}
 
+	@Override
+	public List<CartDTO> list(String id) {
+		// TODO Auto-generated method stub
+		return mapper.list(id);
+	}
+
 }

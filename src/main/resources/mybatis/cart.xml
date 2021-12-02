@@ -38,7 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id}
 		and foodno is not null
 	</select>
-	
+	<select id="list" parameterType="Map"
+      resultType="com.study.cart.CartDTO">
+      select * from cart1 
+      where id = #{id}
+   </select>
 	<delete id="delete" parameterType="int">
     DELETE FROM cart1
     WHERE cartno=#{cartno}

@@ -40,18 +40,20 @@ public class CartController {
 	}
 	
 	@GetMapping("/cart/list")
-	public String list(HttpSession session, HttpServletRequest request, Model model) {
+	   public String list(HttpSession session, HttpServletRequest request, Model model) {
 
-		String id = (String)session.getAttribute("id");
-		
-		List<CartDTO> flist = service.flist(id);
-		List<CartDTO> tlist = service.tlist(id);
-		
-		request.setAttribute("flist", flist);
-		request.setAttribute("tlist", tlist);
-		
-		return "/cart/list";
-	}
+	      String id = (String)session.getAttribute("id");
+	      
+	      List<CartDTO> flist = service.flist(id);
+	      List<CartDTO> tlist = service.tlist(id);
+	      List<CartDTO> list = service.list(id);
+	      
+	      request.setAttribute("flist", flist);
+	      request.setAttribute("tlist", tlist);
+	      model.addAttribute("list", list);
+	      
+	      return "/cart/list";
+	   }
 	
 	@GetMapping("/cart/fcreate")
 	public String fcreate(CartDTO dto) {
