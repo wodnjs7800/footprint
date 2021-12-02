@@ -43,8 +43,11 @@ public class TimeTableController {
 	@GetMapping("/timetable/delete")
 	public String delete(int ttid) {
 
+		if(service.pdelete(ttid) == 1) {
+		
 		if (service.delete(ttid) == 1) {
 			return "redirect:list";
+		}
 		}
 
 		return "/error";

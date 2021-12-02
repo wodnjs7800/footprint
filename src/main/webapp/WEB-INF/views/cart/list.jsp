@@ -50,6 +50,8 @@
 </script>
 </head>
 <body>
+
+   <c:choose>
    <div class="space-medium">
       <div class="container">
          <div class="row">
@@ -59,6 +61,9 @@
                </div>
             </div>
          </div>
+         <c:when test = "${empty tlist }">
+         </c:when>
+         <c:otherwiese>
          <div class="row">
             <!-- Swiper -->
             <div class="swiper mySwiper">
@@ -116,8 +121,10 @@
                });
             </script>
          </div>
+         </c:otherwiese>
       </div>
    </div>
+   </c:choose>
    <div class="space-medium">
       <div class="container">
          <div class="row">

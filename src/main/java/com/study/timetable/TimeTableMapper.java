@@ -30,5 +30,7 @@ public interface TimeTableMapper {
 	boolean update(Map m);
 
 	boolean bupdate(Map map);
+
+	int pdelete(int ttid);
 	
 }

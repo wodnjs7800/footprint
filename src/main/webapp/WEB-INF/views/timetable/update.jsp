@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+d<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@	taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -137,11 +137,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 		initTmap();
 	}
 	
-	if(compare("11:30","9:30")){
-		alert("앞이 큼");
-	} else {
-		alert("작음")
-	}
+
 	function compare(a,b){
 		var arr1 = a.split(":");
 		var arr2 = b.split(":");
@@ -175,6 +171,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 					for(var i = 0; i < data.length; i++){ // 기간 내 플랜이 하나라도 있을 때
 						if(data[i].ddate == ddate)//그 날짜에 일정이 있는가?
 						{
+							alert(compare(st, data[i].movetime));
 							if(j == 0){ // 다른날에 일정이 있으나 오늘 일정이 없을 때
 								/*아무런 일정이 없을 때*/
 								lat_s = lat;

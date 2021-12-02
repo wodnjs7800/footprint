@@ -74,4 +74,10 @@ public class TimeTableServiceImpl implements TimeTableService {
 		return mapper.bupdate(map);
 	}
 
+	@Override
+	public int pdelete(int ttid) {
+		// TODO Auto-generated method stub
+		return mapper.pdelete(ttid);
+	}
+
 }

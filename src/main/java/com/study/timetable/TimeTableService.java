@@ -28,4 +28,6 @@ public interface TimeTableService {
 
 	boolean bupdate(Map map);
 
+	int pdelete(int ttid);
+
 }
