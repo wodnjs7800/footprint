@@ -86,7 +86,7 @@
  </c:forEach>
  
 </div>
- <div class="row">
+ <div class="row" >
   <h3>여행</h3>
   	<c:forEach var="dto"  items="${list}" varStatus='status' >
      	<c:if test="${dto.opt=='t' and j<4}">
@@ -110,8 +110,9 @@
     
     </c:if>
  </c:forEach>
+ 
 </div>
- ${paging}
+${paging}
 </c:otherwise>
 </c:choose>
 </div>

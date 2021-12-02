@@ -12,24 +12,14 @@ public class Food {
         String path = "";
         if (File.separator.equals("\\")) {
 
-            path = "D:/AIstudy/deploy/footprint/food/storage/";
-
-
-            
-
+            path = "C:/AIstudy/deploy/footprint/food/storage/";
 
             System.out.println("Windows 10: " + path);
             
         } else {
             // System.out.println("Linux");
 
-            path = "/home/ubuntu/deploy/footprint/food/storage/";
-
-
-            
-
-           
-
+        	path = "/home/ubuntu/deploy/footprint/food/storage/";
 
         }
         

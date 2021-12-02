@@ -71,7 +71,7 @@
 		name='frm' enctype="multipart/form-data"
 		onsubmit="return inCheck(this)">
 
-		<input type="hidden" id="id" name="id" value="wogus774">
+		<input type="hidden" id="id" name="id" value="">
 
 		<div class="form-group">
 			<label class="control-label col-sm-2">일정 이름</label>
@@ -90,12 +90,13 @@
 				<input type="date" class="form-control" id="enddate" 
 					name="enddate" min="" onblur="checkDate2()">
 			</div>
-		</div>
-		<div style="float: right; padding-right: 200px;">
-			<div style="float: right; padding-right: 10px;">
-				<button class="btn">생성</button>
+			<div style="float: right; padding-right: 200px;">
+			<div style="float: right; padding-right: 10px; margin-bottom:50px; height:40px;">
+				<button class="btn" >생성</button>
 				<button type="reset" class="btn">취소</button>
+				<button type="reset" class="btn" onclick="history.back()" >뒤로</button>
 			</div>
+		</div>
 		</div>
 	</form>
 </body>

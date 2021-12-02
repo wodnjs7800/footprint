@@ -71,6 +71,7 @@ function inCheck(f){
 		f.id.focus();
 		return false;
 	}
+
 	if(f.passwd.value.length==0){
 		alert("비번을 입력하세요");
 		f.passwd.focus();
@@ -108,6 +109,87 @@ function inCheck(f){
 		f.job.focus();
 		return false;
 	}
+	var pw_passed = true;  // 추후 벨리데이션 처리시에 해당 인자값 확인을 위해
+	   
+    var pw = document.getElementById("passwd").value; //비밀번호
+    var pw2 = document.getElementById("repasswd").value; // 확인 비밀번호
+
+    pw_passed = true;
+
+    var pattern1 = /[0-9]/;
+    var pattern2 = /[a-zA-Z]/;
+    var pattern3 = /[~!@\#$%<>^&*]/;     // 원하는 특수문자 추가 제거
+    var pw_msg = "";
+
+    if(pw.length == 0) {
+           alert("비밀번호를 입력해주세요");
+           return false;
+     } else {
+            if( pw  !=  pw2) {
+                  alert("비밀번호가 일치하지 않습니다.");
+                  return false;
+             }
+     }
+    
+   if(!pattern1.test(pw)||!pattern2.test(pw)||!pattern3.test(pw)||pw.length<8||pw.length>50){
+        alert("영문+숫자+특수기호 8자리 이상으로 구성하여야 합니다.");
+        return false;
+    }          
+
+
+    var SamePass_0 = 0; //동일문자 카운트
+    var SamePass_1 = 0; //연속성(+) 카운드
+    var SamePass_2 = 0; //연속성(-) 카운드
+
+    for(var i=0; i < pw.length; i++) {
+
+         var chr_pass_0;
+         var chr_pass_1;
+         var chr_pass_2;
+
+         if(i >= 2) {
+             chr_pass_0 = pw.charCodeAt(i-2);
+             chr_pass_1 = pw.charCodeAt(i-1);
+             chr_pass_2 = pw.charCodeAt(i);
+              //동일문자 카운트
+
+             if((chr_pass_0 == chr_pass_1) && (chr_pass_1 == chr_pass_2)) {
+                SamePass_0++;
+              } 
+              else {
+               SamePass_0 = 0;
+               }
+              //연속성(+) 카운드
+
+             if(chr_pass_0 - chr_pass_1 == 1 && chr_pass_1 - chr_pass_2 == 1) {
+                 SamePass_1++;
+              }
+
+              else {
+               SamePass_1 = 0;
+              }
+
+              //연속성(-) 카운드
+             if(chr_pass_0 - chr_pass_1 == -1 && chr_pass_1 - chr_pass_2 == -1) {
+                 SamePass_2++;
+              } 
+              else {
+               SamePass_2 = 0;
+              }  
+         }     
+        if(SamePass_0 > 0) {
+           alert("동일문자를 3자 이상 연속 입력할 수 없습니다.");
+           pw_passed=false;
+         }
+        if(SamePass_1 > 0 || SamePass_2 > 0 ) {
+           alert("영문, 숫자는 3자 이상 연속 입력할 수 없습니다.");
+           pw_passed=false;
+         } 
+         if(!pw_passed) {             
+              return false;
+              break;
+        }
+    }
 }
 
 </script>
