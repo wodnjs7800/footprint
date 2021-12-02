@@ -94,6 +94,7 @@
 					</c:choose>
 				</tbody>
 			</table>
+			<button type="reset" class="btn" onclick="history.back()" style="height:40px; float:right;">뒤로</button>
 		</div>
 		<div>${paging}</div>
 	</div>
